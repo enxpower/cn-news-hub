@@ -280,9 +280,16 @@ async function main() {
   console.log('Done.');
 }
 
-main().catch((err) => {
-  // Top-level safety net: never let an unexpected error crash CI with a
-  // non-zero exit that blocks the build. Log and exit cleanly.
-  console.error('Unexpected error in fetch-news.mjs:', err);
-  process.exitCode = 0;
-});
+main()
+  .catch((err) => {
+    // Top-level safety net: never let an unexpected error crash CI with a
+    // non-zero exit that blocks the build. Log and continue to the explicit
+    // exit below.
+    console.error('Unexpected error in fetch-news.mjs:', err);
+  })
+  .finally(() => {
+    // Node's global fetch (undici) keeps keep-alive sockets open, which can
+    // prevent the process from exiting on its own and hang the CI step
+    // until its timeout. Force a clean exit once all work is done.
+    process.exit(0);
+  });
