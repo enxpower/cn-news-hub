@@ -56,7 +56,20 @@ function formatDate(date: Date): string {
 
     <div class="article__footer">
       <AdSlot position="articleBottom" />
-      <a class="back-link" href={`${base}category/${category}/`}>&larr; 返回{categoryLabel}列表</a>
+      {/*
+        Prefer returning to wherever the reader actually came from (their
+        exact scroll position / page number in the category list), the same
+        as the browser back button. Falling back to the category root link
+        only when there's no in-site history to go back to (e.g. the article
+        was opened directly in a new tab) - otherwise a reader who paged to
+        page 3 of 财经 and opened an article would get dumped back onto page
+        1 and feel lost.
+      */}
+      <a
+        class="back-link"
+        href={`${base}category/${category}/`}
+        onclick="if (window.history.length > 1 && document.referrer && new URL(document.referrer).origin === location.origin) { window.history.back(); return false; }"
+      >&larr; 返回{categoryLabel}列表</a>
     </div>
   </article>
 </BaseLayout>
