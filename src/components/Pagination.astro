@@ -20,13 +20,27 @@ function pageHref(page: number): string {
 const hasPrev = currentPage > 1;
 const hasNext = currentPage < totalPages;
 
-// Show a small window of page numbers around the current page. windowSize=1
-// yields at most 3 numbered buttons + 2 possible "…" + 上一页/下一页 = 7
-// items total, which fits on a single row on a 375px-wide phone without
-// horizontal scrolling or wrapping.
-const windowSize = 1;
+// Always show a fixed-width window of WINDOW_SIZE numbered buttons (clamped
+// to totalPages) so the control bar has the same number of elements on
+// every page - e.g. page 1 of a 10-page section shows "1 2 3 … 下一页"
+// (3 numbers), not just "1 2 …", matching page 2's "1 2 3 … 下一页". This
+// keeps the total button count (and therefore the row width) consistent
+// across pages instead of growing by one near the edges.
+const WINDOW_SIZE = 3;
+let start = currentPage - 1;
+let end = currentPage + 1;
+if (start < 1) {
+  end += 1 - start;
+  start = 1;
+}
+if (end > totalPages) {
+  start -= end - totalPages;
+  end = totalPages;
+}
+start = Math.max(1, start);
+
 const pages: number[] = [];
-for (let p = Math.max(1, currentPage - windowSize); p <= Math.min(totalPages, currentPage + windowSize); p++) {
+for (let p = start; p <= end; p++) {
   pages.push(p);
 }
 
