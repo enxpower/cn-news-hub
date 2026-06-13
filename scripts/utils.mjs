@@ -31,17 +31,48 @@ export function stripHtml(html = '') {
     .trim();
 }
 
-// Light sanitization for full-article HTML pulled from <content:encoded>.
-// This is NOT a full sanitizer - feeds are from a curated, trusted list of
-// editorial sources - but it strips the categories of tags that are never
-// appropriate to render inline (scripts, styles, frames, forms, embeds) and
-// neutralizes inline event-handler attributes as defense in depth.
+// Sanitize and "de-link" full-article HTML pulled from <content:encoded>.
+//
+// Policy: the site never sends readers away from an article mid-content.
+// Source feeds (BBC中文/RFA/DW etc.) commonly end their RSS body with a
+// "继续阅读 / Read more / [...]" anchor pointing back at the original site -
+// every <a> in the article body is therefore unwrapped to its plain text
+// (link removed, text kept) so nothing inside the rendered body is
+// clickable or navigates away. The single, intentional outbound link is the
+// "来源: XXX / 查看原文" line on the article page, which is built separately
+// in the page template - not from this body HTML.
+//
+// This also strips tag categories that are never appropriate to render
+// inline (scripts, styles, frames, forms, embeds) and neutralizes inline
+// event-handler attributes as defense in depth.
 export function sanitizeHtml(html = '') {
   return html
     .replace(/<(script|style|iframe|object|embed|form|noscript)[^>]*>[\s\S]*?<\/\1>/gi, '')
     .replace(/<(script|style|iframe|object|embed|form|noscript)[^>]*\/?>/gi, '')
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
+    // Unwrap anchors: <a href="...">text</a> -> text (no outbound links in body)
+    .replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1')
     .trim();
+}
+
+// Remove a trailing "continue reading / read more" fragment that some feeds
+// append as the last paragraph/line of the body (often just a now-unlinked
+// phrase like "继续阅读" or "Read more on..." after sanitizeHtml has
+// stripped the anchor). Only trims short trailing fragments so real content
+// is never cut.
+const READ_MORE_PATTERN = /(继续阅读全文|继续阅读|阅读全文|查看原文|read more on this story|read more|\.{3}|…)\s*$/i;
+
+export function trimTrailingReadMore(html = '') {
+  let result = html.trim();
+  for (let i = 0; i < 3; i++) {
+    const before = result;
+    // Strip a trailing block element whose text content is just a "read more" phrase
+    result = result.replace(/<(p|div|span)[^>]*>\s*(?:<[^>]+>)*\s*(继续阅读全文|继续阅读|阅读全文|查看原文|read more on this story|read more|\.{3}|…)\s*(?:<\/[^>]+>)*\s*<\/\1>\s*$/i, '');
+    // Strip a trailing bare phrase
+    result = result.replace(READ_MORE_PATTERN, '').trim();
+    if (result === before) break;
+  }
+  return result;
 }
 
 // Truncate plain text to a maximum character length, breaking on a
