@@ -1,54 +1,11 @@
 {
-  "lastRun": "2026-06-13T08:43:21.362Z",
+  "lastRun": "2026-06-13T08:52:29.542Z",
   "sources": [
-    {
-      "name": "FT中文网",
-      "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 403"
-    },
     {
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
       "newItems": 9
-    },
-    {
-      "name": "BBC News - Business",
-      "category": "财经",
-      "status": "✅ OK",
-      "newItems": 2
-    },
-    {
-      "name": "BBC News - World",
-      "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
-    },
-    {
-      "name": "NPR News",
-      "category": "北美生活",
-      "status": "✅ OK",
-      "newItems": 0
-    },
-    {
-      "name": "The Guardian - World",
-      "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
-    },
-    {
-      "name": "TechCrunch",
-      "category": "科技",
-      "status": "✅ OK",
-      "newItems": 0
-    },
-    {
-      "name": "The New York Times - World",
-      "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
     },
     {
       "name": "BBC中文网",
@@ -61,12 +18,6 @@
       "category": "中国新闻",
       "status": "✅ OK",
       "newItems": 13
-    },
-    {
-      "name": "联合早报",
-      "category": "中国新闻",
-      "status": "⏸ Paused",
-      "newItems": 0
     }
   ]
 }

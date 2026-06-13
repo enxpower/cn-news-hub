@@ -1,4 +1,0 @@
-This file, if present, tells fetch-news.mjs to wipe all existing files in
-src/content/articles/ at the start of the next run (and then delete itself).
-Used for one-time resets - e.g. switching the source list to Chinese-only
-and starting from a clean slate. Do not leave this file in place permanently.
