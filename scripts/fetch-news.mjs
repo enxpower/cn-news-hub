@@ -49,8 +49,11 @@ const FETCH_TIMEOUT_MS = siteConfig.content.fetchTimeoutMs ?? 8000;
 const SUMMARY_LENGTH = siteConfig.content.summaryLength ?? 160;
 const RETENTION_DAYS = siteConfig.content.retentionDays ?? 30;
 
+// NOTE: do NOT pass { timeout } or a signal into individual parseURL calls -
+// rss-parser's parseURL(url, opts) treats a truthy second argument as a
+// legacy callback and crashes. Per-feed timeouts are instead enforced by
+// wrapping each parseURL call in withTimeout() (see utils.mjs).
 const parser = new Parser({
-  timeout: FETCH_TIMEOUT_MS,
   customFields: {
     item: [['content:encoded', 'contentEncoded']],
   },
@@ -175,7 +178,7 @@ async function main() {
 
     try {
       const feed = await withTimeout(
-        (signal) => parser.parseURL(source.rssUrl, { signal }),
+        () => parser.parseURL(source.rssUrl),
         FETCH_TIMEOUT_MS,
         label
       );
