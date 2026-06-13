@@ -1,0 +1,46 @@
+---
+// A single news card used in list/grid views.
+// Strict fixed structure (image / category / title / excerpt / meta) so the
+// grid never looks inconsistent regardless of source content length.
+import type { CollectionEntry } from 'astro:content';
+import siteConfig from '../../site.config.json';
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+  variant?: 'default' | 'wide';
+}
+
+const { entry, variant = 'default' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const { title, pubDate, sourceName, category, image, description } = entry.data;
+
+const categoryLabel =
+  siteConfig.categories.find((c) => c.id === category)?.label ?? category;
+
+function formatDate(date: Date): string {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+}
+---
+
+<article class:list={["card", { "card--wide": variant === "wide" }]} data-slug={entry.slug}>
+  <a href={`${base}article/${entry.slug}/`} class="card__media" aria-hidden="true" tabindex="-1">
+    {image ? (
+      <img src={image} alt="" loading="lazy" width="640" height="360" />
+    ) : (
+      <div class="card__media--placeholder">
+        <span>{siteConfig.branding.logoText}</span>
+      </div>
+    )}
+  </a>
+  <div class="card__body">
+    <span class="card__category">{categoryLabel}</span>
+    <h3 class="card__title">
+      <a href={`${base}article/${entry.slug}/`}>{title}</a>
+    </h3>
+    <p class="card__excerpt">{description}</p>
+    <div class="card__meta">
+      <span>{formatDate(pubDate)}</span>
+      <span>{sourceName}</span>
+    </div>
+  </div>
+</article>

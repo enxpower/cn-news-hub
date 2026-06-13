@@ -1,0 +1,50 @@
+---
+// Renders a heading, a grid of article cards with periodically interleaved
+// ad slots, and pagination controls. Used by the homepage, category pages,
+// and any future section pages.
+import type { CollectionEntry } from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+import AdSlot from './AdSlot.astro';
+import Pagination from './Pagination.astro';
+import siteConfig from '../../site.config.json';
+
+interface Props {
+  heading: string;
+  headingMeta?: string;
+  entries: CollectionEntry<'articles'>[];
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+}
+
+const { heading, headingMeta, entries, currentPage, totalPages, basePath } = Astro.props;
+
+const adFreq = siteConfig.ads.positions.listInFeed.everyNItems || 0;
+const adEnabled = siteConfig.ads.enabled && siteConfig.ads.positions.listInFeed.enabled && adFreq > 0;
+---
+
+<section>
+  <div class="section-heading">
+    <h2>{heading}</h2>
+    {headingMeta && <span class="section-heading__meta">{headingMeta}</span>}
+  </div>
+
+  {entries.length === 0 ? (
+    <div class="empty-state">
+      <p>暂无内容，请稍后再来查看。</p>
+    </div>
+  ) : (
+    <div class="news-grid">
+      {entries.map((entry, i) => (
+        <>
+          <ArticleCard entry={entry} />
+          {adEnabled && (i + 1) % adFreq === 0 && i !== entries.length - 1 && (
+            <AdSlot position="listInFeed" asCard={true} />
+          )}
+        </>
+      ))}
+    </div>
+  )}
+
+  <Pagination currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
+</section>

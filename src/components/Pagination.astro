@@ -1,0 +1,57 @@
+---
+// Prev/next + numbered pagination. basePath should be the section root
+// (e.g. "/" or "/category/finance/") without a trailing page number.
+// Page 1 lives at basePath itself; page N>1 lives at `${basePath}page/${N}/`.
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+}
+
+const { currentPage, totalPages, basePath } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+function pageHref(page: number): string {
+  const root = `${base}${basePath}`.replace(/\/+/g, '/');
+  if (page <= 1) return root;
+  return `${root}page/${page}/`.replace(/\/+/g, '/');
+}
+
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+
+// Show a small window of page numbers around the current page
+const windowSize = 2;
+const pages: number[] = [];
+for (let p = Math.max(1, currentPage - windowSize); p <= Math.min(totalPages, currentPage + windowSize); p++) {
+  pages.push(p);
+}
+---
+
+{totalPages > 1 && (
+  <nav class="pagination" aria-label="分页导航">
+    {hasPrev ? (
+      <a href={pageHref(currentPage - 1)} rel="prev">上一页</a>
+    ) : (
+      <span class="is-disabled">上一页</span>
+    )}
+
+    {pages[0] > 1 && <span class="is-disabled">…</span>}
+
+    {pages.map((p) =>
+      p === currentPage ? (
+        <span class="is-current" aria-current="page">{p}</span>
+      ) : (
+        <a href={pageHref(p)}>{p}</a>
+      )
+    )}
+
+    {pages[pages.length - 1] < totalPages && <span class="is-disabled">…</span>}
+
+    {hasNext ? (
+      <a href={pageHref(currentPage + 1)} rel="next">下一页</a>
+    ) : (
+      <span class="is-disabled">下一页</span>
+    )}
+  </nav>
+)}

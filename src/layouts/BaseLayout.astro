@@ -1,0 +1,130 @@
+---
+// Root layout: HTML shell, theme variables, fonts, SEO/OG meta tags,
+// header, footer, and global behavior scripts (read-state tracking,
+// right-click / swipe-gesture protection).
+import siteConfig from '../../site.config.json';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  // If set, this article slug is recorded as "read" on page load
+  articleSlug?: string;
+}
+
+const {
+  title,
+  description = siteConfig.site.description,
+  image,
+  type = 'website',
+  articleSlug,
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const pageTitle = title === siteConfig.site.name ? title : `${title} - ${siteConfig.site.name}`;
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.site.url);
+const ogImage = image
+  ? image
+  : new URL(`${base}${siteConfig.branding.ogDefaultImage.replace(/^\//, '')}`, siteConfig.site.url).toString();
+---
+
+<!DOCTYPE html>
+<html lang={siteConfig.site.lang} style={`
+  --color-bg: ${siteConfig.theme.backgroundColor};
+  --color-surface: ${siteConfig.theme.surfaceColor};
+  --color-border: ${siteConfig.theme.borderColor};
+  --color-text: ${siteConfig.theme.textPrimary};
+  --color-text-secondary: ${siteConfig.theme.textSecondary};
+  --color-primary: ${siteConfig.theme.primaryColor};
+  --color-primary-dark: ${siteConfig.theme.primaryColorDark};
+  --color-accent: ${siteConfig.theme.accentColor};
+  --color-link-visited: ${siteConfig.theme.linkVisitedColor};
+  --font-heading: ${siteConfig.fonts.headingFont};
+  --font-body: ${siteConfig.fonts.bodyFont};
+`}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" href={`${base}${siteConfig.branding.favicon.replace(/^\//, '')}`} type="image/svg+xml" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={siteConfig.site.locale} />
+    <meta property="og:site_name" content={siteConfig.site.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={siteConfig.fonts.googleFontsUrl} />
+  </head>
+  <body>
+    <Header currentPath={Astro.url.pathname} />
+    <main class="shell main-content">
+      <slot />
+    </main>
+    <Footer />
+
+    <script define:vars={{ articleSlug }}>
+      // ----------------------------------------------------------------
+      // Global behavior: disable context menu (basic copy protection),
+      // and track "read" articles in localStorage so visited cards
+      // de-emphasize on return to list pages.
+      // ----------------------------------------------------------------
+      document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      const READ_KEY = 'cn-news-hub:read';
+
+      function getReadSet() {
+        try {
+          const raw = localStorage.getItem(READ_KEY);
+          return new Set(raw ? JSON.parse(raw) : []);
+        } catch {
+          return new Set();
+        }
+      }
+
+      function saveReadSet(set) {
+        try {
+          localStorage.setItem(READ_KEY, JSON.stringify(Array.from(set)));
+        } catch {
+          /* localStorage unavailable - degrade silently */
+        }
+      }
+
+      // If this is an article page, mark it as read immediately.
+      if (articleSlug) {
+        const readSet = getReadSet();
+        readSet.add(articleSlug);
+        saveReadSet(readSet);
+      }
+
+      // On any page, mark already-read cards.
+      const readSet = getReadSet();
+      document.querySelectorAll('[data-slug]').forEach((card) => {
+        const slug = card.getAttribute('data-slug');
+        if (slug && readSet.has(slug)) {
+          card.classList.add('is-read');
+        }
+      });
+    </script>
+  </body>
+</html>
