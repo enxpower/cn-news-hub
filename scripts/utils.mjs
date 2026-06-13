@@ -52,13 +52,19 @@ export function stripHtml(html = '') {
 //   - inline event-handler attributes, as defense in depth
 export function sanitizeHtml(html = '') {
   return html
+    // Strip tags whose entire content (including inner HTML) should be removed.
     .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture)[^>]*>[\s\S]*?<\/\1>/gi, '')
     .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture|track)[^>]*\/?>/gi, '')
+    // Strip dangerous attributes.
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
     .replace(/\sstyle\s*=\s*("[^"]*"|'[^']*')/gi, '')
     .replace(/\s(width|height)\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
     // Unwrap anchors: <a href="...">text</a> -> text (no outbound links in body)
     .replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1')
+    // Unwrap definition-list tags (<dl>/<dt>/<dd>) and other structural tags
+    // that are harmless but not rendered by our Markdown pipeline - leaving
+    // their raw closing tags visible as literal text on the page (e.g. </dl>).
+    .replace(/<\/?(dl|dt|dd|table|thead|tbody|tfoot|tr|th|td|colgroup|col|caption|fieldset|legend|details|summary|menu|menuitem)\b[^>]*>/gi, '')
     .trim();
 }
 
@@ -166,7 +172,7 @@ export async function withTimeout(fn, ms, label) {
   }
 }
 
-// ============================================================================
+// =============================================================================
 // Full-article page fetching & extraction
 //
 // Used to retrieve the actual article body (and, via extractPageImage, a
@@ -181,7 +187,7 @@ export async function withTimeout(fn, ms, label) {
 //     summary and tallies a "structure changed" count per source, which is
 //     written back to Notion for human review - the script itself never
 //     disables a source or crashes because one site changed its markup.
-// ============================================================================
+// =============================================================================
 
 const ARTICLE_FETCH_USER_AGENT =
   'Mozilla/5.0 (compatible; cn-news-hub/1.0; +https://news.dysonx.com)';
@@ -246,16 +252,16 @@ const STRIP_SELECTORS = [
 // selector-based strip above.
 const BOILERPLATE_TEXT_PATTERNS = [
   /^©/, // copyright notices
-  /版权声明/,
   /版权所有/,
+  /版权声明/,
   /All rights reserved/i,
   /to view this video/i,
-  /请启用\s*javascript/i,
-  /請啟用\s*javascript/i,
+  /请允许\s*javascript/i,
+  /启用\s*javascript/i,
   /enable javascript/i,
-  /^DW中文有Instagram/,
-  /欢迎搜寻.*Instagram/,
-  /关注我们的Instagram/,
+  /^DW中文Instagram/,
+  /转发自.*Instagram/,
+  /我们的Instagram/,
 ];
 
 function isBoilerplateText(text) {
