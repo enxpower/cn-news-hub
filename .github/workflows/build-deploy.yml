@@ -15,6 +15,10 @@
 #   regenerates it via `npm install` and the auto-commit step writes the
 #   full, version-locked file back to the repo. From then on, npm's cache
 #   (keyed on this file) and `npm ci` produce deterministic installs.
+#
+# Cost note: this is a public repository, so GitHub Actions minutes are
+# unlimited/free regardless of run duration. timeout-minutes below exists
+# purely so a future hang fails fast and frees the runner, not for billing.
 # ============================================================================
 
 name: Fetch news and deploy
@@ -39,6 +43,7 @@ concurrency:
 jobs:
   fetch-and-build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,6 +62,7 @@ jobs:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: npm run fetch-news
+        timeout-minutes: 5
 
       - name: Commit updated content and lockfile
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -77,6 +83,7 @@ jobs:
   deploy:
     needs: fetch-and-build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
