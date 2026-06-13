@@ -72,24 +72,11 @@ p {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  /* env() keeps content clear of notches/rounded corners on phones;
-     the floor guarantees a visible gutter on every device. */
-  padding-left: max(24px, env(safe-area-inset-left));
-  padding-right: max(24px, env(safe-area-inset-right));
-}
-
-@media (min-width: 600px) {
-  .shell {
-    padding-left: max(32px, env(safe-area-inset-left));
-    padding-right: max(32px, env(safe-area-inset-right));
-  }
-}
-
-@media (min-width: 1024px) {
-  .shell {
-    padding-left: max(40px, env(safe-area-inset-left));
-    padding-right: max(40px, env(safe-area-inset-right));
-  }
+  /* clamp() scales the gutter with viewport width instead of a single fixed
+     breakpoint jump, and env() keeps content clear of notches/rounded
+     corners on phones. */
+  padding-left: max(clamp(20px, 6vw, 40px), env(safe-area-inset-left));
+  padding-right: max(clamp(20px, 6vw, 40px), env(safe-area-inset-right));
 }
 
 .main-content {
@@ -132,8 +119,8 @@ p {
 
 .site-header__brand img,
 .site-header__brand svg {
-  height: 26px;
-  width: 26px;
+  height: 28px;
+  width: 28px;
   flex-shrink: 0;
 }
 
@@ -432,7 +419,8 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 24px 0 8px;
   font-size: 0.95rem;
 }
@@ -444,11 +432,12 @@ p {
   justify-content: center;
   min-width: 40px;
   height: 40px;
-  padding: 0 12px;
+  padding: 0 10px;
   border: 1px solid var(--color-border);
   border-radius: 8px;
   color: var(--color-primary-dark);
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .pagination a:hover {
@@ -467,6 +456,20 @@ p {
   color: var(--color-border);
   border-color: var(--color-border);
   cursor: default;
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 6px;
+    font-size: 0.85rem;
+  }
+
+  .pagination a,
+  .pagination span {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+  }
 }
 
 /* Article detail page */
@@ -557,11 +560,47 @@ p {
   margin-bottom: 1.2em;
 }
 
+/* Images inside fetched article bodies: always centered, never overflow,
+   and never let a stray inline width/height (if any survives sanitization)
+   push them off to one side. */
 .article__body img {
-  border-radius: 10px;
-  margin: 1.2em 0;
+  display: block;
+  margin: 1.2em auto;
   max-width: 100%;
+  width: auto;
   height: auto;
+  border-radius: 10px;
+}
+
+.article__body figure {
+  margin: 1.2em 0;
+}
+
+.article__body figure img {
+  margin: 0 auto;
+}
+
+.article__body figcaption {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: 0.4em;
+}
+
+/* Defense in depth: any icon-sprite <svg> that slips through extraction
+   should never render full-size. */
+.article__body svg {
+  display: none;
+}
+
+.article__body ul,
+.article__body ol {
+  margin: 0 0 1.2em;
+  padding-left: 1.4em;
+}
+
+.article__body li {
+  margin-bottom: 0.4em;
 }
 
 .article__body iframe {
