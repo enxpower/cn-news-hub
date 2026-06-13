@@ -72,11 +72,12 @@ p {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-  /* clamp() scales the gutter with viewport width instead of a single fixed
-     breakpoint jump, and env() keeps content clear of notches/rounded
-     corners on phones. */
-  padding-left: max(clamp(20px, 6vw, 40px), env(safe-area-inset-left));
-  padding-right: max(clamp(20px, 6vw, 40px), env(safe-area-inset-right));
+  /* clamp() scales the gutter with viewport width; 24px floor gives every
+     phone (including small ones) a clearly visible margin so the logo and
+     header controls never feel glued to the screen edge. env() keeps
+     content clear of notches/rounded corners. */
+  padding-left: max(clamp(24px, 6vw, 40px), env(safe-area-inset-left));
+  padding-right: max(clamp(24px, 6vw, 40px), env(safe-area-inset-right));
 }
 
 .main-content {
@@ -414,15 +415,31 @@ p {
   color: var(--color-text-secondary);
 }
 
-/* Pagination */
+/* ==========================================================================
+   Pagination
+   On narrow screens a 9-button row ("上一页 ... 5 6 7 8 9 ... 下一页") does
+   not fit and used to wrap, leaving a single orphaned button on its own
+   line. Instead of wrapping, the row scrolls horizontally - every button
+   stays a consistent size and "下一页" is always one swipe away, never
+   isolated below the rest.
+   ========================================================================== */
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
   margin: 24px 0 8px;
   font-size: 0.95rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding: 2px; /* breathing room so focus/hover rings aren't clipped */
+}
+
+.pagination::-webkit-scrollbar {
+  display: none;
 }
 
 .pagination a,
@@ -430,6 +447,7 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   min-width: 40px;
   height: 40px;
   padding: 0 10px;
@@ -462,6 +480,7 @@ p {
   .pagination {
     gap: 6px;
     font-size: 0.85rem;
+    justify-content: flex-start;
   }
 
   .pagination a,
