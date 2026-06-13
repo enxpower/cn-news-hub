@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-13T18:49:22.172Z",
+  "lastRun": "2026-06-13T18:57:22.497Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 24
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -65,9 +65,9 @@
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 403"
+      "status": "✅ OK",
+      "newItems": 17,
+      "error": "正文抓取失败 17/17（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -87,7 +87,7 @@
       "name": "端传媒 - 评论(RSSHub)",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 20
+      "newItems": 15
     },
     {
       "name": "天下杂志 - 独立评论(RSSHub)",
@@ -107,8 +107,7 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 20,
-      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -134,7 +133,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 33
+      "newItems": 0
     },
     {
       "name": "日经中文网(RSSHub)",
