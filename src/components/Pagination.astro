@@ -20,8 +20,11 @@ function pageHref(page: number): string {
 const hasPrev = currentPage > 1;
 const hasNext = currentPage < totalPages;
 
-// Show a small window of page numbers around the current page
-const windowSize = 2;
+// Show a small window of page numbers around the current page. windowSize=1
+// yields at most 3 numbered buttons + 2 possible "…" + 上一页/下一页 = 7
+// items total, which fits on a single row on a 375px-wide phone without
+// horizontal scrolling or wrapping.
+const windowSize = 1;
 const pages: number[] = [];
 for (let p = Math.max(1, currentPage - windowSize); p <= Math.min(totalPages, currentPage + windowSize); p++) {
   pages.push(p);
