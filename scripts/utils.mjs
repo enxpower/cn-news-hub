@@ -40,14 +40,23 @@ export function stripHtml(html = '') {
 // "来源: XXX / 查看原文" line on the article page, built separately from
 // this body HTML.
 //
-// This also strips tag categories that are never appropriate to render
-// inline (scripts, styles, frames, forms, embeds) and neutralizes inline
-// event-handler attributes as defense in depth.
+// This also strips:
+//   - tag categories that are never appropriate to render inline (scripts,
+//     styles, frames, forms, embeds, videos/audio)
+//   - <svg> / <picture><source> wrappers, which often come from site icon
+//     sprites (play buttons, share icons) and render as giant black/colored
+//     shapes when their viewBox-based sizing is lost outside the source
+//     site's CSS
+//   - inline style/width/height attributes on remaining tags, which can
+//     otherwise force images into odd positions/sizes inside our layout
+//   - inline event-handler attributes, as defense in depth
 export function sanitizeHtml(html = '') {
   return html
-    .replace(/<(script|style|iframe|object|embed|form|noscript)[^>]*>[\s\S]*?<\/\1>/gi, '')
-    .replace(/<(script|style|iframe|object|embed|form|noscript)[^>]*\/?>/gi, '')
+    .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture)[^>]*>[\s\S]*?<\/\1>/gi, '')
+    .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture|track)[^>]*\/?>/gi, '')
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
+    .replace(/\sstyle\s*=\s*("[^"]*"|'[^']*')/gi, '')
+    .replace(/\s(width|height)\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
     // Unwrap anchors: <a href="...">text</a> -> text (no outbound links in body)
     .replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1')
     .trim();
@@ -219,11 +228,61 @@ const ARTICLE_BODY_SELECTORS = [
   'main',
 ];
 
+// Elements stripped wholesale before extraction: navigation, ads, social
+// widgets, media players, and icon sprites (which render as oversized
+// black/colored shapes once separated from the source site's CSS).
 const STRIP_SELECTORS = [
   'script', 'style', 'noscript', 'iframe', 'form', 'nav', 'header', 'footer',
-  'aside', 'figure figcaption', '.advertisement', '.ad', '.share', '.social',
+  'aside', 'svg', 'picture', 'video', 'audio', 'button',
+  'figure figcaption', '.advertisement', '.ad', '.share', '.social',
   '.related', '.tags', '[class*="newsletter"]', '[class*="promo"]',
+  '[class*="player"]', '[class*="media-player"]', '[data-component="media-block"]',
+  '[class*="most-read"]', '[class*="most-popular"]', '[class*="recommend"]',
 ];
+
+// Paragraphs/blocks whose text matches these are boilerplate (copyright
+// notices, social-media plugs, "enable JavaScript to view this video", etc)
+// rather than article content, and are dropped even if they survive the
+// selector-based strip above.
+const BOILERPLATE_TEXT_PATTERNS = [
+  /^©/, // copyright notices
+  /版权声明/,
+  /版权所有/,
+  /All rights reserved/i,
+  /to view this video/i,
+  /请启用\s*javascript/i,
+  /請啟用\s*javascript/i,
+  /enable javascript/i,
+  /^DW中文有Instagram/,
+  /欢迎搜寻.*Instagram/,
+  /关注我们的Instagram/,
+];
+
+function isBoilerplateText(text) {
+  const trimmed = text.trim();
+  if (!trimmed) return true;
+  return BOILERPLATE_TEXT_PATTERNS.some((re) => re.test(trimmed));
+}
+
+// A <ul>/<ol> where every item is (or was) just a link is almost always a
+// "related stories" / "most read" navigation widget, not article content -
+// even though sanitizeHtml will later unwrap the <a> tags, leaving a bare
+// bullet list of headlines that reads like spam. Detect this BEFORE
+// unwrapping, while <a> tags are still present.
+function isLinkOnlyList($, el) {
+  const items = $(el).children('li').toArray();
+  if (items.length === 0) return false;
+  return items.every((li) => {
+    const $li = $(li);
+    const links = $li.find('a');
+    if (links.length === 0) return false;
+    const liText = $li.text().replace(/\s+/g, '');
+    const linkText = links.text().replace(/\s+/g, '');
+    // Item is "just a link" if the link text accounts for (almost) all of
+    // the item's text.
+    return linkText.length > 0 && linkText.length >= liText.length * 0.8;
+  });
+}
 
 // Try to extract the main article body from a full HTML page. Returns the
 // inner HTML of the best-matching container, or null if nothing usable was
@@ -252,9 +311,6 @@ export function extractMainContent(html) {
         best = node;
       }
     });
-    // If the highest-priority selector already gave us a substantial body,
-    // stop early rather than letting a generic <main>/<article> elsewhere
-    // on the page (e.g. a "related articles" widget) win by size.
     if (best && bestLength > 200) break;
   }
 
@@ -262,21 +318,27 @@ export function extractMainContent(html) {
     return null; // nothing recognizable - likely a structure change
   }
 
-  // Keep only paragraph-level content; drop empty paragraphs.
   const parts = [];
   best.find('p, h2, h3, ul, ol, blockquote').each((_, el) => {
-    const fragment = $(el).clone();
+    const $el = $(el);
+    const tag = el.tagName?.toLowerCase();
+
+    if (tag === 'ul' || tag === 'ol') {
+      if (isLinkOnlyList($, el)) return; // skip "related/most read" widgets
+    }
+
+    if (isBoilerplateText($el.text())) return;
+
+    const fragment = $el.clone();
     fragment.find('a').each((_, a) => {
       $(a).replaceWith($(a).text());
     });
     const outer = $.html(fragment).trim();
-    const textLen = $(el).text().replace(/\s+/g, '').length;
+    const textLen = $el.text().replace(/\s+/g, '').length;
     if (textLen > 0) parts.push(outer);
   });
 
   if (parts.length === 0) {
-    // No paragraph-level structure found; fall back to the container's raw
-    // inner HTML so we don't lose content entirely.
     return best.html();
   }
 
