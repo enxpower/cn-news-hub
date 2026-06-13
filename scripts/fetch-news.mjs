@@ -15,6 +15,10 @@
 //   - Failed sources are flagged in Notion (Status + Last Error) so a human
 //     can review and remove/replace them - this script never deletes a
 //     source itself.
+//   - Articles never send readers off-site mid-content: all in-body links
+//     are unwrapped and trailing "read more" phrases are trimmed (see
+//     sanitizeHtml / trimTrailingReadMore in utils.mjs). The only outbound
+//     link is the explicit "来源 / 查看原文" line on the article page.
 //   - All tunables (retention, summary length, timeouts, categories) come
 //     from site.config.json - nothing is hardcoded here.
 // ============================================================================
@@ -31,6 +35,7 @@ import {
   shortHash,
   stripHtml,
   sanitizeHtml,
+  trimTrailingReadMore,
   truncate,
   extractImage,
   yamlEscape,
@@ -115,10 +120,11 @@ function buildMarkdown({ title, pubDateIso, sourceName, sourceUrl, categoryId, i
   lines.push(`description: "${yamlEscape(description)}"`);
   lines.push('---', '');
 
-  // Body: prefer the sanitized full-content HTML from the feed. Raw HTML in
-  // a .md file is passed through by Astro's markdown renderer, so this
-  // renders as the full article. If a feed has no body beyond its summary,
-  // bodyHtml falls back to the (short) description - never empty.
+  // Body: prefer the sanitized, de-linked full-content HTML from the feed.
+  // Raw HTML in a .md file is passed through by Astro's markdown renderer,
+  // so this renders as the full article with no outbound links. If a feed
+  // has no body beyond its summary, bodyHtml falls back to the (short)
+  // description - never empty.
   lines.push(bodyHtml || description, '');
   return lines.join('\n');
 }
@@ -200,7 +206,7 @@ async function main() {
         const slug = buildSlug(link, pubDate);
 
         const fullHtml = pickFullContentHtml(item);
-        const bodyHtml = sanitizeHtml(fullHtml);
+        const bodyHtml = trimTrailingReadMore(sanitizeHtml(fullHtml));
 
         const markdown = buildMarkdown({
           title,
