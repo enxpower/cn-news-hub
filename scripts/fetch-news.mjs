@@ -4,11 +4,11 @@
 //
 // Reads the list of RSS sources from a Notion database, fetches each feed,
 // deduplicates against previously-seen articles, and for each new item
-// fetches the article's own page to extract its full body (RSS feeds
-// usually only carry a short summary). Writes Markdown content files for
-// Astro, prunes content older than the configured retention window, and
-// writes back per-source status to both Notion and a local JSON file
-// (rendered by /admin/status).
+// fetches the article's own page to extract its full body AND a lead image
+// (RSS feeds usually only carry a short summary and often no image at all).
+// Writes Markdown content files for Astro, prunes content older than the
+// configured retention window, and writes back per-source status to both
+// Notion and a local JSON file (rendered by /admin/status).
 //
 // Design principles (per project requirements):
 //   - Per-source AND per-article failures are caught and skipped; they
@@ -54,6 +54,7 @@ import {
   withTimeout,
   fetchArticleHtml,
   extractMainContent,
+  extractPageImage,
 } from './utils.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -76,8 +77,8 @@ const PAGE_FETCH_TIMEOUT_MS = 7000;
 // Cap on how many new articles per source get a full-page fetch attempt in
 // a single run. Bounds total run time when a feed has a large backlog (e.g.
 // the first run after a reset); the rest are published with the RSS
-// summary and will simply not have full text for this run.
-const MAX_FULL_FETCH_PER_SOURCE = 20;
+// summary and will simply not have full text/image for this run.
+const MAX_FULL_FETCH_PER_SOURCE = 25;
 
 // NOTE: do NOT pass { timeout } or a signal into individual parseURL calls -
 // rss-parser's parseURL(url, opts) treats a truthy second argument as a
@@ -245,25 +246,34 @@ async function main() {
         const pubDate = item.isoDate || item.pubDate || new Date().toISOString();
         const rawDescription = item.contentSnippet || item.summary || item.description || '';
         const description = truncate(stripHtml(rawDescription), SUMMARY_LENGTH);
-        const image = extractImage(item);
         const slug = buildSlug(link, pubDate);
+
+        // Start with whatever the feed itself gives us for an image.
+        let image = extractImage(item);
 
         // --------------------------------------------------------------
         // Full-article extraction: fetch the article's own page and try
-        // to pull its real body. Falls back to the RSS feed's own content
-        // (summary) on ANY failure - network error, timeout, or the page
-        // not matching a known article-body pattern (site redesign).
+        // to pull its real body + a lead image (og:image etc). Falls back
+        // to the RSS feed's own content (summary) on ANY failure - network
+        // error, timeout, or the page not matching a known article-body
+        // pattern (site redesign). Image extraction is independent: even
+        // if the body pattern isn't recognized, og:image is still tried.
         // --------------------------------------------------------------
         let bodyHtml = null;
         if (fullFetchAttempts < MAX_FULL_FETCH_PER_SOURCE) {
           fullFetchAttempts += 1;
           try {
             const pageHtml = await fetchArticleHtml(link, PAGE_FETCH_TIMEOUT_MS);
+
             const extracted = extractMainContent(pageHtml);
             if (extracted) {
               bodyHtml = trimTrailingReadMore(sanitizeHtml(extracted));
             } else {
               fullFetchFailures += 1;
+            }
+
+            if (!image) {
+              image = extractPageImage(pageHtml, link) || undefined;
             }
           } catch (err) {
             fullFetchFailures += 1;
