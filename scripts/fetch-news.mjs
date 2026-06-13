@@ -21,6 +21,12 @@
 //     link is the explicit "来源 / 查看原文" line on the article page.
 //   - All tunables (retention, summary length, timeouts, categories) come
 //     from site.config.json - nothing is hardcoded here.
+//
+// One-time reset hook:
+//   If data/RESET_ARTICLES exists, all files in src/content/articles/ are
+//   deleted before fetching (and the flag file removed). This is used for
+//   deliberate clean-slate resets - e.g. switching the source list and
+//   re-populating from scratch - and is not part of normal operation.
 // ============================================================================
 
 import fs from 'node:fs/promises';
@@ -46,6 +52,7 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const ARTICLES_DIR = path.join(ROOT, 'src/content/articles');
 const SEEN_FILE = path.join(ROOT, 'data/seen-urls.json');
 const STATUS_FILE = path.join(ROOT, 'data/sources-status.json');
+const RESET_FLAG_FILE = path.join(ROOT, 'data/RESET_ARTICLES');
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
@@ -79,6 +86,27 @@ async function readJson(file, fallback) {
 
 async function writeJson(file, data) {
   await fs.writeFile(file, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+}
+
+// One-time reset: if data/RESET_ARTICLES exists, wipe all article Markdown
+// files and remove the flag. Keeps .gitkeep so the directory stays tracked.
+async function maybeResetArticles() {
+  try {
+    await fs.access(RESET_FLAG_FILE);
+  } catch {
+    return; // flag not present - normal run
+  }
+
+  console.log('RESET_ARTICLES flag found - wiping src/content/articles/ ...');
+  const files = await fs.readdir(ARTICLES_DIR);
+  let removed = 0;
+  for (const file of files) {
+    if (!file.endsWith('.md')) continue;
+    await fs.unlink(path.join(ARTICLES_DIR, file));
+    removed += 1;
+  }
+  await fs.unlink(RESET_FLAG_FILE);
+  console.log(`  -> removed ${removed} article(s), reset flag cleared.`);
 }
 
 // Map a Notion "Category" select label (e.g. "国际观察") to the matching
@@ -144,6 +172,8 @@ async function main() {
 
   await fs.mkdir(ARTICLES_DIR, { recursive: true });
   await fs.mkdir(path.dirname(SEEN_FILE), { recursive: true });
+
+  await maybeResetArticles();
 
   const seen = await readJson(SEEN_FILE, {});
   const statusResults = [];
