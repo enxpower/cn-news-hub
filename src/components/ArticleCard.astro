@@ -1,16 +1,16 @@
 ---
-// A single news card used in list/grid views.
-// Strict fixed structure (image / category / title / excerpt / meta) so the
-// grid never looks inconsistent regardless of source content length.
+// A single news item rendered as a list row: small thumbnail on the left,
+// category/date/title/excerpt/source on the right. Designed for dense
+// scanning of 20-30 items per page. The full-size image is shown on the
+// article detail page (see article__hero), not here.
 import type { CollectionEntry } from 'astro:content';
 import siteConfig from '../../site.config.json';
 
 interface Props {
   entry: CollectionEntry<'articles'>;
-  variant?: 'default' | 'wide';
 }
 
-const { entry, variant = 'default' } = Astro.props;
+const { entry } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const { title, pubDate, sourceName, category, image, description } = entry.data;
 
@@ -22,10 +22,10 @@ function formatDate(date: Date): string {
 }
 ---
 
-<article class:list={["card", { "card--wide": variant === "wide" }]} data-slug={entry.slug}>
+<article class="card" data-slug={entry.slug}>
   <a href={`${base}article/${entry.slug}/`} class="card__media" aria-hidden="true" tabindex="-1">
     {image ? (
-      <img src={image} alt="" loading="lazy" width="640" height="360" />
+      <img src={image} alt="" loading="lazy" width="240" height="180" />
     ) : (
       <div class="card__media--placeholder">
         <span>{siteConfig.branding.logoText}</span>
@@ -33,13 +33,15 @@ function formatDate(date: Date): string {
     )}
   </a>
   <div class="card__body">
-    <span class="card__category">{categoryLabel}</span>
+    <div class="card__top">
+      <span class="card__category">{categoryLabel}</span>
+      <span class="card__date">{formatDate(pubDate)}</span>
+    </div>
     <h3 class="card__title">
       <a href={`${base}article/${entry.slug}/`}>{title}</a>
     </h3>
     <p class="card__excerpt">{description}</p>
     <div class="card__meta">
-      <span>{formatDate(pubDate)}</span>
       <span>{sourceName}</span>
     </div>
   </div>
