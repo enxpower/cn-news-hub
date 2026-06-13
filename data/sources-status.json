@@ -1,4 +1,73 @@
 {
-  "lastRun": null,
-  "sources": []
+  "lastRun": "2026-06-13T08:30:19.251Z",
+  "sources": [
+    {
+      "name": "BBC News - Business",
+      "category": "财经",
+      "status": "✅ OK",
+      "newItems": 53
+    },
+    {
+      "name": "BBC News - World",
+      "category": "国际观察",
+      "status": "✅ OK",
+      "newItems": 20
+    },
+    {
+      "name": "NPR News",
+      "category": "北美生活",
+      "status": "✅ OK",
+      "newItems": 10
+    },
+    {
+      "name": "The Guardian - World",
+      "category": "国际观察",
+      "status": "✅ OK",
+      "newItems": 45
+    },
+    {
+      "name": "TechCrunch",
+      "category": "科技",
+      "status": "✅ OK",
+      "newItems": 20
+    },
+    {
+      "name": "The New York Times - World",
+      "category": "国际观察",
+      "status": "✅ OK",
+      "newItems": 57
+    },
+    {
+      "name": "BBC中文网",
+      "category": "国际观察",
+      "status": "✅ OK",
+      "newItems": 43
+    },
+    {
+      "name": "RFA自由亚洲",
+      "category": "中国新闻",
+      "status": "✅ OK",
+      "newItems": 30
+    },
+    {
+      "name": "美国之音中文网",
+      "category": "国际观察",
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: I"
+    },
+    {
+      "name": "路透中文网",
+      "category": "财经",
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Status code 401"
+    },
+    {
+      "name": "联合早报",
+      "category": "中国新闻",
+      "status": "⏸ Paused",
+      "newItems": 0
+    }
+  ]
 }
