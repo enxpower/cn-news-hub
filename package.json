@@ -1,0 +1,21 @@
+{
+  "name": "cn-news-hub",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fetch-news": "node scripts/fetch-news.mjs"
+  },
+  "dependencies": {
+    "astro": "^4.16.0",
+    "rss-parser": "^3.13.0",
+    "gray-matter": "^4.0.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
