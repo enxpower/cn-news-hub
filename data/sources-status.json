@@ -1,33 +1,32 @@
 {
-  "lastRun": "2026-06-13T18:34:51.754Z",
+  "lastRun": "2026-06-13T18:49:22.172Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 403"
+      "status": "✅ OK",
+      "newItems": 24
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
       "category": "财经",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "纽约时报中文网(RSSHub)",
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "BBC中文网 - 国际(RSSHub)",
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "少数派",
@@ -40,21 +39,21 @@
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "洛杉矶华人资讯网(RSSHub)",
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "华尔街日报中文网 - 国际",
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "联合国新闻 - 综合",
@@ -82,42 +81,41 @@
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "端传媒 - 评论(RSSHub)",
       "category": "评论时事",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 403"
+      "status": "✅ OK",
+      "newItems": 20
     },
     {
       "name": "天下杂志 - 独立评论(RSSHub)",
       "category": "评论时事",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "西雅图中文网(RSSHub)",
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "36氪 - 科技创新",
       "category": "科技",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 403"
+      "status": "✅ OK",
+      "newItems": 20,
+      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
       "category": "评论时事",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "Solidot",
@@ -135,16 +133,15 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 403"
+      "status": "✅ OK",
+      "newItems": 33
     },
     {
       "name": "日经中文网(RSSHub)",
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 403"
+      "error": "Status code 503"
     },
     {
       "name": "德国之声中文网 (DW)",
