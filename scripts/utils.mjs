@@ -78,7 +78,8 @@ export function truncate(text, maxLength) {
   return `${text.slice(0, maxLength).trim()}…`;
 }
 
-// Best-effort extraction of a representative image URL from an RSS item.
+// Best-effort extraction of a representative image URL from an RSS item
+// (i.e. from the feed's own data, before any page fetch).
 export function extractImage(item) {
   if (item.enclosure?.url && /image|jpe?g|png|webp|gif/i.test(item.enclosure.url + (item.enclosure.type || ''))) {
     return item.enclosure.url;
@@ -93,6 +94,41 @@ export function extractImage(item) {
   const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
   if (match) return match[1];
   return undefined;
+}
+
+// Resolve a possibly-relative URL against a base page URL. Returns null if
+// either input is missing/invalid, so callers can fall back cleanly.
+export function resolveUrl(url, base) {
+  if (!url) return null;
+  try {
+    return new URL(url, base).toString();
+  } catch {
+    return null;
+  }
+}
+
+// Best-effort extraction of a representative image from a fetched article
+// page: prefers <meta property="og:image">, then <meta name="twitter:image">,
+// then the first <img> inside the extracted article body. Returns null if
+// none found (most often because the article genuinely has no lead image).
+export function extractPageImage(html, pageUrl) {
+  let $;
+  try {
+    $ = load(html);
+  } catch {
+    return null;
+  }
+
+  const og = $('meta[property="og:image"]').attr('content')
+    || $('meta[property="og:image:url"]').attr('content')
+    || $('meta[name="twitter:image"]').attr('content');
+  const resolved = resolveUrl(og, pageUrl);
+  if (resolved) return resolved;
+
+  const firstImg = $('article img, [itemprop="articleBody"] img, .article-body img, main img')
+    .first()
+    .attr('src');
+  return resolveUrl(firstImg, pageUrl);
 }
 
 // Escape a string for safe inclusion as a YAML double-quoted scalar.
@@ -124,9 +160,10 @@ export async function withTimeout(fn, ms, label) {
 // ============================================================================
 // Full-article page fetching & extraction
 //
-// Used to retrieve the actual article body from its canonical page (RSS
-// feeds typically only carry a short summary). Both steps are designed to
-// fail SAFELY and LOCALLY:
+// Used to retrieve the actual article body (and, via extractPageImage, a
+// lead image) from its canonical page - RSS feeds typically only carry a
+// short summary and often no image at all. Both fetch and extraction are
+// designed to fail SAFELY and LOCALLY:
 //   - fetchArticleHtml(): network/timeout errors throw, caught by the caller
 //     per-article; never aborts the overall run.
 //   - extractMainContent(): if no recognizable article container is found
