@@ -1,0 +1,23 @@
+---
+// Homepage: "涩动" (rolling/latest) feed - page 1 of all articles.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsList from '../components/NewsList.astro';
+import siteConfig from '../../site.config.json';
+import { getAllArticlesSorted, paginate, totalPagesFor } from '../lib/articles';
+
+const all = await getAllArticlesSorted();
+const page = 1;
+const entries = paginate(all, page);
+const totalPages = totalPagesFor(all.length);
+---
+
+<BaseLayout title={siteConfig.site.name} description={siteConfig.site.description}>
+  <NewsList
+    heading="涩动新闻"
+    headingMeta={`共 ${all.length} 篇 / 每两小时自动更新`}
+    entries={entries}
+    currentPage={page}
+    totalPages={totalPages}
+    basePath=""
+  />
+</BaseLayout>

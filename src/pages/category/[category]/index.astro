@@ -1,0 +1,30 @@
+---
+// Category landing page - page 1 of articles in this category.
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import NewsList from '../../../components/NewsList.astro';
+import siteConfig from '../../../../site.config.json';
+import { getArticlesByCategory, paginate, totalPagesFor } from '../../../lib/articles';
+
+export async function getStaticPaths() {
+  return siteConfig.categories.map((cat) => ({ params: { category: cat.id } }));
+}
+
+const { category } = Astro.params;
+const categoryLabel = siteConfig.categories.find((c) => c.id === category)?.label ?? category;
+
+const all = await getArticlesByCategory(category as string);
+const page = 1;
+const entries = paginate(all, page);
+const totalPages = totalPagesFor(all.length);
+---
+
+<BaseLayout title={categoryLabel} description={`${categoryLabel} - ${siteConfig.site.description}`}>
+  <NewsList
+    heading={categoryLabel}
+    headingMeta={`共 ${all.length} 篇`}
+    entries={entries}
+    currentPage={page}
+    totalPages={totalPages}
+    basePath={`category/${category}/`}
+  />
+</BaseLayout>

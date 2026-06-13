@@ -1,0 +1,52 @@
+---
+// Build-time "admin" status page - no backend required.
+// Displays the last fetch run's per-source results, written by
+// scripts/fetch-news.mjs into data/sources-status.json.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import statusData from '../../../data/sources-status.json';
+
+const pillClass: Record<string, string> = {
+  '✅ OK': 'status-pill--ok',
+  '⚠️ Failed': 'status-pill--failed',
+  '⏸ Paused': 'status-pill--paused',
+  '🆕 New': 'status-pill--new',
+};
+---
+
+<BaseLayout title="源站抓取状态" description="新闻源抓取状态概览">
+  <div class="section-heading">
+    <h1>源站抓取状态</h1>
+    <span class="section-heading__meta">
+      上次运行：{statusData.lastRun ?? '尚未运行'}
+    </span>
+  </div>
+
+  {statusData.sources.length === 0 ? (
+    <div class="empty-state">
+      <p>抓取任务尚未运行，暂无状态数据。</p>
+    </div>
+  ) : (
+    <table class="status-table">
+      <thead>
+        <tr>
+          <th>来源</th>
+          <th>分类</th>
+          <th>状态</th>
+          <th>新增文章</th>
+          <th>错误信息</th>
+        </tr>
+      </thead>
+      <tbody>
+        {statusData.sources.map((s: any) => (
+          <tr>
+            <td>{s.name}</td>
+            <td>{s.category}</td>
+            <td><span class={`status-pill ${pillClass[s.status] ?? 'status-pill--new'}`}>{s.status}</span></td>
+            <td>{s.newItems ?? 0}</td>
+            <td>{s.error ?? '-'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</BaseLayout>

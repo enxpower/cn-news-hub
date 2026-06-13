@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import siteConfig from '../../site.config.json';
+---
+
+<BaseLayout title="关于本站" description={siteConfig.site.description}>
+  <div class="article">
+    <h1 class="article__title">关于本站</h1>
+    <div class="article__body">
+      <p>{siteConfig.site.description}</p>
+      <p>{siteConfig.footer.disclaimer}</p>
+    </div>
+  </div>
+</BaseLayout>

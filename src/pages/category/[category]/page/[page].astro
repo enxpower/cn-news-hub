@@ -1,0 +1,38 @@
+---
+// Pages 2..N within a category.
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import NewsList from '../../../../components/NewsList.astro';
+import siteConfig from '../../../../../site.config.json';
+import { getArticlesByCategory, paginate, totalPagesFor } from '../../../../lib/articles';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const cat of siteConfig.categories) {
+    const all = await getArticlesByCategory(cat.id);
+    const totalPages = totalPagesFor(all.length);
+    for (let p = 2; p <= totalPages; p++) {
+      paths.push({ params: { category: cat.id, page: String(p) } });
+    }
+  }
+  return paths;
+}
+
+const { category, page } = Astro.params;
+const categoryLabel = siteConfig.categories.find((c) => c.id === category)?.label ?? category;
+const currentPage = Number(page);
+
+const all = await getArticlesByCategory(category as string);
+const entries = paginate(all, currentPage);
+const totalPages = totalPagesFor(all.length);
+---
+
+<BaseLayout title={`${categoryLabel} - 第 ${currentPage} 页`} description={`${categoryLabel} - ${siteConfig.site.description}`}>
+  <NewsList
+    heading={categoryLabel}
+    headingMeta={`第 ${currentPage} / ${totalPages} 页`}
+    entries={entries}
+    currentPage={currentPage}
+    totalPages={totalPages}
+    basePath={`category/${category}/`}
+  />
+</BaseLayout>
