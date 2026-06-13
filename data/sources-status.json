@@ -1,23 +1,23 @@
 {
-  "lastRun": "2026-06-13T08:58:32.874Z",
+  "lastRun": "2026-06-13T09:01:39.117Z",
   "sources": [
     {
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 9
+      "newItems": 56
     },
     {
       "name": "BBC中文网",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 43
     },
     {
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 13
+      "newItems": 30
     }
   ]
 }
