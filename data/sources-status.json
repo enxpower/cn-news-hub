@@ -1,6 +1,19 @@
 {
-  "lastRun": "2026-06-13T08:31:27.993Z",
+  "lastRun": "2026-06-13T08:36:58.794Z",
   "sources": [
+    {
+      "name": "FT中文网",
+      "category": "财经",
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Status code 403"
+    },
+    {
+      "name": "德国之声中文网 (DW)",
+      "category": "国际观察",
+      "status": "✅ OK",
+      "newItems": 56
+    },
     {
       "name": "BBC News - Business",
       "category": "财经",
@@ -48,20 +61,6 @@
       "category": "中国新闻",
       "status": "✅ OK",
       "newItems": 13
-    },
-    {
-      "name": "美国之音中文网",
-      "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: I"
-    },
-    {
-      "name": "路透中文网",
-      "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Status code 401"
     },
     {
       "name": "联合早报",
