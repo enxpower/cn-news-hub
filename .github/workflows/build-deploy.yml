@@ -9,6 +9,12 @@
 #
 # Required one-time setup (Settings -> Pages):
 #   Source: "GitHub Actions"
+#
+# Dependency reproducibility:
+#   package-lock.json starts as a minimal placeholder. The first run here
+#   regenerates it via `npm install` and the auto-commit step writes the
+#   full, version-locked file back to the repo. From then on, npm's cache
+#   (keyed on this file) and `npm ci` produce deterministic installs.
 # ============================================================================
 
 name: Fetch news and deploy
@@ -41,6 +47,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
@@ -51,11 +58,11 @@ jobs:
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
         run: npm run fetch-news
 
-      - name: Commit updated content
+      - name: Commit updated content and lockfile
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto-update news content [skip ci]"
-          file_pattern: "src/content/articles/*.md data/*.json"
+          commit_message: "chore: auto-update news content and lockfile [skip ci]"
+          file_pattern: "src/content/articles/*.md data/*.json package-lock.json"
           commit_user_name: "news-bot"
           commit_user_email: "news-bot@users.noreply.github.com"
 
