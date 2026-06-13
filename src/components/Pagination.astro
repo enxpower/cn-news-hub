@@ -29,6 +29,14 @@ const pages: number[] = [];
 for (let p = Math.max(1, currentPage - windowSize); p <= Math.min(totalPages, currentPage + windowSize); p++) {
   pages.push(p);
 }
+
+// The "…" ellipsis is purely decorative (indicates skipped page numbers) and
+// is not a control - it has no destination. Rendering it with the same
+// bordered/min-width button styling as the real controls makes it look
+// clickable, which is confusing on both desktop and mobile/tablet. Style it
+// inline as plain, non-interactive text instead.
+const ellipsisStyle =
+  'border:none;background:transparent;min-width:auto;height:auto;padding:0 2px;cursor:default;';
 ---
 
 {totalPages > 1 && (
@@ -39,7 +47,7 @@ for (let p = Math.max(1, currentPage - windowSize); p <= Math.min(totalPages, cu
       <span class="is-disabled">上一页</span>
     )}
 
-    {pages[0] > 1 && <span class="is-disabled">…</span>}
+    {pages[0] > 1 && <span class="is-disabled" aria-hidden="true" style={ellipsisStyle}>…</span>}
 
     {pages.map((p) =>
       p === currentPage ? (
@@ -49,7 +57,7 @@ for (let p = Math.max(1, currentPage - windowSize); p <= Math.min(totalPages, cu
       )
     )}
 
-    {pages[pages.length - 1] < totalPages && <span class="is-disabled">…</span>}
+    {pages[pages.length - 1] < totalPages && <span class="is-disabled" aria-hidden="true" style={ellipsisStyle}>…</span>}
 
     {hasNext ? (
       <a href={pageHref(currentPage + 1)} rel="next">下一页</a>
