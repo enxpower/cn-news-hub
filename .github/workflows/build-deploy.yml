@@ -19,6 +19,13 @@
 # Cost note: this is a public repository, so GitHub Actions minutes are
 # unlimited/free regardless of run duration. timeout-minutes below exists
 # purely so a future hang fails fast and frees the runner, not for billing.
+#
+# Commit step: plain `git add -A -- <paths>` + commit + push, run directly
+# (not via a third-party action). A prior version used
+# stefanzweifel/git-auto-commit-action, which committed deletions and
+# modifications to already-tracked files but silently failed to stage
+# newly-created article Markdown files - new articles never made it into the
+# build. `git add -A` unambiguously stages new, modified, and deleted files.
 # ============================================================================
 
 name: Fetch news and deploy
@@ -65,15 +72,16 @@ jobs:
         timeout-minutes: 5
 
       - name: Commit updated content and lockfile
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: auto-update news content and lockfile [skip ci]"
-          # Directory paths (not *.md globs) so `git add` never receives a
-          # pathspec that fails to match when the articles directory is
-          # temporarily empty (e.g. right after a content reset).
-          file_pattern: "src/content/articles data/ package-lock.json"
-          commit_user_name: "news-bot"
-          commit_user_email: "news-bot@users.noreply.github.com"
+        run: |
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          git add -A -- src/content/articles data package-lock.json
+          if git diff --cached --quiet; then
+            echo "No content changes to commit."
+          else
+            git commit -m "chore: auto-update news content and lockfile [skip ci]"
+            git push
+          fi
 
       - name: Build site
         run: npm run build
