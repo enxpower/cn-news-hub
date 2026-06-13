@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-13T18:57:22.497Z",
+  "lastRun": "2026-06-13T19:10:40.788Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -58,16 +58,14 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 17,
-      "error": "正文抓取失败 17/17（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "月光博客",
