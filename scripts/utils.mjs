@@ -1,0 +1,77 @@
+// Small shared utilities for the fetch-news script.
+// Kept dependency-free (uses only Node built-ins) for reliability in CI.
+import crypto from 'node:crypto';
+
+export function shortHash(input, length = 12) {
+  return crypto.createHash('sha1').update(input).digest('hex').slice(0, length);
+}
+
+// Build a readable, unique slug for an article based on its publish date
+// and a content hash of its canonical URL.
+export function buildSlug(url, pubDate) {
+  const d = new Date(pubDate);
+  const datePart = isNaN(d.valueOf())
+    ? 'unknown-date'
+    : `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
+  return `${datePart}-${shortHash(url)}`;
+}
+
+// Strip HTML tags and collapse whitespace, producing plain text suitable
+// for card excerpts and og:description.
+export function stripHtml(html = '') {
+  return html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Truncate plain text to a maximum character length, breaking on a
+// word/character boundary and appending an ellipsis if shortened.
+export function truncate(text, maxLength) {
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength).trim()}…`;
+}
+
+// Best-effort extraction of a representative image URL from an RSS item.
+export function extractImage(item) {
+  if (item.enclosure?.url && /image|jpe?g|png|webp|gif/i.test(item.enclosure.url + (item.enclosure.type || ''))) {
+    return item.enclosure.url;
+  }
+  const mediaContent = item['media:content'];
+  if (mediaContent) {
+    const node = Array.isArray(mediaContent) ? mediaContent[0] : mediaContent;
+    const url = node?.$?.url || node?.url;
+    if (url) return url;
+  }
+  const html = item['content:encoded'] || item.content || item.summary || item.description || '';
+  const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if (match) return match[1];
+  return undefined;
+}
+
+// Escape a string for safe inclusion as a YAML double-quoted scalar.
+export function yamlEscape(value) {
+  return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\r?\n/g, ' ');
+}
+
+// Run an async function with a hard timeout, throwing on expiry.
+export async function withTimeout(promiseFactory, ms, label) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await promiseFactory(controller.signal);
+  } catch (err) {
+    if (controller.signal.aborted) {
+      throw new Error(`timeout after ${ms}ms${label ? ` (${label})` : ''}`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}

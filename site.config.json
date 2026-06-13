@@ -1,0 +1,85 @@
+{
+  "_comment": "Central site configuration. Edit this file to change branding, colors, ads, and behavior without touching any code.",
+
+  "site": {
+    "name": "中文新闻汇",
+    "shortName": "新闻汇",
+    "tagline": "全球中文资讯，自动聚合，每两小时更新",
+    "description": "中文新闻汇是一个自动化中文新闻聚合站，实时整合全球主流中文及国际媒体资讯。",
+    "url": "https://news.example.com",
+    "lang": "zh-CN",
+    "locale": "zh_CN",
+    "base": "/"
+  },
+
+  "branding": {
+    "logoText": "中文新闻汇",
+    "logoImage": "/logo.svg",
+    "favicon": "/favicon.svg",
+    "ogDefaultImage": "/og-default.jpg"
+  },
+
+  "theme": {
+    "_comment": "Background must always stay white per design requirements. Only accent colors are themeable.",
+    "backgroundColor": "#FFFFFF",
+    "surfaceColor": "#F7F9FC",
+    "borderColor": "#E6EAF0",
+    "textPrimary": "#1A2B3C",
+    "textSecondary": "#5B6B7C",
+    "primaryColor": "#1B4F8A",
+    "primaryColorDark": "#0B2545",
+    "accentColor": "#D4840A",
+    "linkVisitedColor": "#9AA5B1"
+  },
+
+  "fonts": {
+    "headingFont": "'Noto Serif SC', serif",
+    "bodyFont": "'Noto Sans SC', sans-serif",
+    "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@600;700;900&display=swap"
+  },
+
+  "categories": [
+    { "id": "international", "label": "国际观察" },
+    { "id": "finance", "label": "财经" },
+    { "id": "tech", "label": "科技" },
+    { "id": "china", "label": "中国新闻" },
+    { "id": "northamerica", "label": "北美生活" },
+    { "id": "opinion", "label": "评论时事" }
+  ],
+
+  "pagination": {
+    "pageSize": 12
+  },
+
+  "content": {
+    "retentionDays": 30,
+    "summaryLength": 120,
+    "fetchTimeoutMs": 8000
+  },
+
+  "ads": {
+    "_comment": "Master switch plus per-position switches. All ads use Google AdSense in-feed/in-article native format to match site styling. Leave clientId/slotId empty until AdSense approval.",
+    "enabled": false,
+    "adsenseClientId": "ca-pub-0000000000000000",
+    "positions": {
+      "listInFeed": {
+        "enabled": false,
+        "slotId": "0000000000",
+        "everyNItems": 6
+      },
+      "articleBottom": {
+        "enabled": false,
+        "slotId": "0000000000"
+      }
+    }
+  },
+
+  "footer": {
+    "copyrightName": "中文新闻汇",
+    "links": [
+      { "label": "关于本站", "href": "/about" },
+      { "label": "源站状态", "href": "/admin/status" }
+    ],
+    "disclaimer": "本站所有文章均自动聚合自公开 RSS 新闻源，版权归原作者及原媒体所有。本站仅提供标题、摘要及原文链接，不对内容准确性承担责任。如需查看完整报道，请点击文章页面中的来源链接访问原网站。"
+  }
+}

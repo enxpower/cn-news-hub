@@ -1,0 +1,80 @@
+# ============================================================================
+# Fetch news from Notion-managed RSS sources, rebuild the static site, and
+# deploy it to GitHub Pages.
+#
+# Required repository secrets (Settings -> Secrets and variables -> Actions):
+#   NOTION_API_KEY       - Notion internal integration token (read + update
+#                           access to the "News Sources" database)
+#   NOTION_DATABASE_ID   - The "News Sources" database ID
+#
+# Required one-time setup (Settings -> Pages):
+#   Source: "GitHub Actions"
+# ============================================================================
+
+name: Fetch news and deploy
+
+on:
+  schedule:
+    # Every 2 hours
+    - cron: '0 */2 * * *'
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  fetch-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Fetch news from RSS sources (via Notion source list)
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: npm run fetch-news
+
+      - name: Commit updated content
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update news content [skip ci]"
+          file_pattern: "src/content/articles/*.md data/*.json"
+          commit_user_name: "news-bot"
+          commit_user_email: "news-bot@users.noreply.github.com"
+
+      - name: Build site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: fetch-and-build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
