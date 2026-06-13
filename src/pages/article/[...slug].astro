@@ -72,4 +72,32 @@ function formatDate(date: Date): string {
       >&larr; 返回{categoryLabel}列表</a>
     </div>
   </article>
+
+  {image && (
+    <script define:vars={{ heroImage: image }}>
+      // The full-article extraction pipeline sometimes picks the article's
+      // first inline image as the og:image/hero (e.g. Caixin articles), so
+      // that same image then appears a second time as the first image in
+      // the body - a visible duplicate. If the body's first <img> has the
+      // same src as the hero, hide that duplicate (and its <figure> wrapper
+      // and caption, if any) rather than showing the same picture twice.
+      function normalize(url) {
+        try {
+          const u = new URL(url, location.href);
+          u.search = '';
+          u.hash = '';
+          return u.href.replace(/\/$/, '');
+        } catch {
+          return url;
+        }
+      }
+
+      const body = document.querySelector('.article__body');
+      const firstImg = body && body.querySelector('img');
+      if (firstImg && normalize(firstImg.src) === normalize(heroImage)) {
+        const figure = firstImg.closest('figure');
+        (figure || firstImg).remove();
+      }
+    </script>
+  )}
 </BaseLayout>
