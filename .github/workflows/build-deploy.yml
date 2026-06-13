@@ -68,7 +68,10 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: auto-update news content and lockfile [skip ci]"
-          file_pattern: "src/content/articles/*.md data/*.json package-lock.json"
+          # Directory paths (not *.md globs) so `git add` never receives a
+          # pathspec that fails to match when the articles directory is
+          # temporarily empty (e.g. right after a content reset).
+          file_pattern: "src/content/articles data/ package-lock.json"
           commit_user_name: "news-bot"
           commit_user_email: "news-bot@users.noreply.github.com"
 
