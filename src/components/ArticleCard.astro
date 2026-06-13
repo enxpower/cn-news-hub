@@ -23,15 +23,18 @@ function formatDate(date: Date): string {
 ---
 
 <article class="card" data-slug={entry.slug}>
-  <a href={`${base}article/${entry.slug}/`} class="card__media" aria-hidden="true" tabindex="-1">
-    {image ? (
-      <img src={image} alt="" loading="lazy" width="240" height="180" />
-    ) : (
-      <div class="card__media--placeholder">
-        <span>{siteConfig.branding.logoText}</span>
-      </div>
-    )}
-  </a>
+  {image ? (
+    <a href={`${base}article/${entry.slug}/`} class="card__media" aria-hidden="true" tabindex="-1">
+      <img
+        src={image}
+        alt=""
+        loading="lazy"
+        width="240"
+        height="180"
+        onerror="this.closest('.card__media').remove()"
+      />
+    </a>
+  ) : null}
   <div class="card__body">
     <div class="card__top">
       <span class="card__category">{categoryLabel}</span>
