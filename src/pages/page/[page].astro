@@ -1,5 +1,5 @@
 ---
-// Pages 2..N of the rolling "涩动新闻" feed. Page 1 lives at "/".
+// Pages 2..N of the rolling "滚动新闻" feed. Page 1 lives at "/".
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NewsList from '../../components/NewsList.astro';
 import siteConfig from '../../../site.config.json';
@@ -22,9 +22,9 @@ const entries = paginate(all, currentPage);
 const totalPages = totalPagesFor(all.length);
 ---
 
-<BaseLayout title={`涩动新闻 - 第 ${currentPage} 页`} description={siteConfig.site.description}>
+<BaseLayout title={`滚动新闻 - 第 ${currentPage} 页`} description={siteConfig.site.description}>
   <NewsList
-    heading="涩动新闻"
+    heading="滚动新闻"
     headingMeta={`第 ${currentPage} / ${totalPages} 页`}
     entries={entries}
     currentPage={currentPage}

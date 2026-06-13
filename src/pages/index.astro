@@ -1,5 +1,5 @@
 ---
-// Homepage: "涩动" (rolling/latest) feed - page 1 of all articles.
+// Homepage: "滚动" (rolling/latest) feed - page 1 of all articles.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsList from '../components/NewsList.astro';
 import siteConfig from '../../site.config.json';
@@ -13,7 +13,7 @@ const totalPages = totalPagesFor(all.length);
 
 <BaseLayout title={siteConfig.site.name} description={siteConfig.site.description}>
   <NewsList
-    heading="涩动新闻"
+    heading="滚动新闻"
     headingMeta={`共 ${all.length} 篇 / 每两小时自动更新`}
     entries={entries}
     currentPage={page}
