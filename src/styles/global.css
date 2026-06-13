@@ -73,9 +73,23 @@ p {
   margin: 0 auto;
   width: 100%;
   /* env() keeps content clear of notches/rounded corners on phones;
-     the 20px floor guarantees a visible gutter on every device. */
-  padding-left: max(20px, env(safe-area-inset-left));
-  padding-right: max(20px, env(safe-area-inset-right));
+     the floor guarantees a visible gutter on every device. */
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+}
+
+@media (min-width: 600px) {
+  .shell {
+    padding-left: max(32px, env(safe-area-inset-left));
+    padding-right: max(32px, env(safe-area-inset-right));
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    padding-left: max(40px, env(safe-area-inset-left));
+    padding-right: max(40px, env(safe-area-inset-right));
+  }
 }
 
 .main-content {
@@ -109,7 +123,7 @@ p {
   gap: 8px;
   font-family: var(--font-heading);
   font-weight: 900;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--color-primary-dark);
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -118,8 +132,8 @@ p {
 
 .site-header__brand img,
 .site-header__brand svg {
-  height: 28px;
-  width: 28px;
+  height: 26px;
+  width: 26px;
   flex-shrink: 0;
 }
 
@@ -224,10 +238,7 @@ p {
 }
 
 /* ==========================================================================
-   Article list (replaces the previous card-grid layout)
-   Each item is a single row: small thumbnail + category/date/title/excerpt.
-   This scales much better when a page holds 20-30 items, and the full-size
-   image is reserved for the article detail page.
+   Article list - dense row layout for 20-30 items per page.
    ========================================================================== */
 .news-grid {
   display: flex;
@@ -512,9 +523,7 @@ p {
   object-fit: cover;
 }
 
-/* Source attribution: a quiet, single-line note rather than a CTA button.
-   The outbound link is intentionally understated - it exists for proper
-   attribution, not to compete with on-site reading. */
+/* Source attribution: a quiet, single-line note rather than a CTA button. */
 .source-box {
   display: flex;
   flex-wrap: wrap;
@@ -551,6 +560,12 @@ p {
 .article__body img {
   border-radius: 10px;
   margin: 1.2em 0;
+  max-width: 100%;
+  height: auto;
+}
+
+.article__body iframe {
+  max-width: 100%;
 }
 
 .article__footer {

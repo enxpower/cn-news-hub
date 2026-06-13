@@ -4,7 +4,7 @@
   "site": {
     "name": "中文新闻汇",
     "shortName": "新闻汇",
-    "tagline": "全球中文资讯，自动聚合，每两小时更新",
+    "tagline": "全球中文资讯聚合平台",
     "description": "中文新闻汇是一个自动化中文新闻聚合站，实时整合全球主流中文及国际媒体资讯。",
     "url": "https://news.example.com",
     "lang": "zh-CN",
@@ -53,7 +53,7 @@
 
   "content": {
     "retentionDays": 30,
-    "summaryLength": 120,
+    "summaryLength": 160,
     "fetchTimeoutMs": 8000
   },
 

@@ -4,14 +4,17 @@
 //
 // Reads the list of RSS sources from a Notion database, fetches each feed,
 // deduplicates against previously-seen articles, writes new articles as
-// Markdown content files for Astro, prunes content older than the
-// configured retention window, and writes back per-source status to both
-// Notion and a local JSON file (rendered by /admin/status).
+// Markdown content files for Astro (storing the FULL article body when the
+// feed provides one via <content:encoded> or <content>), prunes content
+// older than the configured retention window, and writes back per-source
+// status to both Notion and a local JSON file (rendered by /admin/status).
 //
 // Design principles (per project requirements):
 //   - Per-source failures are caught and skipped; they never abort the run
 //     or affect other sources / the rest of the site.
-//   - No manual review queue: clean sources in, clean articles out.
+//   - Failed sources are flagged in Notion (Status + Last Error) so a human
+//     can review and remove/replace them - this script never deletes a
+//     source itself.
 //   - All tunables (retention, summary length, timeouts, categories) come
 //     from site.config.json - nothing is hardcoded here.
 // ============================================================================
@@ -27,6 +30,7 @@ import {
   buildSlug,
   shortHash,
   stripHtml,
+  sanitizeHtml,
   truncate,
   extractImage,
   yamlEscape,
@@ -42,10 +46,15 @@ const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
 
 const FETCH_TIMEOUT_MS = siteConfig.content.fetchTimeoutMs ?? 8000;
-const SUMMARY_LENGTH = siteConfig.content.summaryLength ?? 120;
+const SUMMARY_LENGTH = siteConfig.content.summaryLength ?? 160;
 const RETENTION_DAYS = siteConfig.content.retentionDays ?? 30;
 
-const parser = new Parser({ timeout: FETCH_TIMEOUT_MS });
+const parser = new Parser({
+  timeout: FETCH_TIMEOUT_MS,
+  customFields: {
+    item: [['content:encoded', 'contentEncoded']],
+  },
+});
 
 // ----------------------------------------------------------------------
 // Helpers
@@ -73,7 +82,22 @@ function mapCategory(label) {
   return match ? match.id : siteConfig.categories[0].id;
 }
 
-function buildMarkdown({ title, pubDateIso, sourceName, sourceUrl, categoryId, image, description }) {
+// Pick the best available full-content HTML from an RSS/Atom item.
+// Falls back through progressively shorter fields until something usable
+// is found; the card/meta summary is always derived separately from
+// item.contentSnippet so it stays short even when the body is long.
+function pickFullContentHtml(item) {
+  return (
+    item.contentEncoded ||
+    item['content:encoded'] ||
+    item.content ||
+    item.summary ||
+    item.description ||
+    ''
+  );
+}
+
+function buildMarkdown({ title, pubDateIso, sourceName, sourceUrl, categoryId, image, description, bodyHtml }) {
   const lines = [
     '---',
     `title: "${yamlEscape(title)}"`,
@@ -86,7 +110,13 @@ function buildMarkdown({ title, pubDateIso, sourceName, sourceUrl, categoryId, i
     lines.push(`image: "${yamlEscape(image)}"`);
   }
   lines.push(`description: "${yamlEscape(description)}"`);
-  lines.push('---', '', description, '');
+  lines.push('---', '');
+
+  // Body: prefer the sanitized full-content HTML from the feed. Raw HTML in
+  // a .md file is passed through by Astro's markdown renderer, so this
+  // renders as the full article. If a feed has no body beyond its summary,
+  // bodyHtml falls back to the (short) description - never empty.
+  lines.push(bodyHtml || description, '');
   return lines.join('\n');
 }
 
@@ -161,10 +191,13 @@ async function main() {
 
         const title = stripHtml(item.title || '(无标题)');
         const pubDate = item.isoDate || item.pubDate || new Date().toISOString();
-        const rawDescription = item.contentSnippet || item.summary || item.content || '';
+        const rawDescription = item.contentSnippet || item.summary || item.description || '';
         const description = truncate(stripHtml(rawDescription), SUMMARY_LENGTH);
         const image = extractImage(item);
         const slug = buildSlug(link, pubDate);
+
+        const fullHtml = pickFullContentHtml(item);
+        const bodyHtml = sanitizeHtml(fullHtml);
 
         const markdown = buildMarkdown({
           title,
@@ -174,6 +207,7 @@ async function main() {
           categoryId,
           image,
           description: description || title,
+          bodyHtml,
         });
 
         await fs.writeFile(path.join(ARTICLES_DIR, `${slug}.md`), markdown, 'utf-8');
@@ -190,7 +224,10 @@ async function main() {
         lastError: null,
       });
     } catch (err) {
-      // Per-source failure: log, record status, and move on. Never throws.
+      // Per-source failure: log, flag the source in Notion for human review,
+      // and move on. This script never deletes or disables a source itself -
+      // a person reviews "⚠️ Failed" rows in Notion and decides whether to
+      // fix the URL or remove the source.
       console.warn(`  ! ${label} failed: ${err.message}`);
       statusResults.push({ name: label, category: source.category, status: '⚠️ Failed', newItems: 0, error: err.message });
       await updateSourceStatus(NOTION_API_KEY, source.pageId, {

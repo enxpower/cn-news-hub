@@ -17,7 +17,7 @@ export function buildSlug(url, pubDate) {
 }
 
 // Strip HTML tags and collapse whitespace, producing plain text suitable
-// for card excerpts and og:description.
+// for card excerpts, meta descriptions, and og:description.
 export function stripHtml(html = '') {
   return html
     .replace(/<[^>]*>/g, ' ')
@@ -28,6 +28,19 @@ export function stripHtml(html = '') {
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Light sanitization for full-article HTML pulled from <content:encoded>.
+// This is NOT a full sanitizer - feeds are from a curated, trusted list of
+// editorial sources - but it strips the categories of tags that are never
+// appropriate to render inline (scripts, styles, frames, forms, embeds) and
+// neutralizes inline event-handler attributes as defense in depth.
+export function sanitizeHtml(html = '') {
+  return html
+    .replace(/<(script|style|iframe|object|embed|form|noscript)[^>]*>[\s\S]*?<\/\1>/gi, '')
+    .replace(/<(script|style|iframe|object|embed|form|noscript)[^>]*\/?>/gi, '')
+    .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
     .trim();
 }
 
@@ -49,7 +62,7 @@ export function extractImage(item) {
     const url = node?.$?.url || node?.url;
     if (url) return url;
   }
-  const html = item['content:encoded'] || item.content || item.summary || item.description || '';
+  const html = item.contentEncoded || item['content:encoded'] || item.content || item.summary || item.description || '';
   const match = html.match(/<img[^>]+src=["']([^"']+)["']/i);
   if (match) return match[1];
   return undefined;
