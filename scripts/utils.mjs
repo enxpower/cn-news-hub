@@ -74,16 +74,24 @@ export function yamlEscape(value) {
 }
 
 // Run an async function with a hard timeout, throwing on expiry.
-export async function withTimeout(promiseFactory, ms, label) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), ms);
+//
+// IMPORTANT: `fn` is called with NO arguments. Earlier versions passed an
+// AbortSignal through to rss-parser's `parseURL(url, { signal })`, but
+// rss-parser interprets a truthy second argument as a legacy Node-style
+// callback and crashes with "callback is not a function". Timeout is
+// therefore enforced purely via Promise.race here - the underlying request
+// may continue briefly in the background after a timeout, which is an
+// acceptable tradeoff for a script that runs in short-lived CI jobs.
+export async function withTimeout(fn, ms, label) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => {
+      reject(new Error(`timeout after ${ms}ms${label ? ` (${label})` : ''}`));
+    }, ms);
+  });
+
   try {
-    return await promiseFactory(controller.signal);
-  } catch (err) {
-    if (controller.signal.aborted) {
-      throw new Error(`timeout after ${ms}ms${label ? ` (${label})` : ''}`);
-    }
-    throw err;
+    return await Promise.race([fn(), timeout]);
   } finally {
     clearTimeout(timer);
   }
