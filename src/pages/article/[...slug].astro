@@ -74,28 +74,45 @@ function formatDate(date: Date): string {
 
   {image && (
     <script define:vars={{ heroImage: image }}>
-      // The full-article extraction pipeline sometimes picks the article's
-      // first inline image as the og:image/hero (e.g. Caixin articles), so
-      // that same image then appears a second time as the first image in
-      // the body - a visible duplicate. If the body's first <img> has the
-      // same src as the hero, hide that duplicate (and its <figure> wrapper
-      // and caption, if any) rather than showing the same picture twice.
-      function normalize(url) {
+      // 1. Remove tiny icon images (tag icons, social icons, etc.) that slip
+      //    through extraction - identified by suspiciously small natural size
+      //    or by filenames containing icon/logo/tag/avatar keywords.
+      // 2. Remove body images that duplicate the hero: same URL path (ignoring
+      //    query strings and size suffixes like _840_560 vs _1920_1080) so that
+      //    resized variants of the same photo are also caught.
+      function imgPathKey(url) {
         try {
           const u = new URL(url, location.href);
-          u.search = '';
-          u.hash = '';
-          return u.href.replace(/\/$/, '');
+          // Strip numeric size suffixes (e.g. _840_560, _1920x1080, -800x600)
+          // then drop query/hash so we compare the base filename only.
+          return u.pathname.replace(/[_-]\d{2,4}[x_]\d{2,4}/gi, '').toLowerCase();
         } catch {
-          return url;
+          return url.toLowerCase();
         }
       }
 
+      function isIconImage(img) {
+        const src = img.src || '';
+        if (/icon|logo|tag|avatar|sprite|badge/i.test(src)) return true;
+        // If image has loaded and is tiny, it's likely an icon.
+        if (img.complete && img.naturalWidth > 0 && img.naturalWidth < 60) return true;
+        return false;
+      }
+
       const body = document.querySelector('.article__body');
-      const firstImg = body && body.querySelector('img');
-      if (firstImg && normalize(firstImg.src) === normalize(heroImage)) {
-        const figure = firstImg.closest('figure');
-        (figure || firstImg).remove();
+      if (body) {
+        const heroKey = imgPathKey(heroImage);
+        body.querySelectorAll('img').forEach((img) => {
+          if (isIconImage(img)) {
+            const figure = img.closest('figure');
+            (figure || img).remove();
+            return;
+          }
+          if (imgPathKey(img.src) === heroKey) {
+            const figure = img.closest('figure');
+            (figure || img).remove();
+          }
+        });
       }
     </script>
   )}
