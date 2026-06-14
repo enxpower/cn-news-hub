@@ -324,8 +324,23 @@ export function extractMainContent(html) {
     return null; // nothing recognizable - likely a structure change
   }
 
+  // Resolve lazy-loaded images: some sources (e.g. wallstreetcn) set
+  // src="" or omit src entirely and use data-src for the real URL.
+  // Do this before cloning fragments so all downstream code sees real URLs.
+  best.find('img').each((_, img) => {
+    const $img = $(img);
+    const dataSrc = $img.attr('data-src') || $img.attr('data-lazy-src') || $img.attr('data-original');
+    if (dataSrc && (!$img.attr('src') || $img.attr('src') === '')) {
+      $img.attr('src', dataSrc);
+    }
+  });
+
   const parts = [];
-  best.find('p, h2, h3, ul, ol, blockquote').each((_, el) => {
+  // Select direct content blocks. IMPORTANT: use ':not(blockquote p)' to
+  // exclude <p> tags that are children of <blockquote> - without this,
+  // blockquote content is extracted twice: once as part of the <blockquote>
+  // element, and again as individual <p> elements inside it.
+  best.find('p:not(blockquote p):not(blockquote *), h2, h3, ul, ol, blockquote, img').each((_, el) => {
     const $el = $(el);
     const tag = el.tagName?.toLowerCase();
 
@@ -333,7 +348,7 @@ export function extractMainContent(html) {
       if (isLinkOnlyList($, el)) return; // skip "related/most read" widgets
     }
 
-    if (isBoilerplateText($el.text())) return;
+    if (tag !== 'img' && isBoilerplateText($el.text())) return;
 
     const fragment = $el.clone();
     fragment.find('a').each((_, a) => {
@@ -341,7 +356,7 @@ export function extractMainContent(html) {
     });
     const outer = $.html(fragment).trim();
     const textLen = $el.text().replace(/\s+/g, '').length;
-    if (textLen > 0) parts.push(outer);
+    if (tag === 'img' || textLen > 0) parts.push(outer);
   });
 
   if (parts.length === 0) {
