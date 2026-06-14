@@ -85,6 +85,19 @@ const ogImageIsDefault = !image;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={siteConfig.fonts.googleFontsUrl} />
+
+    <!-- Google AdSense: script is always present for site ownership verification
+         and ad serving. Actual ad slots are controlled by site.config.json
+         ads.enabled - when false, no <ins> ad elements are rendered so no
+         ads appear, but the verification script stays in place as required
+         by AdSense. -->
+    {siteConfig.ads.adsenseClientId && siteConfig.ads.adsenseClientId !== 'ca-pub-0000000000000000' && (
+      <script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.ads.adsenseClientId}`}
+        crossorigin="anonymous"
+      ></script>
+    )}
   </head>
   <body>
     <Header currentPath={Astro.url.pathname} />
