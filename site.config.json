@@ -58,9 +58,9 @@
   },
 
   "ads": {
-    "_comment": "Master switch plus per-position switches. All ads use Google AdSense in-feed/in-article native format to match site styling. Leave clientId/slotId empty until AdSense approval.",
+    "_comment": "Master switch plus per-position switches. adsenseClientId is now set - script loads on all pages for ownership verification. Set enabled=true and fill slotIds after AdSense approval.",
     "enabled": false,
-    "adsenseClientId": "ca-pub-0000000000000000",
+    "adsenseClientId": "ca-pub-3331849532184610",
     "positions": {
       "listInFeed": {
         "enabled": false,
