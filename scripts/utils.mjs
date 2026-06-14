@@ -58,7 +58,9 @@ export function sanitizeHtml(html = '') {
     // For <img> tags: promote data-src/data-lazy-src/data-original to src
     // (lazy-load attributes used by many Chinese news sites) then strip all
     // data-* attributes so raw attribute text never leaks into the rendered page.
-    .replace(/<img\b([^>]*)>/gi, (match, attrs) => {
+    // Uses [\s\S]*? instead of [^>]* so multi-line attribute strings (which
+    // occur in some CMS-generated markup) are correctly captured.
+    .replace(/<img\b([\s\S]*?)>/gi, (match, attrs) => {
       // extract the real image URL from data-src variants if src is missing/empty
       const srcMatch = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
       const dataSrcMatch = attrs.match(/\bdata-(?:src|lazy-src|original)\s*=\s*["']([^"']+)["']/i);
