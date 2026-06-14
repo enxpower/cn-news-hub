@@ -55,6 +55,17 @@ export function sanitizeHtml(html = '') {
     // Strip tags whose entire content (including inner HTML) should be removed.
     .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture)[^>]*>[\s\S]*?<\/\1>/gi, '')
     .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture|track)[^>]*\/?>/gi, '')
+    // For <img> tags: promote data-src/data-lazy-src/data-original to src
+    // (lazy-load attributes used by many Chinese news sites) then strip all
+    // data-* attributes so raw attribute text never leaks into the rendered page.
+    .replace(/<img\b([^>]*)>/gi, (match, attrs) => {
+      // extract the real image URL from data-src variants if src is missing/empty
+      const srcMatch = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
+      const dataSrcMatch = attrs.match(/\bdata-(?:src|lazy-src|original)\s*=\s*["']([^"']+)["']/i);
+      const finalSrc = (srcMatch && srcMatch[1]) || (dataSrcMatch && dataSrcMatch[1]) || '';
+      if (!finalSrc) return ''; // no usable src - drop the tag entirely
+      return `<img src="${finalSrc}" alt="" loading="lazy">`;
+    })
     // Strip dangerous attributes.
     .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
     .replace(/\sstyle\s*=\s*("[^"]*"|'[^']*')/gi, '')
@@ -140,9 +151,8 @@ export function extractPageImage(html, pageUrl) {
   const resolved = resolveUrl(og, pageUrl);
   if (resolved) return resolved;
 
-  const firstImg = $('article img, [itemprop="articleBody"] img, .article-body img, main img')
-    .first()
-    .attr('src');
+  const firstImgEl = $('article img, [itemprop="articleBody"] img, .article-body img, main img').first();
+  const firstImg = firstImgEl.attr('src') || firstImgEl.attr('data-src') || firstImgEl.attr('data-lazy-src') || firstImgEl.attr('data-original');
   return resolveUrl(firstImg, pageUrl);
 }
 
