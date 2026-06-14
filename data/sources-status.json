@@ -1,12 +1,11 @@
 {
-  "lastRun": "2026-06-13T23:53:19.701Z",
+  "lastRun": "2026-06-14T00:00:58.801Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 2
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -60,7 +59,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
