@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-15T12:06:50.703Z",
+  "lastRun": "2026-06-15T16:03:57.210Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -33,7 +33,7 @@
       "name": "少数派",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 0
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -59,16 +59,15 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 1
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 5,
-      "error": "正文抓取失败 5/5（页面结构可能已变化，已回退为摘要）"
+      "newItems": 6,
+      "error": "正文抓取失败 6/6（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -108,8 +107,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 20,
-      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
+      "newItems": 9,
+      "error": "正文抓取失败 9/9（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -122,8 +121,8 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 5,
-      "error": "正文抓取失败 5/5（页面结构可能已变化，已回退为摘要）"
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "经济学人商论",
@@ -136,7 +135,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 32
+      "newItems": 25
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -149,19 +148,19 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 11
+      "newItems": 12
     },
     {
       "name": "BBC中文网",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 1
     },
     {
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 13
     }
   ]
 }
