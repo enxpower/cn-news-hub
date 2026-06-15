@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-15T19:25:38.953Z",
+  "lastRun": "2026-06-15T21:06:32.701Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -119,8 +119,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
@@ -133,7 +132,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 8
     },
     {
       "name": "日经中文网(RSSHub)",
