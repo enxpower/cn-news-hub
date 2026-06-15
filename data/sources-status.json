@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-14T22:30:41.994Z",
+  "lastRun": "2026-06-15T01:04:14.325Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -33,7 +33,7 @@
       "name": "少数派",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -60,14 +60,14 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 2,
-      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
+      "newItems": 7,
+      "error": "正文抓取失败 7/7（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -107,7 +107,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 20,
+      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -133,7 +134,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 9
     },
     {
       "name": "日经中文网(RSSHub)",
