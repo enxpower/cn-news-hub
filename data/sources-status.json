@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-16T19:18:57.972Z",
+  "lastRun": "2026-06-16T21:07:25.158Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -60,7 +60,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
@@ -131,8 +131,9 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "✅ OK",
-      "newItems": 2
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
     },
     {
       "name": "日经中文网(RSSHub)",
