@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-16T01:08:44.593Z",
+  "lastRun": "2026-06-16T03:16:00.774Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -33,7 +33,7 @@
       "name": "少数派",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -59,16 +59,15 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 5,
-      "error": "正文抓取失败 5/5（页面结构可能已变化，已回退为摘要）"
+      "newItems": 8,
+      "error": "正文抓取失败 8/8（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -135,7 +134,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 19
     },
     {
       "name": "日经中文网(RSSHub)",
