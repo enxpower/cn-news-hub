@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-16T21:07:25.158Z",
+  "lastRun": "2026-06-16T22:42:17.136Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -131,9 +131,8 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
+      "status": "✅ OK",
+      "newItems": 7
     },
     {
       "name": "日经中文网(RSSHub)",
