@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-16T15:47:40.689Z",
+  "lastRun": "2026-06-16T17:47:04.504Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -59,15 +59,15 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "月光博客",
@@ -120,7 +120,8 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 4,
+      "error": "正文抓取失败 4/4（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "经济学人商论",
@@ -133,7 +134,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 23
+      "newItems": 4
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -146,7 +147,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 8
     },
     {
       "name": "BBC中文网",
