@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-16T13:57:30.965Z",
+  "lastRun": "2026-06-16T15:47:40.689Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -107,8 +107,7 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 13,
-      "error": "正文抓取失败 13/13（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -121,8 +120,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
@@ -134,9 +132,8 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
+      "status": "✅ OK",
+      "newItems": 23
     },
     {
       "name": "日经中文网(RSSHub)",
