@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-19T11:37:08.316Z",
+  "lastRun": "2026-06-19T13:18:45.017Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
@@ -33,7 +33,7 @@
       "name": "少数派",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -66,8 +66,8 @@
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -120,7 +120,8 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "经济学人商论",
@@ -133,7 +134,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 10
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -152,7 +153,7 @@
       "name": "BBC中文网",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 0
     },
     {
       "name": "RFA自由亚洲",
