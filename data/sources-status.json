@@ -1,11 +1,12 @@
 {
-  "lastRun": "2026-06-20T10:53:06.268Z",
+  "lastRun": "2026-06-20T12:43:56.421Z",
   "sources": [
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "✅ OK",
-      "newItems": 24
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -58,16 +59,15 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 4,
-      "error": "正文抓取失败 4/4（页面结构可能已变化，已回退为摘要）"
+      "newItems": 2,
+      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -107,8 +107,7 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 2,
-      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -148,7 +147,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 7
     },
     {
       "name": "BBC中文网",
