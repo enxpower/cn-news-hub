@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-21T20:37:31.800Z",
+  "lastRun": "2026-06-21T22:30:39.304Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 1
     },
     {
       "name": "联合早报 - 官方RSS候选",
