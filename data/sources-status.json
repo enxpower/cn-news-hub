@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-23T16:56:01.792Z",
+  "lastRun": "2026-06-23T18:49:53.354Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 0
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -52,21 +52,21 @@
       "category": "财经",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (FT中文网 - 每日更新(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "纽约时报中文网(RSSHub)",
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (纽约时报中文网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "BBC中文网 - 国际(RSSHub)",
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (BBC中文网 - 国际(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "少数派",
@@ -79,34 +79,34 @@
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (加拿大中文电台(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "洛杉矶华人资讯网(RSSHub)",
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (洛杉矶华人资讯网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "华尔街日报中文网 - 国际",
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (华尔街日报中文网 - 国际)"
+      "error": "Status code 503"
     },
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (财新网 - 首页资讯)"
+      "status": "✅ OK",
+      "newItems": 7,
+      "error": "正文抓取失败 7/7（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -120,49 +120,47 @@
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (德国之声DW - 国际时事(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "端传媒 - 评论(RSSHub)",
       "category": "评论时事",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (端传媒 - 评论(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 16
     },
     {
       "name": "天下杂志 - 独立评论(RSSHub)",
       "category": "评论时事",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (天下杂志 - 独立评论(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "西雅图中文网(RSSHub)",
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (西雅图中文网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "36氪 - 科技创新",
       "category": "科技",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (36氪 - 科技创新)"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
       "category": "评论时事",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (风传媒 - 观点(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "经济学人商论",
@@ -174,16 +172,15 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
+      "status": "✅ OK",
+      "newItems": 23
     },
     {
       "name": "日经中文网(RSSHub)",
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (日经中文网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "德国之声中文网 (DW)",
