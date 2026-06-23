@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-23T05:27:22.061Z",
+  "lastRun": "2026-06-23T07:23:52.849Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -31,7 +31,7 @@
       "name": "BBC中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 2
     },
     {
       "name": "SBS中文 - 官方RSS",
@@ -71,8 +71,9 @@
     {
       "name": "少数派",
       "category": "科技",
-      "status": "✅ OK",
-      "newItems": 1
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (少数派)"
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -106,8 +107,8 @@
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 5,
-      "error": "正文抓取失败 5/5（页面结构可能已变化，已回退为摘要）"
+      "newItems": 6,
+      "error": "正文抓取失败 6/6（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -161,8 +162,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
@@ -174,16 +174,15 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
+      "status": "✅ OK",
+      "newItems": 18
     },
     {
       "name": "日经中文网(RSSHub)",
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (日经中文网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "德国之声中文网 (DW)",
@@ -194,8 +193,9 @@
     {
       "name": "BBC中文网",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (BBC中文网)"
     },
     {
       "name": "RFA自由亚洲",
