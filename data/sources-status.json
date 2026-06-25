@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-25T07:20:26.562Z",
+  "lastRun": "2026-06-25T09:13:42.453Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -31,7 +31,7 @@
       "name": "BBC中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 2
     },
     {
       "name": "SBS中文 - 官方RSS",
@@ -79,7 +79,7 @@
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 503"
+      "error": "timeout after 8000ms (加拿大中文电台(RSSHub))"
     },
     {
       "name": "洛杉矶华人资讯网(RSSHub)",
@@ -105,9 +105,9 @@
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
-      "status": "✅ OK",
-      "newItems": 6,
-      "error": "正文抓取失败 6/6（页面结构可能已变化，已回退为摘要）"
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (财新网 - 首页资讯)"
     },
     {
       "name": "月光博客",
@@ -147,8 +147,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 17,
-      "error": "正文抓取失败 17/17（页面结构可能已变化，已回退为摘要）"
+      "newItems": 20,
+      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -161,8 +161,8 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 2,
-      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
+      "newItems": 3,
+      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "经济学人商论",
@@ -175,7 +175,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 18
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -200,7 +200,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 11
     }
   ]
 }
