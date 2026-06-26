@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-26T09:13:11.431Z",
+  "lastRun": "2026-06-26T11:05:47.641Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 4
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -71,8 +71,9 @@
     {
       "name": "少数派",
       "category": "科技",
-      "status": "✅ OK",
-      "newItems": 1
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (少数派)"
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -105,9 +106,9 @@
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (财新网 - 首页资讯)"
+      "status": "✅ OK",
+      "newItems": 10,
+      "error": "正文抓取失败 10/10（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -161,8 +162,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
