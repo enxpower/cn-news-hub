@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-26T03:14:56.110Z",
+  "lastRun": "2026-06-26T05:31:46.072Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 4
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -31,7 +31,7 @@
       "name": "BBC中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 4
     },
     {
       "name": "SBS中文 - 官方RSS",
@@ -72,8 +72,7 @@
       "name": "少数派",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 1
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -99,15 +98,16 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 7
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 6,
-      "error": "正文抓取失败 6/6（页面结构可能已变化，已回退为摘要）"
+      "newItems": 3,
+      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -147,8 +147,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 20,
-      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
+      "newItems": 19,
+      "error": "正文抓取失败 19/19（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -173,8 +173,9 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "✅ OK",
-      "newItems": 8
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
     },
     {
       "name": "日经中文网(RSSHub)",
