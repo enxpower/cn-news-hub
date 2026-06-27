@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-26T22:31:17.268Z",
+  "lastRun": "2026-06-27T00:54:02.820Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 1
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -31,7 +31,7 @@
       "name": "BBC中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 2
     },
     {
       "name": "SBS中文 - 官方RSS",
@@ -99,13 +99,14 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 5,
+      "error": "正文抓取失败 5/5（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -171,7 +172,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 9
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -184,7 +185,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 9
+      "newItems": 8
     },
     {
       "name": "BBC中文网",
