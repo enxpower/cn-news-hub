@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-28T05:35:58.800Z",
+  "lastRun": "2026-06-28T07:28:05.189Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -146,8 +146,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 8,
-      "error": "正文抓取失败 8/8（页面结构可能已变化，已回退为摘要）"
+      "newItems": 4,
+      "error": "正文抓取失败 4/4（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -173,7 +173,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 6
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -186,7 +186,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 9
     },
     {
       "name": "BBC中文网",
