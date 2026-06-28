@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-28T03:15:09.814Z",
+  "lastRun": "2026-06-28T05:35:58.800Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -71,9 +71,8 @@
     {
       "name": "少数派",
       "category": "科技",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (少数派)"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -106,8 +105,8 @@
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 2,
+      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -147,8 +146,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 10,
-      "error": "正文抓取失败 10/10（页面结构可能已变化，已回退为摘要）"
+      "newItems": 8,
+      "error": "正文抓取失败 8/8（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -174,7 +173,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 9
+      "newItems": 3
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -193,7 +192,7 @@
       "name": "BBC中文网",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "RFA自由亚洲",
