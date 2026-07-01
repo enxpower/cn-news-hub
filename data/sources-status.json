@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-01T13:03:43.008Z",
+  "lastRun": "2026-07-01T15:04:45.714Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 6
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -31,7 +31,7 @@
       "name": "BBC中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 1
     },
     {
       "name": "SBS中文 - 官方RSS",
@@ -147,8 +147,7 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 17,
-      "error": "正文抓取失败 17/17（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -175,7 +174,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 17
+      "newItems": 8
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -188,7 +187,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 11
+      "newItems": 9
     },
     {
       "name": "BBC中文网",
@@ -200,7 +199,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 5
     }
   ]
 }
