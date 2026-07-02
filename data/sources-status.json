@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-02T03:52:25.707Z",
+  "lastRun": "2026-07-02T04:02:04.903Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -44,7 +44,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -145,7 +145,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
