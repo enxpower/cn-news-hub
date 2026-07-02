@@ -8,9 +8,9 @@
 #
 # Domain configuration - NO code changes needed to switch domains:
 #   1. GitHub: Settings -> Pages -> Custom domain  (e.g. newdomain.com)
-#   2. GoDaddy: update DNS A records and add new CNAME if needed
-#   That's it. This workflow reads public/CNAME at build time and derives
-#   SITE_URL automatically. public/CNAME is maintained by GitHub Pages.
+#   2. GoDaddy: update DNS records as needed
+#   This workflow reads public/CNAME at build time and derives SITE_URL
+#   automatically. public/CNAME is maintained by GitHub Pages.
 # ============================================================================
 
 name: Fetch news and deploy
@@ -38,6 +38,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Fetch full history so git pull --rebase works correctly
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -63,6 +66,9 @@ jobs:
           if git diff --cached --quiet; then
             echo "No content changes to commit."
           else
+            # Pull with rebase before pushing to avoid concurrent-push conflicts
+            # when multiple workflow runs overlap (e.g. scheduled + push-triggered).
+            git pull --rebase origin main
             git commit -m "chore: auto-update news content and lockfile [skip ci]"
             git push
           fi
@@ -70,10 +76,6 @@ jobs:
       - name: Derive SITE_URL from public/CNAME
         id: site_url
         run: |
-          # Read the custom domain from public/CNAME which is maintained by
-          # GitHub Pages (Settings -> Pages -> Custom domain). This is the
-          # single source of truth for the domain - no repository variables
-          # or hardcoded values in any source file.
           CNAME=$(cat public/CNAME | tr -d '[:space:]')
           echo "SITE_URL=https://${CNAME}" >> $GITHUB_OUTPUT
           echo "Derived SITE_URL: https://${CNAME}"
