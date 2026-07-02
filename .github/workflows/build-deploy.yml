@@ -7,6 +7,15 @@
 #                           access to the "News Sources" database)
 #   NOTION_DATABASE_ID   - The "News Sources" database ID
 #
+# Required repository variable (Settings -> Secrets and variables -> Actions
+#   -> Variables tab):
+#   SITE_URL             - The canonical site URL, e.g. https://example.com
+#                          This is the ONLY place the domain is configured.
+#                          Changing it here + updating public/CNAME and the
+#                          GitHub Pages custom domain setting is all that is
+#                          needed to move the site to a new domain - no code
+#                          changes required.
+#
 # Required one-time setup (Settings -> Pages):
 #   Source: "GitHub Actions"
 #
@@ -84,6 +93,12 @@ jobs:
           fi
 
       - name: Build site
+        env:
+          # SITE_URL is set as a repository variable in GitHub:
+          # Settings -> Secrets and variables -> Actions -> Variables
+          # This is the single source of truth for the domain - no code
+          # changes are needed when switching to a new domain.
+          SITE_URL: ${{ vars.SITE_URL }}
         run: npm run build
 
       - name: Upload Pages artifact
