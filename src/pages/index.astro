@@ -9,9 +9,38 @@ const all = await getAllArticlesSorted();
 const page = 1;
 const entries = paginate(all, page);
 const totalPages = totalPagesFor(all.length);
+
+const siteOrigin = import.meta.env.SITE_URL || siteConfig.site.url;
+
+// WebSite JSON-LD: enables Google Sitelinks Search Box and signals
+// authoritative site identity to search engines and AI indexers.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteConfig.site.name,
+  description: siteConfig.site.description,
+  url: siteOrigin,
+  inLanguage: siteConfig.site.lang,
+  publisher: {
+    '@type': 'Organization',
+    name: siteConfig.site.name,
+    url: siteOrigin,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('logo.svg', siteOrigin).toString(),
+    },
+  },
+};
+
+const nextUrl = totalPages > 1 ? `${siteOrigin}/page/2/` : undefined;
 ---
 
-<BaseLayout title={siteConfig.site.name} description={siteConfig.site.description}>
+<BaseLayout
+  title={siteConfig.site.name}
+  description={siteConfig.site.description}
+  jsonLd={jsonLd}
+  nextUrl={nextUrl}
+>
   <NewsList
     heading="滚动新闻"
     headingMeta={`共 ${all.length} 篇`}
