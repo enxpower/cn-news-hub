@@ -13,6 +13,7 @@
     "fetch-news": "node scripts/fetch-news.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^4.16.0",
     "cheerio": "^1.0.0",
