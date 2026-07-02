@@ -1,6 +1,4 @@
 ---
-// Article detail page. Large hero image, clear source attribution
-// (required for RSS reproduction), and full body content.
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSlot from '../../components/AdSlot.astro';
@@ -24,6 +22,20 @@ const categoryLabel = siteConfig.categories.find((c) => c.id === category)?.labe
 function formatDate(date: Date): string {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 }
+
+// P1 FIX: validate sourceUrl protocol before rendering as an href.
+// RSS feeds are external and untrusted; a malicious or misconfigured source
+// could return a javascript: URL which would execute script when clicked.
+// Only http/https URLs are allowed through; anything else falls back to '#'.
+function safeSourceUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? url : '#';
+  } catch {
+    return '#';
+  }
+}
+const safeUrl = safeSourceUrl(sourceUrl);
 ---
 
 <BaseLayout title={title} description={description} image={image} type="article" articleSlug={entry.slug}>
@@ -47,7 +59,9 @@ function formatDate(date: Date): string {
 
     <div class="source-box">
       <span>来源：{sourceName}</span>
-      <a href={sourceUrl} target="_blank" rel="noopener noreferrer nofollow" class="source-box__link">查看原文</a>
+      {safeUrl !== '#' && (
+        <a href={safeUrl} target="_blank" rel="noopener noreferrer nofollow" class="source-box__link">查看原文</a>
+      )}
     </div>
 
     <div class="article__body">
@@ -56,14 +70,6 @@ function formatDate(date: Date): string {
 
     <div class="article__footer">
       <AdSlot position="articleBottom" />
-      {/*
-        Always go back to wherever the reader came from (history.back),
-        preserving their exact scroll position and page number. The href
-        is a fallback only for when the article was opened directly with
-        no browsing history (e.g. shared link opened in a new tab).
-        Label is generic "返回上一页" so it's always accurate regardless
-        of which section the reader arrived from.
-      */}
       <a
         class="back-link"
         href={`${base}category/${category}/`}
@@ -74,17 +80,9 @@ function formatDate(date: Date): string {
 
   {image && (
     <script define:vars={{ heroImage: image }}>
-      // 1. Remove tiny icon images (tag icons, social icons, etc.) that slip
-      //    through extraction - identified by suspiciously small natural size
-      //    or by filenames containing icon/logo/tag/avatar keywords.
-      // 2. Remove body images that duplicate the hero: same URL path (ignoring
-      //    query strings and size suffixes like _840_560 vs _1920_1080) so that
-      //    resized variants of the same photo are also caught.
       function imgPathKey(url) {
         try {
           const u = new URL(url, location.href);
-          // Strip numeric size suffixes (e.g. _840_560, _1920x1080, -800x600)
-          // then drop query/hash so we compare the base filename only.
           return u.pathname.replace(/[_-]\d{2,4}[x_]\d{2,4}/gi, '').toLowerCase();
         } catch {
           return url.toLowerCase();
@@ -94,7 +92,6 @@ function formatDate(date: Date): string {
       function isIconImage(img) {
         const src = img.src || '';
         if (/icon|logo|tag|avatar|sprite|badge/i.test(src)) return true;
-        // If image has loaded and is tiny, it's likely an icon.
         if (img.complete && img.naturalWidth > 0 && img.naturalWidth < 60) return true;
         return false;
       }
@@ -103,15 +100,8 @@ function formatDate(date: Date): string {
       if (body) {
         const heroKey = imgPathKey(heroImage);
         body.querySelectorAll('img').forEach((img) => {
-          if (isIconImage(img)) {
-            const figure = img.closest('figure');
-            (figure || img).remove();
-            return;
-          }
-          if (imgPathKey(img.src) === heroKey) {
-            const figure = img.closest('figure');
-            (figure || img).remove();
-          }
+          if (isIconImage(img)) { (img.closest('figure') || img).remove(); return; }
+          if (imgPathKey(img.src) === heroKey) (img.closest('figure') || img).remove();
         });
       }
     </script>
