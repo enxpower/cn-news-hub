@@ -39,7 +39,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Fetch full history so git pull --rebase works correctly
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -66,9 +65,15 @@ jobs:
           if git diff --cached --quiet; then
             echo "No content changes to commit."
           else
-            # Pull with rebase before pushing to avoid concurrent-push conflicts
-            # when multiple workflow runs overlap (e.g. scheduled + push-triggered).
+            # Stash any uncommitted changes in the working tree (e.g. changes
+            # to package-lock.json from npm install that weren't staged) before
+            # pulling, then restore them afterward. This prevents the
+            # "cannot pull with rebase: Your index contains uncommitted changes"
+            # error that occurs when concurrent workflow runs push to the same
+            # branch and a pull is needed before we can push.
+            git stash --include-untracked || true
             git pull --rebase origin main
+            git stash pop || true
             git commit -m "chore: auto-update news content and lockfile [skip ci]"
             git push
           fi
