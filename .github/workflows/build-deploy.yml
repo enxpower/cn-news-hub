@@ -3,45 +3,20 @@
 # deploy it to GitHub Pages.
 #
 # Required repository secrets (Settings -> Secrets and variables -> Actions):
-#   NOTION_API_KEY       - Notion internal integration token (read + update
-#                           access to the "News Sources" database)
+#   NOTION_API_KEY       - Notion internal integration token
 #   NOTION_DATABASE_ID   - The "News Sources" database ID
 #
-# Required repository variable (Settings -> Secrets and variables -> Actions
-#   -> Variables tab):
-#   SITE_URL             - The canonical site URL, e.g. https://example.com
-#                          This is the ONLY place the domain is configured.
-#                          Changing it here + updating public/CNAME and the
-#                          GitHub Pages custom domain setting is all that is
-#                          needed to move the site to a new domain - no code
-#                          changes required.
-#
-# Required one-time setup (Settings -> Pages):
-#   Source: "GitHub Actions"
-#
-# Dependency reproducibility:
-#   package-lock.json starts as a minimal placeholder. The first run here
-#   regenerates it via `npm install` and the auto-commit step writes the
-#   full, version-locked file back to the repo. From then on, npm's cache
-#   (keyed on this file) and `npm ci` produce deterministic installs.
-#
-# Cost note: this is a public repository, so GitHub Actions minutes are
-# unlimited/free regardless of run duration. timeout-minutes below exists
-# purely so a future hang fails fast and frees the runner, not for billing.
-#
-# Commit step: plain `git add -A -- <paths>` + commit + push, run directly
-# (not via a third-party action). A prior version used
-# stefanzweifel/git-auto-commit-action, which committed deletions and
-# modifications to already-tracked files but silently failed to stage
-# newly-created article Markdown files - new articles never made it into the
-# build. `git add -A` unambiguously stages new, modified, and deleted files.
+# Domain configuration - NO code changes needed to switch domains:
+#   1. GitHub: Settings -> Pages -> Custom domain  (e.g. newdomain.com)
+#   2. GoDaddy: update DNS A records and add new CNAME if needed
+#   That's it. This workflow reads public/CNAME at build time and derives
+#   SITE_URL automatically. public/CNAME is maintained by GitHub Pages.
 # ============================================================================
 
 name: Fetch news and deploy
 
 on:
   schedule:
-    # Every 2 hours
     - cron: '0 */2 * * *'
   workflow_dispatch: {}
   push:
@@ -92,13 +67,20 @@ jobs:
             git push
           fi
 
+      - name: Derive SITE_URL from public/CNAME
+        id: site_url
+        run: |
+          # Read the custom domain from public/CNAME which is maintained by
+          # GitHub Pages (Settings -> Pages -> Custom domain). This is the
+          # single source of truth for the domain - no repository variables
+          # or hardcoded values in any source file.
+          CNAME=$(cat public/CNAME | tr -d '[:space:]')
+          echo "SITE_URL=https://${CNAME}" >> $GITHUB_OUTPUT
+          echo "Derived SITE_URL: https://${CNAME}"
+
       - name: Build site
         env:
-          # SITE_URL is set as a repository variable in GitHub:
-          # Settings -> Secrets and variables -> Actions -> Variables
-          # This is the single source of truth for the domain - no code
-          # changes are needed when switching to a new domain.
-          SITE_URL: ${{ vars.SITE_URL }}
+          SITE_URL: ${{ steps.site_url.outputs.SITE_URL }}
         run: npm run build
 
       - name: Upload Pages artifact
