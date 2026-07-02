@@ -1,7 +1,6 @@
 ---
 // Root layout: HTML shell, theme variables, fonts, SEO/OG meta tags,
-// header, footer, and global behavior scripts (read-state tracking,
-// right-click / swipe-gesture protection).
+// header, footer, and global behavior scripts.
 import siteConfig from '../../site.config.json';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -13,6 +12,13 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   articleSlug?: string;
+  // Pagination SEO: pass these on list pages to emit <link rel="prev/next">
+  prevUrl?: string;
+  nextUrl?: string;
+  // Pass true on pages that should not be indexed (e.g. /admin/)
+  noindex?: boolean;
+  // JSON-LD structured data blob (serialised by caller)
+  jsonLd?: object;
 }
 
 const {
@@ -21,17 +27,18 @@ const {
   image,
   type = 'website',
   articleSlug,
+  prevUrl,
+  nextUrl,
+  noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
 const pageTitle = title === siteConfig.site.name ? title : `${title} - ${siteConfig.site.name}`;
 
-// P1 FIX: derive the canonical site origin at build time.
-// site.config.json intentionally stores a placeholder ("https://placeholder.invalid")
-// because the real domain is injected via the SITE_URL environment variable
-// in the GitHub Actions workflow (read from public/CNAME). At build time
-// SITE_URL is always set to the real domain, so this fallback only ever
-// applies to local `astro build` runs without SITE_URL set.
+// Derive the canonical site origin from the SITE_URL env var injected at
+// build time by the GitHub Actions workflow (read from public/CNAME).
+// Falls back to site.config.json only for local builds without SITE_URL.
 const siteOrigin = import.meta.env.SITE_URL || siteConfig.site.url;
 const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
 
@@ -62,6 +69,13 @@ const ogImageIsDefault = !image;
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Indexing control -->
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Pagination discovery for search engines -->
+    {prevUrl && <link rel="prev" href={prevUrl} />}
+    {nextUrl && <link rel="next" href={nextUrl} />}
+
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
 
@@ -77,15 +91,18 @@ const ogImageIsDefault = !image;
     <meta property="og:locale" content={siteConfig.site.locale} />
     <meta property="og:site_name" content={siteConfig.site.name} />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts: preconnect first, then preload the stylesheet so the
-         browser can discover and fetch the font files earlier, reducing
-         the first-contentful-paint FOUT on Chinese text. -->
+    <!-- JSON-LD structured data (NewsArticle, WebSite, etc.) -->
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href={siteConfig.fonts.googleFontsUrl} as="style" />
