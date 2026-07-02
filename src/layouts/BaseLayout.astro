@@ -12,7 +12,6 @@ interface Props {
   description?: string;
   image?: string;
   type?: 'website' | 'article';
-  // If set, this article slug is recorded as "read" on page load
   articleSlug?: string;
 }
 
@@ -26,16 +25,19 @@ const {
 
 const base = import.meta.env.BASE_URL;
 const pageTitle = title === siteConfig.site.name ? title : `${title} - ${siteConfig.site.name}`;
-const canonicalURL = new URL(Astro.url.pathname, siteConfig.site.url);
 
-// Per-article images come from external sources (variable size/format).
-// The site-wide fallback is our own 1200x630 SVG, for which we know the
-// exact type and dimensions - providing these to og:image:type/width/height
-// helps link-preview clients (iMessage, Slack, etc.) render a large card
-// reliably instead of falling back to a generic favicon-sized icon.
+// P1 FIX: derive the canonical site origin at build time.
+// site.config.json intentionally stores a placeholder ("https://placeholder.invalid")
+// because the real domain is injected via the SITE_URL environment variable
+// in the GitHub Actions workflow (read from public/CNAME). At build time
+// SITE_URL is always set to the real domain, so this fallback only ever
+// applies to local `astro build` runs without SITE_URL set.
+const siteOrigin = import.meta.env.SITE_URL || siteConfig.site.url;
+const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
+
 const ogImage = image
   ? image
-  : new URL(`${base}${siteConfig.branding.ogDefaultImage.replace(/^\//, '')}`, siteConfig.site.url).toString();
+  : new URL(`${base}${siteConfig.branding.ogDefaultImage.replace(/^\//, '')}`, siteOrigin).toString();
 const ogImageIsDefault = !image;
 ---
 
@@ -81,16 +83,16 @@ const ogImageIsDefault = !image;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts -->
+    <!-- Fonts: preconnect first, then preload the stylesheet so the
+         browser can discover and fetch the font files earlier, reducing
+         the first-contentful-paint FOUT on Chinese text. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href={siteConfig.fonts.googleFontsUrl} as="style" />
     <link rel="stylesheet" href={siteConfig.fonts.googleFontsUrl} />
 
-    <!-- Google AdSense: script is always present for site ownership verification
-         and ad serving. Actual ad slots are controlled by site.config.json
-         ads.enabled - when false, no <ins> ad elements are rendered so no
-         ads appear, but the verification script stays in place as required
-         by AdSense. -->
+    <!-- Google AdSense: always present for ownership verification.
+         Actual ad slots are gated by ads.enabled in site.config.json. -->
     {siteConfig.ads.adsenseClientId && siteConfig.ads.adsenseClientId !== 'ca-pub-0000000000000000' && (
       <script
         async
@@ -107,11 +109,6 @@ const ogImageIsDefault = !image;
     <Footer />
 
     <script define:vars={{ articleSlug }}>
-      // ----------------------------------------------------------------
-      // Global behavior: disable context menu (basic copy protection),
-      // and track "read" articles in localStorage so visited cards
-      // de-emphasize on return to list pages.
-      // ----------------------------------------------------------------
       document.addEventListener('contextmenu', (e) => e.preventDefault());
 
       const READ_KEY = 'cn-news-hub:read';
@@ -128,25 +125,19 @@ const ogImageIsDefault = !image;
       function saveReadSet(set) {
         try {
           localStorage.setItem(READ_KEY, JSON.stringify(Array.from(set)));
-        } catch {
-          /* localStorage unavailable - degrade silently */
-        }
+        } catch { /* localStorage unavailable - degrade silently */ }
       }
 
-      // If this is an article page, mark it as read immediately.
       if (articleSlug) {
         const readSet = getReadSet();
         readSet.add(articleSlug);
         saveReadSet(readSet);
       }
 
-      // On any page, mark already-read cards.
       const readSet = getReadSet();
       document.querySelectorAll('[data-slug]').forEach((card) => {
         const slug = card.getAttribute('data-slug');
-        if (slug && readSet.has(slug)) {
-          card.classList.add('is-read');
-        }
+        if (slug && readSet.has(slug)) card.classList.add('is-read');
       });
     </script>
   </body>
