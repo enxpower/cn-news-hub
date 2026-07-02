@@ -17,16 +17,14 @@ const { title, pubDate, sourceName, sourceUrl, category, image, description } = 
 const { Content } = await render(entry);
 
 const base = import.meta.env.BASE_URL;
+const siteOrigin = import.meta.env.SITE_URL || siteConfig.site.url;
 const categoryLabel = siteConfig.categories.find((c) => c.id === category)?.label ?? category;
 
 function formatDate(date: Date): string {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 }
 
-// P1 FIX: validate sourceUrl protocol before rendering as an href.
-// RSS feeds are external and untrusted; a malicious or misconfigured source
-// could return a javascript: URL which would execute script when clicked.
-// Only http/https URLs are allowed through; anything else falls back to '#'.
+// Validate sourceUrl protocol - block javascript: XSS from untrusted feeds
 function safeSourceUrl(url: string): string {
   try {
     const parsed = new URL(url);
@@ -36,9 +34,52 @@ function safeSourceUrl(url: string): string {
   }
 }
 const safeUrl = safeSourceUrl(sourceUrl);
+const canonicalUrl = new URL(`${base}article/${entry.slug}/`, siteOrigin).toString();
+
+// JSON-LD: NewsArticle schema
+// Helps Google News, AI search engines (Perplexity, ChatGPT browsing, etc.)
+// understand article metadata and increases eligibility for rich results.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: title,
+  description,
+  url: canonicalUrl,
+  datePublished: pubDate.toISOString(),
+  dateModified: pubDate.toISOString(),
+  image: image ? [image] : undefined,
+  author: {
+    '@type': 'Organization',
+    name: sourceName,
+    url: safeUrl !== '#' ? safeUrl : undefined,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: siteConfig.site.name,
+    url: siteOrigin,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('logo.svg', siteOrigin).toString(),
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+  inLanguage: siteConfig.site.lang,
+  articleSection: categoryLabel,
+  isAccessibleForFree: true,
+};
 ---
 
-<BaseLayout title={title} description={description} image={image} type="article" articleSlug={entry.slug}>
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  articleSlug={entry.slug}
+  jsonLd={jsonLd}
+>
   <p class="article__breadcrumb">
     <a href={base}>{siteConfig.site.shortName}</a> &gt;
     <a href={`${base}category/${category}/`}>{categoryLabel}</a>
@@ -53,7 +94,7 @@ const safeUrl = safeSourceUrl(sourceUrl);
 
     {image && (
       <div class="article__hero">
-        <img src={image} alt="" width="1200" height="675" onerror="this.closest('.article__hero').remove()" />
+        <img src={image} alt={title} width="1200" height="675" onerror="this.closest('.article__hero').remove()" />
       </div>
     )}
 
