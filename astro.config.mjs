@@ -1,17 +1,10 @@
-// Astro configuration.
-// Site URL and base path are sourced from site.config.json so the deployment
-// target (custom domain vs. GitHub Pages project path) is configured in one
-// place only - no hardcoded URLs in the codebase.
-//
-// SITE_URL environment variable overrides site.config.json at build time,
-// so switching domains requires no code change:
-//   SITE_URL=https://example.com npm run build
-// In CI (GitHub Actions) this can be set as a repository variable
-// (Settings -> Variables) and passed in as an env var in the workflow,
-// making the domain fully configurable without touching any source file.
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import siteConfig from './site.config.json' with { type: 'json' };
 
+// SITE_URL is injected at build time by the GitHub Actions workflow,
+// derived from public/CNAME. It is the single source of truth for the
+// domain - no hardcoded values in any source file.
 const siteUrl = process.env.SITE_URL || siteConfig.site.url;
 
 export default defineConfig({
@@ -21,4 +14,14 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  integrations: [
+    sitemap({
+      // Exclude admin/backend pages from the sitemap so search engines
+      // and AI crawlers don't waste crawl budget on non-public pages.
+      filter: (page) => !page.includes('/admin/'),
+      changefreq: 'hourly',
+      priority: 0.7,
+      lastmod: new Date(),
+    }),
+  ],
 });
