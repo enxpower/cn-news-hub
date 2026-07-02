@@ -5,6 +5,21 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import statusData from '../../../data/sources-status.json';
 
+interface SourceStatus {
+  name: string;
+  category: string;
+  status: string;
+  newItems: number;
+  error?: string;
+}
+
+interface StatusData {
+  lastRun?: string;
+  sources: SourceStatus[];
+}
+
+const typed = statusData as StatusData;
+
 const pillClass: Record<string, string> = {
   '✅ OK': 'status-pill--ok',
   '⚠️ Failed': 'status-pill--failed',
@@ -17,11 +32,11 @@ const pillClass: Record<string, string> = {
   <div class="section-heading">
     <h1>源站抓取状态</h1>
     <span class="section-heading__meta">
-      上次运行：{statusData.lastRun ?? '尚未运行'}
+      上次运行：{typed.lastRun ?? '尚未运行'}
     </span>
   </div>
 
-  {statusData.sources.length === 0 ? (
+  {typed.sources.length === 0 ? (
     <div class="empty-state">
       <p>抓取任务尚未运行，暂无状态数据。</p>
     </div>
@@ -37,7 +52,7 @@ const pillClass: Record<string, string> = {
         </tr>
       </thead>
       <tbody>
-        {statusData.sources.map((s: any) => (
+        {typed.sources.map((s) => (
           <tr>
             <td>{s.name}</td>
             <td>{s.category}</td>
