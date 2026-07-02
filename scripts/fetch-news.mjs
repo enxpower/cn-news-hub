@@ -70,20 +70,9 @@ const FETCH_TIMEOUT_MS = siteConfig.content.fetchTimeoutMs ?? 8000;
 const SUMMARY_LENGTH = siteConfig.content.summaryLength ?? 160;
 const RETENTION_DAYS = siteConfig.content.retentionDays ?? 30;
 
-// Per-article full-page fetch timeout. Kept short so a handful of slow
-// sites can't blow the overall job's time budget.
 const PAGE_FETCH_TIMEOUT_MS = 7000;
-
-// Cap on how many new articles per source get a full-page fetch attempt in
-// a single run. Bounds total run time when a feed has a large backlog (e.g.
-// the first run after a reset); the rest are published with the RSS
-// summary and will simply not have full text/image for this run.
 const MAX_FULL_FETCH_PER_SOURCE = 25;
 
-// NOTE: do NOT pass { timeout } or a signal into individual parseURL calls -
-// rss-parser's parseURL(url, opts) treats a truthy second argument as a
-// legacy callback and crashes. Per-feed timeouts are instead enforced by
-// wrapping each parseURL call in withTimeout() (see utils.mjs).
 const parser = new Parser({
   customFields: {
     item: [['content:encoded', 'contentEncoded']],
@@ -104,16 +93,20 @@ async function readJson(file, fallback) {
 }
 
 async function writeJson(file, data) {
-  await fs.writeFile(file, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+  // Write to a sibling temp file first, then atomically rename into place.
+  // This prevents a corrupt/truncated JSON file if the process is killed or
+  // runs out of memory mid-write - the rename is atomic on POSIX systems so
+  // readers always see either the old complete file or the new complete file.
+  const tmp = `${file}.tmp`;
+  await fs.writeFile(tmp, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
+  await fs.rename(tmp, file);
 }
 
-// One-time reset: if data/RESET_ARTICLES exists, wipe all article Markdown
-// files and remove the flag. Keeps .gitkeep so the directory stays tracked.
 async function maybeResetArticles() {
   try {
     await fs.access(RESET_FLAG_FILE);
   } catch {
-    return; // flag not present - normal run
+    return;
   }
 
   console.log('RESET_ARTICLES flag found - wiping src/content/articles/ ...');
@@ -128,18 +121,11 @@ async function maybeResetArticles() {
   console.log(`  -> removed ${removed} article(s), reset flag cleared.`);
 }
 
-// Map a Notion "Category" select label (e.g. "国际观察") to the matching
-// category id from site.config.json (e.g. "international"). Falls back to
-// the first configured category if no label matches, so the build never
-// breaks on an unmapped category.
 function mapCategory(label) {
   const match = siteConfig.categories.find((c) => c.label === label);
   return match ? match.id : siteConfig.categories[0].id;
 }
 
-// Pick the best available content HTML from an RSS/Atom item itself
-// (without fetching the article page) - used as a fallback when full-page
-// extraction is skipped or fails.
 function pickFeedContentHtml(item) {
   return (
     item.contentEncoded ||
@@ -240,7 +226,7 @@ async function main() {
         if (!link) continue;
 
         const urlHash = shortHash(link);
-        if (seen[urlHash]) continue; // already processed in a previous run
+        if (seen[urlHash]) continue;
 
         const title = stripHtml(item.title || '(无标题)');
         const pubDate = item.isoDate || item.pubDate || new Date().toISOString();
@@ -248,17 +234,8 @@ async function main() {
         const description = truncate(stripHtml(rawDescription), SUMMARY_LENGTH);
         const slug = buildSlug(link, pubDate);
 
-        // Start with whatever the feed itself gives us for an image.
         let image = extractImage(item);
 
-        // --------------------------------------------------------------
-        // Full-article extraction: fetch the article's own page and try
-        // to pull its real body + a lead image (og:image etc). Falls back
-        // to the RSS feed's own content (summary) on ANY failure - network
-        // error, timeout, or the page not matching a known article-body
-        // pattern (site redesign). Image extraction is independent: even
-        // if the body pattern isn't recognized, og:image is still tried.
-        // --------------------------------------------------------------
         let bodyHtml = null;
         if (fullFetchAttempts < MAX_FULL_FETCH_PER_SOURCE) {
           fullFetchAttempts += 1;
@@ -305,9 +282,6 @@ async function main() {
 
       console.log(`  -> ${newItems} new article(s)` + (fullFetchAttempts > 0 ? ` (full-text: ${fullFetchAttempts - fullFetchFailures}/${fullFetchAttempts})` : ''));
 
-      // If every full-page fetch attempt for this source failed, the site
-      // likely changed its markup (or is blocking the fetcher). Surface
-      // this in Notion even though the feed itself is healthy.
       let lastError = null;
       if (fullFetchAttempts > 0 && fullFetchFailures === fullFetchAttempts) {
         lastError = `正文抓取失败 ${fullFetchFailures}/${fullFetchAttempts}（页面结构可能已变化，已回退为摘要）`;
@@ -321,10 +295,6 @@ async function main() {
         lastError,
       });
     } catch (err) {
-      // Per-source failure: log, flag the source in Notion for human review,
-      // and move on. This script never deletes or disables a source itself -
-      // a person reviews "⚠️ Failed" rows in Notion and decides whether to
-      // fix the URL or remove the source.
       console.warn(`  ! ${label} failed: ${err.message}`);
       statusResults.push({ name: label, category: source.category, status: '⚠️ Failed', newItems: 0, error: err.message });
       await updateSourceStatus(NOTION_API_KEY, source.pageId, {
@@ -335,10 +305,7 @@ async function main() {
     }
   }
 
-  // ------------------------------------------------------------------
-  // Retention: remove articles (and their seen-urls entries) older than
-  // RETENTION_DAYS so the build doesn't grow unbounded.
-  // ------------------------------------------------------------------
+  // Retention pruning
   const cutoff = Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000;
   const files = await fs.readdir(ARTICLES_DIR);
   let pruned = 0;
@@ -355,17 +322,11 @@ async function main() {
     }
   }
 
-  if (pruned > 0) {
-    console.log(`Pruned ${pruned} article(s) older than ${RETENTION_DAYS} days.`);
-  }
+  if (pruned > 0) console.log(`Pruned ${pruned} article(s) older than ${RETENTION_DAYS} days.`);
 
-  // Drop pruned entries from the seen-urls map too, so a re-publish after
-  // the retention window is treated as new.
   for (const [hash, entry] of Object.entries(seen)) {
     const pubDate = new Date(entry.pubDate).valueOf();
-    if (!isNaN(pubDate) && pubDate < cutoff) {
-      delete seen[hash];
-    }
+    if (!isNaN(pubDate) && pubDate < cutoff) delete seen[hash];
   }
 
   await writeJson(SEEN_FILE, seen);
@@ -376,14 +337,8 @@ async function main() {
 
 main()
   .catch((err) => {
-    // Top-level safety net: never let an unexpected error crash CI with a
-    // non-zero exit that blocks the build. Log and continue to the explicit
-    // exit below.
     console.error('Unexpected error in fetch-news.mjs:', err);
   })
   .finally(() => {
-    // Node's global fetch (undici) keeps keep-alive sockets open, which can
-    // prevent the process from exiting on its own and hang the CI step
-    // until its timeout. Force a clean exit once all work is done.
     process.exit(0);
   });
