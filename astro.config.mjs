@@ -7,6 +7,10 @@ import siteConfig from './site.config.json' with { type: 'json' };
 // domain - no hardcoded values in any source file.
 const siteUrl = process.env.SITE_URL || siteConfig.site.url;
 
+// Guard: sitemap plugin crashes if site URL is the placeholder value.
+// Only enable it when a real domain is available (i.e. in CI with SITE_URL set).
+const isRealDomain = siteUrl && !siteUrl.includes('placeholder');
+
 export default defineConfig({
   site: siteUrl,
   base: siteConfig.site.base,
@@ -15,13 +19,13 @@ export default defineConfig({
     format: 'directory',
   },
   integrations: [
-    sitemap({
-      // Exclude admin/backend pages from the sitemap so search engines
-      // and AI crawlers don't waste crawl budget on non-public pages.
-      filter: (page) => !page.includes('/admin/'),
-      changefreq: 'hourly',
-      priority: 0.7,
-      lastmod: new Date(),
-    }),
+    ...(isRealDomain ? [
+      sitemap({
+        filter: (page) => !page.includes('/admin/'),
+        changefreq: 'hourly',
+        priority: 0.7,
+        lastmod: new Date(),
+      }),
+    ] : []),
   ],
 });
