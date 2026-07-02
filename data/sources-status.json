@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-02T19:26:02.982Z",
+  "lastRun": "2026-07-02T21:07:44.017Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -43,8 +43,9 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -98,7 +99,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 2
     },
     {
       "name": "财新网 - 首页资讯",
@@ -170,7 +171,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 6
     },
     {
       "name": "日经中文网(RSSHub)",
