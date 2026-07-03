@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-03T21:07:39.958Z",
+  "lastRun": "2026-07-03T23:05:20.846Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 8
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -170,8 +170,9 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "✅ OK",
-      "newItems": 5
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
     },
     {
       "name": "日经中文网(RSSHub)",
