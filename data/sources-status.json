@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-04T19:14:11.733Z",
+  "lastRun": "2026-07-04T20:59:14.042Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -159,8 +159,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
