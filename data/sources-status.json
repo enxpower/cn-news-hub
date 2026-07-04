@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-04T06:48:29.863Z",
+  "lastRun": "2026-07-04T10:11:06.075Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 3
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -72,7 +72,7 @@
       "name": "少数派",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "加拿大中文电台(RSSHub)",
@@ -105,8 +105,8 @@
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 4,
-      "error": "正文抓取失败 4/4（页面结构可能已变化，已回退为摘要）"
+      "newItems": 11,
+      "error": "正文抓取失败 11/11（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
@@ -146,8 +146,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 12,
-      "error": "正文抓取失败 12/12（页面结构可能已变化，已回退为摘要）"
+      "newItems": 9,
+      "error": "正文抓取失败 9/9（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -160,8 +160,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
@@ -174,7 +173,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 6
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -187,7 +186,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 9
+      "newItems": 11
     },
     {
       "name": "BBC中文网",
