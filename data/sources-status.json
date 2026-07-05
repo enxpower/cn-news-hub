@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-05T13:40:27.457Z",
+  "lastRun": "2026-07-05T15:13:31.643Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 3
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -31,7 +31,7 @@
       "name": "BBC中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "SBS中文 - 官方RSS",
@@ -173,7 +173,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 0
     },
     {
       "name": "日经中文网(RSSHub)",
@@ -186,7 +186,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 6
     },
     {
       "name": "BBC中文网",
