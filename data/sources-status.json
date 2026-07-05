@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-05T21:00:50.128Z",
+  "lastRun": "2026-07-05T23:02:42.071Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 8
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -145,7 +145,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -170,8 +171,9 @@
     {
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (华尔街见闻 - 资讯流)"
     },
     {
       "name": "日经中文网(RSSHub)",
