@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-06T19:58:40.024Z",
+  "lastRun": "2026-07-06T21:41:13.754Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 10
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -99,7 +99,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
@@ -171,7 +171,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 0
     },
     {
       "name": "日经中文网(RSSHub)",
