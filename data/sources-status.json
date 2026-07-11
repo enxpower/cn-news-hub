@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-11T19:04:21.143Z",
+  "lastRun": "2026-07-11T20:48:08.252Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -99,7 +99,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
@@ -158,8 +158,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 2,
-      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
