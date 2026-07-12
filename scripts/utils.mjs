@@ -174,7 +174,7 @@ const STRIP_SELECTORS = [
 ];
 
 const BOILERPLATE_TEXT_PATTERNS = [
-  /^©/, // copyright notices
+  /^©/,
   /版权所有/,
   /版权声明/,
   /All rights reserved/i,
@@ -185,7 +185,7 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^DW中文Instagram/,
   /转发自.*Instagram/,
   /我们的Instagram/,
-  // Timestamp/dateline paragraphs that leak from some CMS templates
+  // Timestamp/dateline lines from CMS templates
   /^发表时间[：:]/,
   /^更新时间[：:]/,
   /^发布时间[：:]/,
@@ -197,15 +197,27 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^\d{4}[-/]\d{1,2}[-/]\d{1,2}\s+\d{2}:\d{2}\s*$/,
   // Author signature lines e.g. "文｜财新周刊 路尘" (may be preceded by full-width spaces)
   /^[\s\u3000]*文[｜|\u2f5c\/]\s*.{1,20}$/,
+  // Image caption attribution lines e.g. "图：视觉中国" "图片来源：Getty"
+  /^图[：:：].{0,30}$/,
+  /^图片[来源制作提供][：:：]/,
+  /^摄影[：:：]/,
+  /^视觉中国$/,
+  /^Getty Images?$/i,
+  /^AFP$/i,
+  // Short metadata lines
   /^责任编辑[：:]/,
   /^本文来源[：:]/,
   /^来源[：:].{0,30}$/,
+  // Report/article label prefixes that appear as standalone paragraphs
+  /^报告摘要[\s：:]/,
+  /^编者按[\s：:]/,
+  /^记者\s.{1,15}$/,
+  /^特约撰稿人?\s.{1,20}$/,
 ];
 
 function isBoilerplateText(text) {
-  // Strip both ASCII whitespace AND full-width spaces (U+3000 　) and
-  // non-breaking spaces (U+00A0) that Chinese CMS templates often inject
-  // before paragraph content (e.g. "　　文｜财新周刊 路尘").
+  // Strip ASCII whitespace, full-width spaces (U+3000 　),
+  // and non-breaking spaces (U+00A0) before matching.
   const trimmed = text.replace(/^[\s\u3000\u00a0]+|[\s\u3000\u00a0]+$/g, '');
   if (!trimmed) return true;
   return BOILERPLATE_TEXT_PATTERNS.some((re) => re.test(trimmed));
