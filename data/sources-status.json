@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T16:59:28.055Z",
+  "lastRun": "2026-07-12T18:12:49.000Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -43,9 +43,8 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 18
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -158,8 +157,7 @@
       "name": "Solidot",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 3,
-      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "经济学人商论",
@@ -197,8 +195,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 1
     }
   ]
 }
