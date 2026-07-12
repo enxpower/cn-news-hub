@@ -1,38 +1,7 @@
 #!/usr/bin/env node
 // ============================================================================
-// fetch-news.mjs
-//
-// Reads the list of RSS sources from a Notion database, fetches each feed,
-// deduplicates against previously-seen articles, and for each new item
-// fetches the article's own page to extract its full body AND a lead image
-// (RSS feeds usually only carry a short summary and often no image at all).
-// Writes Markdown content files for Astro, prunes content older than the
-// configured retention window, and writes back per-source status to both
-// Notion and a local JSON file (rendered by /admin/status).
-//
-// Design principles (per project requirements):
-//   - Per-source AND per-article failures are caught and skipped; they
-//     never abort the run or affect other sources/articles.
-//   - If full-page extraction fails for an article (network error, or the
-//     page no longer matches any known article-body pattern - i.e. the
-//     source redesigned its site), the article still gets published using
-//     the RSS summary as its body. If EVERY new article from a source fails
-//     full-page extraction in a run, that's flagged in Notion's Last Error
-//     as a likely site redesign, for human review.
-//   - Failed FEEDS are flagged in Notion (Status + Last Error) so a human
-//     can review and remove/replace them - this script never deletes a
-//     source itself.
-//   - Articles never send readers off-site mid-content: all in-body links
-//     are unwrapped and trailing "read more" phrases are trimmed. The only
-//     outbound link is the explicit "来源 / 查看原文" line on the article
-//     page template.
-//   - All tunables (retention, summary length, timeouts, categories) come
-//     from site.config.json - nothing is hardcoded here.
-//
-// One-time reset hook:
-//   If data/RESET_ARTICLES exists, all files in src/content/articles/ are
-//   deleted before fetching (and the flag file removed). Used for
-//   deliberate clean-slate resets, not part of normal operation.
+// fetch-news.mjs — fetches RSS sources from Notion, extracts full article
+// content, and writes Markdown files for Astro to build into static pages.
 // ============================================================================
 
 import fs from 'node:fs/promises';
@@ -93,10 +62,7 @@ async function readJson(file, fallback) {
 }
 
 async function writeJson(file, data) {
-  // Write to a sibling temp file first, then atomically rename into place.
-  // This prevents a corrupt/truncated JSON file if the process is killed or
-  // runs out of memory mid-write - the rename is atomic on POSIX systems so
-  // readers always see either the old complete file or the new complete file.
+  // Atomic write: write to temp file then rename to prevent corruption.
   const tmp = `${file}.tmp`;
   await fs.writeFile(tmp, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
   await fs.rename(tmp, file);
@@ -108,7 +74,6 @@ async function maybeResetArticles() {
   } catch {
     return;
   }
-
   console.log('RESET_ARTICLES flag found - wiping src/content/articles/ ...');
   const files = await fs.readdir(ARTICLES_DIR);
   let removed = 0;
@@ -137,6 +102,30 @@ function pickFeedContentHtml(item) {
   );
 }
 
+// Convert <img src="..."> tags in HTML body to Markdown image syntax.
+// Astro's Markdown renderer does not parse raw HTML <img> tags inside
+// .md files — they are emitted as literal text. Converting to
+// ![](url) syntax ensures images render correctly in article pages.
+function htmlImagesToMarkdown(html) {
+  return html.replace(/<img[^>]*?src=["']([^"']+)["'][^>]*?>/gi, (match, src) => {
+    // Skip tiny icons and tracking pixels
+    if (/icon|logo|pixel|track|beacon|spacer/i.test(src)) return '';
+    return `\n\n![](${src})\n\n`;
+  });
+}
+
+// Post-process the body HTML before writing to Markdown:
+// 1. Convert <img> to Markdown image syntax
+// 2. Strip <br> tags (they render as literal <br> in .md files)
+// 3. Collapse excessive blank lines
+function postProcessBody(html) {
+  let body = html || '';
+  body = htmlImagesToMarkdown(body);
+  body = body.replace(/<br\s*\/?>/gi, '\n');
+  body = body.replace(/\n{3,}/g, '\n\n');
+  return body.trim();
+}
+
 function buildMarkdown({ title, pubDateIso, sourceName, sourceUrl, categoryId, image, description, bodyHtml }) {
   const lines = [
     '---',
@@ -151,7 +140,7 @@ function buildMarkdown({ title, pubDateIso, sourceName, sourceUrl, categoryId, i
   }
   lines.push(`description: "${yamlEscape(description)}"`);
   lines.push('---', '');
-  lines.push(bodyHtml || description, '');
+  lines.push(postProcessBody(bodyHtml) || description, '');
   return lines.join('\n');
 }
 
