@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T18:12:49.000Z",
+  "lastRun": "2026-07-12T18:14:22.034Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -44,7 +44,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 18
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
