@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T18:28:55.987Z",
+  "lastRun": "2026-07-12T19:07:01.486Z",
   "sources": [
     {
       "name": "BBC 中文 - 简体",
@@ -11,25 +11,26 @@
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 0
     },
     {
       "name": "爱范儿 iPhonedo",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 20
+      "newItems": 0
     },
     {
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 2
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (少数派 SSPAI)"
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -100,8 +101,9 @@
     {
       "name": "少数派",
       "category": "科技",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (少数派)"
     },
     {
       "name": "加拿大中文电台(RSSHub)",
