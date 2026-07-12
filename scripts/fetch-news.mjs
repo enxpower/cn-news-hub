@@ -102,8 +102,8 @@ function pickFeedContentHtml(item) {
 }
 
 // Convert <img src="..."> tags in HTML body to Markdown image syntax.
-// IMPORTANT: only absolute http/https URLs are converted — relative paths
-// like "assets/images/foo.jpg" would cause Astro's Rollup build to fail
+// Only absolute http/https URLs are converted — relative paths like
+// "assets/images/foo.jpg" would cause Astro's Rollup build to fail
 // by trying to resolve them as local assets.
 function htmlImagesToMarkdown(html) {
   return html.replace(/<img[^>]*?src=["']([^"']+)["'][^>]*?>/gi, (match, src) => {
@@ -199,6 +199,7 @@ async function main() {
 
     console.log(`- Fetching: ${label} (${source.rssUrl})`);
     let newItems = 0;
+    let skippedItems = 0;
     let fullFetchAttempts = 0;
     let fullFetchFailures = 0;
 
@@ -253,24 +254,32 @@ async function main() {
           bodyHtml = trimTrailingReadMore(sanitizeHtml(feedHtml));
         }
 
-        const markdown = buildMarkdown({
-          title,
-          pubDateIso: new Date(pubDate).toISOString(),
-          sourceName: label,
-          sourceUrl: link,
-          categoryId,
-          image,
-          description: description || title,
-          bodyHtml,
-        });
+        // Each article write is isolated — a single bad article never
+        // aborts the source loop or the build pipeline.
+        try {
+          const markdown = buildMarkdown({
+            title,
+            pubDateIso: new Date(pubDate).toISOString(),
+            sourceName: label,
+            sourceUrl: link,
+            categoryId,
+            image,
+            description: description || title,
+            bodyHtml,
+          });
 
-        await fs.writeFile(path.join(ARTICLES_DIR, `${slug}.md`), markdown, 'utf-8');
+          await fs.writeFile(path.join(ARTICLES_DIR, `${slug}.md`), markdown, 'utf-8');
 
-        seen[urlHash] = { slug, pubDate: new Date(pubDate).toISOString() };
-        newItems += 1;
+          seen[urlHash] = { slug, pubDate: new Date(pubDate).toISOString() };
+          newItems += 1;
+        } catch (writeErr) {
+          skippedItems += 1;
+          console.warn(`    ! skipped article (write error) ${link}: ${writeErr.message}`);
+        }
       }
 
-      console.log(`  -> ${newItems} new article(s)` + (fullFetchAttempts > 0 ? ` (full-text: ${fullFetchAttempts - fullFetchFailures}/${fullFetchAttempts})` : ''));
+      const skipNote = skippedItems > 0 ? `, skipped:${skippedItems}` : '';
+      console.log(`  -> ${newItems} new article(s)${skipNote}` + (fullFetchAttempts > 0 ? ` (full-text: ${fullFetchAttempts - fullFetchFailures}/${fullFetchAttempts})` : ''));
 
       let lastError = null;
       if (fullFetchAttempts > 0 && fullFetchFailures === fullFetchAttempts) {
@@ -303,16 +312,23 @@ async function main() {
   for (const file of files) {
     if (!file.endsWith('.md')) continue;
     const fullPath = path.join(ARTICLES_DIR, file);
-    const raw = await fs.readFile(fullPath, 'utf-8');
-    const { data } = matter(raw);
-    const pubDate = new Date(data.pubDate).valueOf();
-    if (!isNaN(pubDate) && pubDate < cutoff) {
-      await fs.unlink(fullPath);
+    try {
+      const raw = await fs.readFile(fullPath, 'utf-8');
+      const { data } = matter(raw);
+      const pubDate = new Date(data.pubDate).valueOf();
+      if (!isNaN(pubDate) && pubDate < cutoff) {
+        await fs.unlink(fullPath);
+        pruned += 1;
+      }
+    } catch (pruneErr) {
+      // If a file is unreadable/malformed, delete it to prevent build failures
+      console.warn(`  ! pruning malformed file ${file}: ${pruneErr.message}`);
+      await fs.unlink(fullPath).catch(() => {});
       pruned += 1;
     }
   }
 
-  if (pruned > 0) console.log(`Pruned ${pruned} article(s) older than ${RETENTION_DAYS} days.`);
+  if (pruned > 0) console.log(`Pruned ${pruned} article(s).`);
 
   for (const [hash, entry] of Object.entries(seen)) {
     const pubDate = new Date(entry.pubDate).valueOf();
