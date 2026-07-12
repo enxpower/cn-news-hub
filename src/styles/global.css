@@ -40,7 +40,10 @@ p { margin: 0 0 .9em; }
 
 ::selection { background: var(--color-accent); color: #fff; }
 
-/* ── Shell ── */
+/* ── Shell ──
+   Single source of truth for max-width and horizontal padding.
+   Both the header bar AND the nav tabs use this class via a wrapper div,
+   so they stay perfectly aligned with the page content. */
 .shell {
   max-width: 1160px;
   margin-inline: auto;
@@ -69,7 +72,6 @@ p { margin: 0 0 .9em; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-block: 10px;
   height: 56px;
 }
 
@@ -101,7 +103,7 @@ p { margin: 0 0 .9em; }
   .site-header__tagline { display: inline; }
 }
 
-/* Nav tabs */
+/* Nav tabs — overflow scrolls on mobile without showing a scrollbar */
 .site-nav {
   border-top: 1px solid var(--color-border);
   overflow-x: auto;
@@ -111,6 +113,9 @@ p { margin: 0 0 .9em; }
 }
 .site-nav::-webkit-scrollbar { display: none; }
 
+/* The shell wrapper inside .site-nav handles the padding;
+   the list itself has no extra padding so tabs left-edge
+   aligns exactly with the content area. */
 .site-nav__list {
   display: flex;
   list-style: none;
@@ -131,6 +136,7 @@ p { margin: 0 0 .9em; }
   letter-spacing: .03em;
   transition: color .12s, border-color .12s;
 }
+.site-nav__link:first-child { padding-left: 0; }
 
 .site-nav__link:hover { color: var(--color-primary-dark); text-decoration: none; }
 .site-nav__link.is-active {
@@ -170,7 +176,6 @@ p { margin: 0 0 .9em; }
   flex-direction: column;
 }
 
-/* Section heading */
 .section-heading {
   display: flex;
   align-items: baseline;
@@ -235,7 +240,6 @@ p { margin: 0 0 .9em; }
   border-radius: 3px;
   padding: 2px 6px;
   flex-shrink: 0;
-  text-transform: none;
 }
 
 .card__date {
@@ -274,7 +278,6 @@ p { margin: 0 0 .9em; }
   opacity: .75;
 }
 
-/* Read state */
 .card.is-read .card__title { font-weight: 500; }
 .card.is-read .card__title a { color: var(--color-text-secondary); }
 .card.is-read .card__media img { filter: grayscale(30%); opacity: .8; }
@@ -395,13 +398,8 @@ p { margin: 0 0 .9em; }
   aspect-ratio: 16/9;
   background: var(--color-surface);
 }
-.article__hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.article__hero img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Source box */
 .source-box {
   display: flex;
   flex-wrap: wrap;
@@ -422,15 +420,12 @@ p { margin: 0 0 .9em; }
 }
 .source-box__link:hover { color: var(--color-primary-dark); }
 
-/* Article body */
 .article__body {
   font-size: 1rem;
   line-height: 1.82;
   color: var(--color-text);
 }
 .article__body p { margin-bottom: 1.1em; }
-
-/* Filter out timestamp paragraphs that leak from some sources */
 .article__body p:empty { display: none; }
 
 .article__body h2,
@@ -536,9 +531,6 @@ p { margin: 0 0 .9em; }
 .site-footer__links a:hover { color: var(--color-primary-dark); }
 .site-footer__disclaimer { line-height: 1.75; max-width: 720px; opacity: .75; }
 
-/* ── About page ── */
-.article__body .article-section { margin-bottom: 2em; }
-
 /* ── Status table ── */
 .status-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
 .status-table th,
@@ -550,8 +542,6 @@ p { margin: 0 0 .9em; }
 .status-pill--paused { background: var(--color-surface); color: var(--color-text-secondary); }
 .status-pill--new { background: #EAF1FB; color: var(--color-primary); }
 
-/* ── Empty state ── */
-.empty-state { text-align: center; padding: 80px 20px; color: var(--color-text-secondary); }
-
-/* ── 404 ── */
-.page-404 { text-align: center; padding: 80px 20px; }
+/* ── Empty / 404 ── */
+.empty-state,
+.page-404 { text-align: center; padding: 80px 20px; color: var(--color-text-secondary); }
