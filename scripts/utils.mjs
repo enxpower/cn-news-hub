@@ -69,9 +69,6 @@ export function sanitizeHtml(html = '') {
   result = result.replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1');
 
   // 4. Strip inline formatting tags — unwrap but keep text.
-  //    This prevents <b>, <strong>, <em>, <span> etc. from appearing
-  //    as literal text in the Markdown output when the renderer
-  //    doesn't recognise them.
   const inlineTags = [
     'b','strong','em','i','u','s','del','ins','mark','small','sub','sup',
     'span','font','cite','abbr','acronym','time','bdi','bdo','q','kbd',
@@ -189,8 +186,9 @@ export async function withTimeout(fn, ms, label) {
   }
 }
 
+// Generic User-Agent without hardcoded domain — works on any deployment.
 const ARTICLE_FETCH_USER_AGENT =
-  'Mozilla/5.0 (compatible; cn-news-hub/1.0; +https://news.dysonx.com)';
+  'Mozilla/5.0 (compatible; cn-news-hub/1.0)';
 
 export async function fetchArticleHtml(url, ms) {
   const controller = new AbortController();
@@ -248,7 +246,6 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^DW中文Instagram/,
   /转发自.*Instagram/,
   /我们的Instagram/,
-  // Timestamp/dateline lines
   /^发表时间[：:]/,
   /^更新时间[：:]/,
   /^发布时间[：:]/,
@@ -258,10 +255,8 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^Last modified/i,
   /^\d{1,2}\/\d{1,2}\/\d{4}\s*[-–]\s*\d{2}:\d{2}/,
   /^\d{4}[-/]\d{1,2}[-/]\d{1,2}\s+\d{2}:\d{2}\s*$/,
-  // Author signature lines
   /^[\s\u3000]*文[｜|\u2f5c\/]\s*.{1,20}$/,
   /^[\s\u3000]*图片制作[｜|\u2f5c\/]\s*.{1,20}$/,
-  // Image caption attribution
   /^图[：:：\s].{0,30}$/,
   /^图片[来源制作提供][：:：]/,
   /^摄影[：:：]/,
@@ -270,16 +265,13 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^AFP$/i,
   /^Reuters$/i,
   /^新华社$/,
-  // Short metadata
   /^责任编辑[：:]/,
   /^本文来源[：:]/,
   /^来源[：:].{0,30}$/,
-  // Report/article label prefixes
   /^报告摘要[\s：:]/,
   /^编者按[\s：:]/,
   /^记者\s.{1,15}$/,
   /^特约撰稿人?\s.{1,20}$/,
-  // 【媒体名】 standalone header lines (e.g. "【财新网】" alone in a paragraph)
   /^【[^】]{1,20}】$/,
 ];
 
