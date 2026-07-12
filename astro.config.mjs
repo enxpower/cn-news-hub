@@ -13,8 +13,18 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
-  // Sitemap is generated via src/pages/sitemap-index.xml.ts (static endpoint)
-  // rather than the @astrojs/sitemap integration, which crashes with large
-  // page counts on this version of Astro. The static approach is simpler,
-  // has no third-party dependency, and gives full control over output format.
+  vite: {
+    build: {
+      rollupOptions: {
+        // Demote unresolved import warnings to non-fatal so that a single
+        // article .md file containing a bad image path (e.g. a relative URL
+        // like "assets/images/foo.jpg" from a source CMS) cannot abort the
+        // entire build. The article will render without that image.
+        onwarn(warning, warn) {
+          if (warning.code === 'UNRESOLVED_IMPORT') return;
+          warn(warning);
+        },
+      },
+    },
+  },
 });
