@@ -1,0 +1,4 @@
+This file triggers a full article reset on the next fetch run.
+The fetch-news.mjs script will delete all files in src/content/articles/
+and clear seen-urls.json before re-fetching all sources.
+This file will be automatically deleted after the reset completes.
