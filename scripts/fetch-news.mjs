@@ -62,7 +62,6 @@ async function readJson(file, fallback) {
 }
 
 async function writeJson(file, data) {
-  // Atomic write: write to temp file then rename to prevent corruption.
   const tmp = `${file}.tmp`;
   await fs.writeFile(tmp, `${JSON.stringify(data, null, 2)}\n`, 'utf-8');
   await fs.rename(tmp, file);
@@ -103,11 +102,13 @@ function pickFeedContentHtml(item) {
 }
 
 // Convert <img src="..."> tags in HTML body to Markdown image syntax.
-// Astro's Markdown renderer does not parse raw HTML <img> tags inside
-// .md files — they are emitted as literal text. Converting to
-// ![](url) syntax ensures images render correctly in article pages.
+// IMPORTANT: only absolute http/https URLs are converted — relative paths
+// like "assets/images/foo.jpg" would cause Astro's Rollup build to fail
+// by trying to resolve them as local assets.
 function htmlImagesToMarkdown(html) {
   return html.replace(/<img[^>]*?src=["']([^"']+)["'][^>]*?>/gi, (match, src) => {
+    // Must be an absolute URL — skip relative paths
+    if (!/^https?:\/\//i.test(src)) return '';
     // Skip tiny icons and tracking pixels
     if (/icon|logo|pixel|track|beacon|spacer/i.test(src)) return '';
     return `\n\n![](${src})\n\n`;
@@ -115,8 +116,8 @@ function htmlImagesToMarkdown(html) {
 }
 
 // Post-process the body HTML before writing to Markdown:
-// 1. Convert <img> to Markdown image syntax
-// 2. Strip <br> tags (they render as literal <br> in .md files)
+// 1. Convert <img> to Markdown image syntax (absolute URLs only)
+// 2. Strip <br> tags
 // 3. Collapse excessive blank lines
 function postProcessBody(html) {
   let body = html || '';
