@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T22:50:11.880Z",
+  "lastRun": "2026-07-12T23:19:07.177Z",
   "sources": [
     {
       "name": "自由时报 - 国际",
@@ -23,7 +23,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 25
     },
     {
       "name": "BBC 中文 - 简体",
@@ -35,7 +35,7 @@
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -72,7 +72,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -97,16 +97,15 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
       "category": "财经",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (FT中文网 - 每日更新(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "纽约时报中文网(RSSHub)",
@@ -160,7 +159,8 @@
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 2,
+      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "月光博客",
