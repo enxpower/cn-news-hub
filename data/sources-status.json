@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T00:57:06.432Z",
+  "lastRun": "2026-07-12T01:01:21.637Z",
   "sources": [
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -18,7 +18,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -44,7 +44,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 24
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -104,8 +104,7 @@
       "name": "财新网 - 首页资讯",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 7,
-      "error": "正文抓取失败 7/7（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "月光博客",
@@ -125,7 +124,7 @@
       "name": "端传媒 - 评论(RSSHub)",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 15
     },
     {
       "name": "天下杂志 - 独立评论(RSSHub)",
@@ -145,7 +144,8 @@
       "name": "36氪 - 科技创新",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "风传媒 - 观点(RSSHub)",
@@ -171,7 +171,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "日经中文网(RSSHub)",
