@@ -195,15 +195,18 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^Last modified/i,
   /^\d{1,2}\/\d{1,2}\/\d{4}\s*[-–]\s*\d{2}:\d{2}/,
   /^\d{4}[-/]\d{1,2}[-/]\d{1,2}\s+\d{2}:\d{2}\s*$/,
-  // Short metadata lines that leak from article CMS templates
-  /^文[｜|\/]\s*.{1,10}$/,
+  // Author signature lines e.g. "文｜财新周刊 路尘" (may be preceded by full-width spaces)
+  /^[\s\u3000]*文[｜|\u2f5c\/]\s*.{1,20}$/,
   /^责任编辑[：:]/,
   /^本文来源[：:]/,
   /^来源[：:].{0,30}$/,
 ];
 
 function isBoilerplateText(text) {
-  const trimmed = text.trim();
+  // Strip both ASCII whitespace AND full-width spaces (U+3000 　) and
+  // non-breaking spaces (U+00A0) that Chinese CMS templates often inject
+  // before paragraph content (e.g. "　　文｜财新周刊 路尘").
+  const trimmed = text.replace(/^[\s\u3000\u00a0]+|[\s\u3000\u00a0]+$/g, '');
   if (!trimmed) return true;
   return BOILERPLATE_TEXT_PATTERNS.some((re) => re.test(trimmed));
 }
