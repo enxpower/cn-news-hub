@@ -358,8 +358,12 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   font-size: .76rem;
 }
 
-/* ── Article page ── */
-.article { max-width: 700px; margin-inline: auto; }
+/* ── Article page ──────────────────────────────────────────────────────────
+   Left-align with the shell edge — same starting point as nav tabs and
+   list pages. max-width constrains the reading line length to ~700px.
+   margin-inline: auto is intentionally absent: centering inside .shell
+   would push the article column to the right of the nav left edge. */
+.article { max-width: 700px; }
 
 .article__breadcrumb {
   font-size: .72rem;
