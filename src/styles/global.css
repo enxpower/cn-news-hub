@@ -48,12 +48,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 
 ::selection { background: var(--color-accent); color: #fff; }
 
-/* ── Shell ──────────────────────────────────────────────────────────────────
-   Single source of truth for horizontal centering and edge padding.
-   Used by: .site-header__bar (via class), .site-nav inner div, and
-   <main class="shell main-content">.
-   All three must use the same .shell class so their left edges are
-   always perfectly aligned regardless of viewport width. */
+/* ── Shell ── */
 .shell {
   max-width: 1160px;
   margin-inline: auto;
@@ -73,9 +68,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   z-index: 100;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  /* width: 100% is sufficient — do NOT add overflow:hidden or max-width:100vw
-     here as they interfere with the inner .shell's margin-inline:auto centering
-     and cause the header to misalign with the page content on wide viewports. */
   width: 100%;
 }
 
@@ -358,12 +350,8 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   font-size: .76rem;
 }
 
-/* ── Article page ──────────────────────────────────────────────────────────
-   Left-align with the shell edge — same starting point as nav tabs and
-   list pages. max-width constrains the reading line length to ~700px.
-   margin-inline: auto is intentionally absent: centering inside .shell
-   would push the article column to the right of the nav left edge. */
-.article { max-width: 700px; }
+/* ── Article page ── */
+.article { width: 100%; }
 
 .article__breadcrumb {
   font-size: .72rem;
@@ -382,6 +370,8 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   color: var(--color-primary-dark);
   overflow-wrap: break-word;
   word-break: break-word;
+  /* Cap title width for readability on very wide screens */
+  max-width: 860px;
 }
 
 .article__meta {
@@ -406,8 +396,10 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   padding: 2px 7px;
 }
 
+/* Hero image: caps at 860px wide, left-aligned, 16:9 */
 .article__hero {
   width: 100%;
+  max-width: 860px;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 14px;
@@ -428,6 +420,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   background: var(--color-surface);
   border-left: 3px solid var(--color-border);
   border-radius: 0 4px 4px 0;
+  max-width: 860px;
 }
 .source-box__link {
   color: var(--color-primary);
@@ -436,6 +429,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 }
 .source-box__link:hover { color: var(--color-primary-dark); }
 
+/* Article body: full shell width, body text capped at 720px for readability */
 .article__body {
   font-size: .95rem;
   line-height: 1.85;
@@ -443,6 +437,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   overflow: hidden;
   overflow-wrap: break-word;
   word-break: break-word;
+  max-width: 720px;
 }
 @media (max-width: 480px) {
   .article__body { font-size: .9rem; line-height: 1.8; }
@@ -462,18 +457,17 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 
 .article__body img {
   display: block;
-  margin: 1.2em auto;
+  margin: 1.2em 0;
   max-width: 100%;
   width: auto;
   height: auto;
   border-radius: 5px;
 }
 .article__body figure { margin: 1.2em 0; max-width: 100%; }
-.article__body figure img { margin: 0 auto; }
+.article__body figure img { margin: 0; }
 .article__body figcaption {
   font-size: .72rem;
   color: var(--color-text-secondary);
-  text-align: center;
   margin-top: .35em;
 }
 .article__body svg { display: none; }
@@ -506,6 +500,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
+  max-width: 720px;
 }
 
 .back-link {
