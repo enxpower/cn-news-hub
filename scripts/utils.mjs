@@ -27,23 +27,86 @@ export function stripHtml(html = '') {
     .trim();
 }
 
+// Tags whose content should be completely removed (not just unwrapped)
+const REMOVE_WITH_CONTENT = [
+  'script','style','iframe','object','embed','form','noscript',
+  'video','audio','source','button','svg','picture','track',
+  'canvas','map','select','textarea','input','label','nav',
+  'header','footer','aside',
+];
+
+// Block-level tags we want to keep as structural wrappers
+const KEEP_BLOCK_TAGS = new Set([
+  'p','h1','h2','h3','h4','h5','h6',
+  'ul','ol','li','blockquote','pre','code',
+  'figure','figcaption',
+]);
+
 export function sanitizeHtml(html = '') {
-  return html
-    .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture)[^>]*>[\s\S]*?<\/\1>/gi, '')
-    .replace(/<(script|style|iframe|object|embed|form|noscript|video|audio|source|button|svg|picture|track)[^>]*\/?>/gi, '')
-    .replace(/<img\b([\s\S]*?)>/gi, (match, attrs) => {
-      const srcMatch = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
-      const dataSrcMatch = attrs.match(/\bdata-(?:src|lazy-src|original)\s*=\s*["']([^"']+)["']/i);
-      const finalSrc = (srcMatch && srcMatch[1]) || (dataSrcMatch && dataSrcMatch[1]) || '';
-      if (!finalSrc) return '';
-      return `<img src="${finalSrc}" alt="" loading="lazy">`;
-    })
-    .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
-    .replace(/\sstyle\s*=\s*("[^"]*"|'[^']*')/gi, '')
-    .replace(/\s(width|height)\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '')
-    .replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1')
-    .replace(/<\/?(dl|dt|dd|table|thead|tbody|tfoot|tr|th|td|colgroup|col|caption|fieldset|legend|details|summary|menu|menuitem)\b[^>]*>/gi, '')
-    .trim();
+  if (!html) return '';
+
+  let result = html;
+
+  // 1. Remove dangerous tags AND their contents entirely
+  const removeWithContent = REMOVE_WITH_CONTENT.join('|');
+  result = result.replace(
+    new RegExp(`<(${removeWithContent})[^>]*>[\\s\\S]*?<\\/\\1>`, 'gi'), ''
+  );
+  result = result.replace(
+    new RegExp(`<(${removeWithContent})[^>]*\\/?>`, 'gi'), ''
+  );
+
+  // 2. Normalise <img>: keep only src (resolved from data-src if needed)
+  result = result.replace(/<img\b([\s\S]*?)>/gi, (match, attrs) => {
+    const srcMatch = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
+    const dataSrcMatch = attrs.match(/\bdata-(?:src|lazy-src|original)\s*=\s*["']([^"']+)["']/i);
+    const finalSrc = (srcMatch && srcMatch[1]) || (dataSrcMatch && dataSrcMatch[1]) || '';
+    if (!finalSrc) return '';
+    return `<img src="${finalSrc}" alt="" loading="lazy">`;
+  });
+
+  // 3. Unwrap <a> tags — keep only their text content
+  result = result.replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1');
+
+  // 4. Strip inline formatting tags — unwrap but keep text.
+  //    This prevents <b>, <strong>, <em>, <span> etc. from appearing
+  //    as literal text in the Markdown output when the renderer
+  //    doesn't recognise them.
+  const inlineTags = [
+    'b','strong','em','i','u','s','del','ins','mark','small','sub','sup',
+    'span','font','cite','abbr','acronym','time','bdi','bdo','q','kbd',
+    'samp','var','data','ruby','rt','rp',
+  ];
+  for (const tag of inlineTags) {
+    result = result.replace(new RegExp(`<${tag}(\\s[^>]*)?>([\\s\\S]*?)<\\/${tag}>`, 'gi'), '$2');
+    result = result.replace(new RegExp(`<${tag}(\\s[^>]*)?\\s*/?>`, 'gi'), '');
+  }
+
+  // 5. Strip layout/table tags but keep their text
+  result = result.replace(
+    /<\/?(div|section|article|main|table|thead|tbody|tfoot|tr|th|td|col|colgroup|caption|dl|dt|dd|fieldset|legend|details|summary|menu|menuitem|address)\b[^>]*>/gi,
+    ''
+  );
+
+  // 6. Strip all remaining event handlers, style, and dimension attrs
+  result = result.replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
+  result = result.replace(/\s(style|class|id|data-[a-z-]+)\s*=\s*("[^"]*"|'[^']*')/gi, '');
+  result = result.replace(/\s(width|height|align|valign|border|cellpadding|cellspacing)\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
+
+  // 7. Decode common HTML entities
+  result = result
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&mdash;/g, '—')
+    .replace(/&ndash;/g, '–')
+    .replace(/&hellip;/g, '…')
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
+
+  return result.trim();
 }
 
 const READ_MORE_PATTERN = /(继续阅读全文|继续阅读|阅读全文|查看原文|read more on this story|read more|\.{3}|…)\s*$/i;
@@ -185,7 +248,7 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^DW中文Instagram/,
   /转发自.*Instagram/,
   /我们的Instagram/,
-  // Timestamp/dateline lines from CMS templates
+  // Timestamp/dateline lines
   /^发表时间[：:]/,
   /^更新时间[：:]/,
   /^发布时间[：:]/,
@@ -195,29 +258,32 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^Last modified/i,
   /^\d{1,2}\/\d{1,2}\/\d{4}\s*[-–]\s*\d{2}:\d{2}/,
   /^\d{4}[-/]\d{1,2}[-/]\d{1,2}\s+\d{2}:\d{2}\s*$/,
-  // Author signature lines e.g. "文｜财新周刊 路尘" (may be preceded by full-width spaces)
+  // Author signature lines
   /^[\s\u3000]*文[｜|\u2f5c\/]\s*.{1,20}$/,
-  // Image caption attribution lines e.g. "图：视觉中国" "图片来源：Getty"
-  /^图[：:：].{0,30}$/,
+  /^[\s\u3000]*图片制作[｜|\u2f5c\/]\s*.{1,20}$/,
+  // Image caption attribution
+  /^图[：:：\s].{0,30}$/,
   /^图片[来源制作提供][：:：]/,
   /^摄影[：:：]/,
   /^视觉中国$/,
   /^Getty Images?$/i,
   /^AFP$/i,
-  // Short metadata lines
+  /^Reuters$/i,
+  /^新华社$/,
+  // Short metadata
   /^责任编辑[：:]/,
   /^本文来源[：:]/,
   /^来源[：:].{0,30}$/,
-  // Report/article label prefixes that appear as standalone paragraphs
+  // Report/article label prefixes
   /^报告摘要[\s：:]/,
   /^编者按[\s：:]/,
   /^记者\s.{1,15}$/,
   /^特约撰稿人?\s.{1,20}$/,
+  // 【媒体名】 standalone header lines (e.g. "【财新网】" alone in a paragraph)
+  /^【[^】]{1,20}】$/,
 ];
 
 function isBoilerplateText(text) {
-  // Strip ASCII whitespace, full-width spaces (U+3000 　),
-  // and non-breaking spaces (U+00A0) before matching.
   const trimmed = text.replace(/^[\s\u3000\u00a0]+|[\s\u3000\u00a0]+$/g, '');
   if (!trimmed) return true;
   return BOILERPLATE_TEXT_PATTERNS.some((re) => re.test(trimmed));
