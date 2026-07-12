@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T22:16:07.163Z",
+  "lastRun": "2026-07-12T22:20:22.658Z",
   "sources": [
     {
       "name": "BBC 中文 - 简体",
@@ -23,8 +23,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "少数派 SSPAI",
@@ -49,7 +48,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -202,7 +201,7 @@
       "name": "华尔街见闻 - 资讯流",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "日经中文网(RSSHub)",
