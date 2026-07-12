@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-07-12T22:44:12.902Z",
+  "lastRun": "2026-07-12T22:50:11.880Z",
   "sources": [
     {
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 40
+      "newItems": 0
     },
     {
       "name": "联合报 - 国际",
@@ -23,7 +23,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 25
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
@@ -106,7 +106,7 @@
       "category": "财经",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "Status code 503"
+      "error": "timeout after 8000ms (FT中文网 - 每日更新(RSSHub))"
     },
     {
       "name": "纽约时报中文网(RSSHub)",
@@ -120,7 +120,7 @@
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (BBC中文网 - 国际(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "少数派",
@@ -133,7 +133,7 @@
       "category": "北美生活",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (加拿大中文电台(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "洛杉矶华人资讯网(RSSHub)",
