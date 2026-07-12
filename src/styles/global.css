@@ -1,6 +1,5 @@
 /* ==========================================================================
    Global stylesheet — 中文新闻汇
-   Light industrial editorial aesthetic. White background mandatory.
    ========================================================================== */
 
 *,*::before,*::after { box-sizing: border-box; }
@@ -48,7 +47,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 
 ::selection { background: var(--color-accent); color: #fff; }
 
-/* ── Shell ── */
+/* ── Shell: single centering container used by header, nav, and main ── */
 .shell {
   max-width: 1160px;
   margin-inline: auto;
@@ -204,7 +203,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   border-radius: 4px;
   overflow: hidden;
   background: var(--color-surface);
-  position: relative;
 }
 .card__media img {
   width: 100%;
@@ -350,7 +348,9 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   font-size: .76rem;
 }
 
-/* ── Article page ── */
+/* ── Article page ──
+   All elements fill the full .shell width — same as list pages.
+   No max-width constraints anywhere in this section. */
 .article { width: 100%; }
 
 .article__breadcrumb {
@@ -370,8 +370,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   color: var(--color-primary-dark);
   overflow-wrap: break-word;
   word-break: break-word;
-  /* Cap title width for readability on very wide screens */
-  max-width: 860px;
 }
 
 .article__meta {
@@ -396,10 +394,8 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   padding: 2px 7px;
 }
 
-/* Hero image: caps at 860px wide, left-aligned, 16:9 */
 .article__hero {
   width: 100%;
-  max-width: 860px;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 14px;
@@ -420,7 +416,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   background: var(--color-surface);
   border-left: 3px solid var(--color-border);
   border-radius: 0 4px 4px 0;
-  max-width: 860px;
 }
 .source-box__link {
   color: var(--color-primary);
@@ -429,7 +424,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 }
 .source-box__link:hover { color: var(--color-primary-dark); }
 
-/* Article body: full shell width, body text capped at 720px for readability */
 .article__body {
   font-size: .95rem;
   line-height: 1.85;
@@ -437,7 +431,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   overflow: hidden;
   overflow-wrap: break-word;
   word-break: break-word;
-  max-width: 720px;
 }
 @media (max-width: 480px) {
   .article__body { font-size: .9rem; line-height: 1.8; }
@@ -500,7 +493,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  max-width: 720px;
 }
 
 .back-link {
@@ -553,7 +545,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 }
 .site-footer__links a { color: var(--color-text-secondary); font-weight: 600; }
 .site-footer__links a:hover { color: var(--color-primary-dark); }
-.site-footer__disclaimer { line-height: 1.72; max-width: 680px; opacity: .7; }
+.site-footer__disclaimer { line-height: 1.72; opacity: .7; }
 
 /* ── Status table ── */
 .status-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
