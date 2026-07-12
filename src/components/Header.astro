@@ -1,6 +1,4 @@
 ---
-// Site header: brand, tagline, font-size control, and category navigation.
-// All labels/colors come from site.config.json - no hardcoded text.
 import siteConfig from '../../site.config.json';
 
 interface Props {
@@ -10,7 +8,6 @@ interface Props {
 const { currentPath } = Astro.props;
 const base = import.meta.env.BASE_URL;
 
-// Normalize a base-relative href and check if it matches the current path
 function isActive(href: string): boolean {
   const normalized = (base + href).replace(/\/+/g, '/');
   return currentPath === normalized || currentPath === normalized + '/'
@@ -32,27 +29,27 @@ function isActive(href: string): boolean {
     </div>
   </div>
   <nav class="site-nav" aria-label="新闻分类">
-    <ul class="site-nav__list shell">
-      <li>
-        <a class:list={["site-nav__link", { "is-active": isActive('') }]} href={base}>滚动</a>
-      </li>
-      {siteConfig.categories.map((cat) => (
+    <div class="shell">
+      <ul class="site-nav__list">
         <li>
-          <a
-            class:list={["site-nav__link", { "is-active": isActive(`category/${cat.id}/`) }]}
-            href={`${base}category/${cat.id}/`}
-          >
-            {cat.label}
-          </a>
+          <a class:list={["site-nav__link", { "is-active": isActive('') }]} href={base}>滚动</a>
         </li>
-      ))}
-    </ul>
+        {siteConfig.categories.map((cat) => (
+          <li>
+            <a
+              class:list={["site-nav__link", { "is-active": isActive(`category/${cat.id}/`) }]}
+              href={`${base}category/${cat.id}/`}
+            >
+              {cat.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </nav>
 </header>
 
 <script>
-  // Font size control: persists user's preferred reading size in
-  // localStorage and applies it as a CSS custom property on <html>.
   const SIZES: Record<string, string> = { sm: '15px', md: '16px', lg: '19px' };
   const STORAGE_KEY = 'cn-news-hub:font-size';
 
