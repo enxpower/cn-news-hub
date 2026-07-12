@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-12T19:07:01.486Z",
+  "lastRun": "2026-07-12T20:49:36.789Z",
   "sources": [
     {
       "name": "BBC 中文 - 简体",
@@ -23,14 +23,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (少数派 SSPAI)"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -49,7 +48,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -101,9 +100,8 @@
     {
       "name": "少数派",
       "category": "科技",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (少数派)"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "加拿大中文电台(RSSHub)",
