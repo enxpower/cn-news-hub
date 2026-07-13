@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-07-13T11:14:55.212Z",
+  "lastRun": "2026-07-13T14:35:58.592Z",
   "sources": [
     {
       "name": "世界日报 - 美东",
       "category": "海外华人",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (世界日报 - 美东)"
+      "error": "Status code 503"
     },
     {
       "name": "大纪元 - 北美华人",
@@ -43,7 +43,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 9
     },
     {
       "name": "联合报 - 国际",
@@ -61,7 +61,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 22
     },
     {
       "name": "BBC 中文 - 简体",
@@ -73,7 +73,7 @@
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -85,13 +85,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 36
+      "newItems": 39
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -135,9 +135,8 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 13
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -151,14 +150,14 @@
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (纽约时报中文网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "BBC中文网 - 国际(RSSHub)",
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (BBC中文网 - 国际(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "少数派",
@@ -190,8 +189,9 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "财新网 - 首页资讯",
@@ -274,7 +274,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 12
     },
     {
       "name": "BBC中文网",
