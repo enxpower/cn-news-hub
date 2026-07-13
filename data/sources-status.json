@@ -1,30 +1,49 @@
 {
-  "lastRun": "2026-07-13T08:43:45.332Z",
+  "lastRun": "2026-07-13T08:49:14.323Z",
   "sources": [
     {
+      "name": "世界日报 - 美东",
+      "category": "海外华人",
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Status code 503"
+    },
+    {
+      "name": "大纪元 - 北美华人",
+      "category": "海外华人",
+      "status": "⏸ Paused",
+      "newItems": 0
+    },
+    {
+      "name": "SBS中文 - 普通话",
+      "category": "海外华人",
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Status code 503"
+    },
+    {
       "name": "联合报 - 财经",
-      "category": "财经",
-      "status": "✅ OK",
+      "category": "",
+      "status": "⏸ Paused",
       "newItems": 0
     },
     {
       "name": "联合报 - 理财",
-      "category": "财经",
-      "status": "✅ OK",
+      "category": "",
+      "status": "⏸ Paused",
       "newItems": 0
     },
     {
       "name": "自由时报 - 财经",
-      "category": "财经",
-      "status": "✅ OK",
-      "newItems": 40,
-      "error": "正文抓取失败 25/25（页面结构可能已变化，已回退为摘要）"
+      "category": "",
+      "status": "⏸ Paused",
+      "newItems": 0
     },
     {
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 0
     },
     {
       "name": "联合报 - 国际",
@@ -42,13 +61,13 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "端传媒",
@@ -66,13 +85,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 4
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -82,7 +101,7 @@
     },
     {
       "name": "FT中文网 - 官方RSS候选",
-      "category": "财经",
+      "category": "",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 403"
@@ -91,7 +110,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -116,13 +135,12 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 17
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
-      "category": "财经",
+      "category": "",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 503"
@@ -149,14 +167,14 @@
     },
     {
       "name": "加拿大中文电台(RSSHub)",
-      "category": "北美生活",
+      "category": "海外华人",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 503"
     },
     {
       "name": "洛杉矶华人资讯网(RSSHub)",
-      "category": "北美生活",
+      "category": "海外华人",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 503"
@@ -177,7 +195,7 @@
     },
     {
       "name": "财新网 - 首页资讯",
-      "category": "财经",
+      "category": "",
       "status": "⏸ Paused",
       "newItems": 0
     },
@@ -209,7 +227,7 @@
     },
     {
       "name": "西雅图中文网(RSSHub)",
-      "category": "北美生活",
+      "category": "海外华人",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 503"
@@ -235,13 +253,13 @@
     },
     {
       "name": "经济学人商论",
-      "category": "财经",
+      "category": "",
       "status": "⏸ Paused",
       "newItems": 0
     },
     {
       "name": "华尔街见闻 - 资讯流",
-      "category": "财经",
+      "category": "",
       "status": "⏸ Paused",
       "newItems": 0
     },
@@ -268,7 +286,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     }
   ]
 }
