@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-13T17:11:05.850Z",
+  "lastRun": "2026-07-13T17:56:44.425Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -56,15 +56,13 @@
       "name": "世界卫生组织 - 中文",
       "category": "",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "联合国新闻 - 中文",
       "category": "",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "世界日报 - 美东",
@@ -108,7 +106,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "联合报 - 国际",
@@ -209,7 +207,7 @@
       "category": "财经",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (FT中文网 - 每日更新(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "纽约时报中文网(RSSHub)",
