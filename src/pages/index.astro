@@ -12,8 +12,6 @@ const totalPages = totalPagesFor(all.length);
 
 const siteOrigin = import.meta.env.SITE_URL || siteConfig.site.url;
 
-// WebSite JSON-LD: enables Google Sitelinks Search Box and signals
-// authoritative site identity to search engines and AI indexers.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -29,6 +27,14 @@ const jsonLd = {
       '@type': 'ImageObject',
       url: new URL('logo.svg', siteOrigin).toString(),
     },
+  },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${siteOrigin}/?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
   },
 };
 
@@ -48,5 +54,6 @@ const nextUrl = totalPages > 1 ? `${siteOrigin}/page/2/` : undefined;
     currentPage={page}
     totalPages={totalPages}
     basePath=""
+    isH1={true}
   />
 </BaseLayout>

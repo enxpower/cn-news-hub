@@ -15,9 +15,11 @@ interface Props {
   currentPage: number;
   totalPages: number;
   basePath: string;
+  // Set isH1=true on the page's primary heading for SEO (one H1 per page).
+  isH1?: boolean;
 }
 
-const { heading, headingMeta, entries, currentPage, totalPages, basePath } = Astro.props;
+const { heading, headingMeta, entries, currentPage, totalPages, basePath, isH1 = false } = Astro.props;
 
 const adFreq = siteConfig.ads.positions.listInFeed.everyNItems || 0;
 const adEnabled = siteConfig.ads.enabled && siteConfig.ads.positions.listInFeed.enabled && adFreq > 0;
@@ -25,7 +27,10 @@ const adEnabled = siteConfig.ads.enabled && siteConfig.ads.positions.listInFeed.
 
 <section>
   <div class="section-heading">
-    <h2>{heading}</h2>
+    {isH1
+      ? <h1>{heading}</h1>
+      : <h2>{heading}</h2>
+    }
     {headingMeta && <span class="section-heading__meta">{headingMeta}</span>}
   </div>
 
