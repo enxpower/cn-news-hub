@@ -35,7 +35,7 @@
     },
     "categories": [
         { "id": "international", "label": "国际观察" },
-        { "id": "finance",       "label": "财经" },
+        { "id": "finance",       "label": "留学移民" },
         { "id": "tech",          "label": "科技" },
         { "id": "china",         "label": "中国新闻" },
         { "id": "northamerica",  "label": "海外华人" },
