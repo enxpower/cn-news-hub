@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-13T01:07:56.787Z",
+  "lastRun": "2026-07-13T02:49:51.273Z",
   "sources": [
     {
       "name": "自由时报 - 国际",
@@ -23,13 +23,13 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 5
     },
     {
       "name": "端传媒",
@@ -53,13 +53,13 @@
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -153,7 +153,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
