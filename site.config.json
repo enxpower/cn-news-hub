@@ -1,5 +1,5 @@
 {
-    "_comment": "Central site configuration. The domain (site.url) is intentionally left as a placeholder - it is overridden at build time by the SITE_URL environment variable injected from the GitHub repository variable of the same name. To change the domain, update: (1) SITE_URL in GitHub Settings -> Secrets and variables -> Actions -> Variables, (2) public/CNAME, (3) GitHub Pages custom domain. No code changes required.",
+    "_comment": "Central site configuration. Domain is a placeholder — overridden at build time by SITE_URL env var derived from public/CNAME.",
     "site": {
         "name": "中文新闻汇",
         "shortName": "新闻汇",
@@ -17,7 +17,6 @@
         "ogDefaultImage": "/og-default.png"
     },
     "theme": {
-        "_comment": "Background must always stay white per design requirements. Only accent colors are themeable.",
         "backgroundColor": "#FFFFFF",
         "surfaceColor": "#F7F9FC",
         "borderColor": "#E6EAF0",
@@ -35,7 +34,7 @@
     },
     "categories": [
         { "id": "international", "label": "国际观察" },
-        { "id": "finance",       "label": "留学移民" },
+        { "id": "finance",       "label": "财经·深度" },
         { "id": "tech",          "label": "科技" },
         { "id": "china",         "label": "中国新闻" },
         { "id": "northamerica",  "label": "海外华人" },
@@ -50,7 +49,6 @@
         "fetchTimeoutMs": 8000
     },
     "ads": {
-        "_comment": "Master switch plus per-position switches. Set enabled=true and fill slotIds after AdSense approval.",
         "enabled": false,
         "adsenseClientId": "ca-pub-3331849532184610",
         "positions": {
