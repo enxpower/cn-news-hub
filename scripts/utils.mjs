@@ -27,7 +27,6 @@ export function stripHtml(html = '') {
     .trim();
 }
 
-// Tags whose content should be completely removed (not just unwrapped)
 const REMOVE_WITH_CONTENT = [
   'script','style','iframe','object','embed','form','noscript',
   'video','audio','source','button','svg','picture','track',
@@ -35,28 +34,14 @@ const REMOVE_WITH_CONTENT = [
   'header','footer','aside',
 ];
 
-// Block-level tags we want to keep as structural wrappers
-const KEEP_BLOCK_TAGS = new Set([
-  'p','h1','h2','h3','h4','h5','h6',
-  'ul','ol','li','blockquote','pre','code',
-  'figure','figcaption',
-]);
-
 export function sanitizeHtml(html = '') {
   if (!html) return '';
-
   let result = html;
 
-  // 1. Remove dangerous tags AND their contents entirely
   const removeWithContent = REMOVE_WITH_CONTENT.join('|');
-  result = result.replace(
-    new RegExp(`<(${removeWithContent})[^>]*>[\\s\\S]*?<\\/\\1>`, 'gi'), ''
-  );
-  result = result.replace(
-    new RegExp(`<(${removeWithContent})[^>]*\\/?>`, 'gi'), ''
-  );
+  result = result.replace(new RegExp(`<(${removeWithContent})[^>]*>[\\s\\S]*?<\\/\\1>`, 'gi'), '');
+  result = result.replace(new RegExp(`<(${removeWithContent})[^>]*\\/?>`, 'gi'), '');
 
-  // 2. Normalise <img>: keep only src (resolved from data-src if needed)
   result = result.replace(/<img\b([\s\S]*?)>/gi, (match, attrs) => {
     const srcMatch = attrs.match(/\bsrc\s*=\s*["']([^"']+)["']/i);
     const dataSrcMatch = attrs.match(/\bdata-(?:src|lazy-src|original)\s*=\s*["']([^"']+)["']/i);
@@ -65,10 +50,8 @@ export function sanitizeHtml(html = '') {
     return `<img src="${finalSrc}" alt="" loading="lazy">`;
   });
 
-  // 3. Unwrap <a> tags — keep only their text content
   result = result.replace(/<a\b[^>]*>([\s\S]*?)<\/a>/gi, '$1');
 
-  // 4. Strip inline formatting tags — unwrap but keep text.
   const inlineTags = [
     'b','strong','em','i','u','s','del','ins','mark','small','sub','sup',
     'span','font','cite','abbr','acronym','time','bdi','bdo','q','kbd',
@@ -79,18 +62,14 @@ export function sanitizeHtml(html = '') {
     result = result.replace(new RegExp(`<${tag}(\\s[^>]*)?\\s*/?>`, 'gi'), '');
   }
 
-  // 5. Strip layout/table tags but keep their text
   result = result.replace(
-    /<\/?(div|section|article|main|table|thead|tbody|tfoot|tr|th|td|col|colgroup|caption|dl|dt|dd|fieldset|legend|details|summary|menu|menuitem|address)\b[^>]*>/gi,
-    ''
+    /<\/?(div|section|article|main|table|thead|tbody|tfoot|tr|th|td|col|colgroup|caption|dl|dt|dd|fieldset|legend|details|summary|menu|menuitem|address)\b[^>]*>/gi, ''
   );
 
-  // 6. Strip all remaining event handlers, style, and dimension attrs
   result = result.replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
   result = result.replace(/\s(style|class|id|data-[a-z-]+)\s*=\s*("[^"]*"|'[^']*')/gi, '');
   result = result.replace(/\s(width|height|align|valign|border|cellpadding|cellspacing)\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
 
-  // 7. Decode common HTML entities
   result = result
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
@@ -156,13 +135,11 @@ export function extractPageImage(html, pageUrl) {
   } catch {
     return null;
   }
-
   const og = $('meta[property="og:image"]').attr('content')
     || $('meta[property="og:image:url"]').attr('content')
     || $('meta[name="twitter:image"]').attr('content');
   const resolved = resolveUrl(og, pageUrl);
   if (resolved) return resolved;
-
   const firstImgEl = $('article img, [itemprop="articleBody"] img, .article-body img, main img').first();
   const firstImg = firstImgEl.attr('src') || firstImgEl.attr('data-src') || firstImgEl.attr('data-lazy-src') || firstImgEl.attr('data-original');
   return resolveUrl(firstImg, pageUrl);
@@ -186,9 +163,7 @@ export async function withTimeout(fn, ms, label) {
   }
 }
 
-// Generic User-Agent without hardcoded domain — works on any deployment.
-const ARTICLE_FETCH_USER_AGENT =
-  'Mozilla/5.0 (compatible; cn-news-hub/1.0)';
+const ARTICLE_FETCH_USER_AGENT = 'Mozilla/5.0 (compatible; cn-news-hub/1.0)';
 
 export async function fetchArticleHtml(url, ms) {
   const controller = new AbortController();
@@ -272,11 +247,16 @@ const BOILERPLATE_TEXT_PATTERNS = [
   /^编者按[\s：:]/,
   /^记者\s.{1,15}$/,
   /^特约撰稿人?\s.{1,20}$/,
-  /^【[^】]{1,20}】$/,
 ];
 
 function isBoilerplateText(text) {
-  const trimmed = text.replace(/^[\s\u3000\u00a0]+|[\s\u3000\u00a0]+$/g, '');
+  // Strip ASCII/full-width/NBSP whitespace from both ends
+  let trimmed = text.replace(/^[\s\u3000\u00a0]+|[\s\u3000\u00a0]+$/g, '');
+  if (!trimmed) return true;
+  // Strip leading 【MediaName】 prefix before testing — this prevents filtering
+  // out real content like "【财新网】丘成桐透露..." while still filtering
+  // standalone badge paragraphs like "【财新网】" that contain nothing else.
+  trimmed = trimmed.replace(/^【[^】]{1,20}】\s*/, '');
   if (!trimmed) return true;
   return BOILERPLATE_TEXT_PATTERNS.some((re) => re.test(trimmed));
 }
@@ -346,7 +326,14 @@ export function extractMainContent(html) {
     fragment.find('a').each((_, a) => {
       $(a).replaceWith($(a).text());
     });
-    const outer = $.html(fragment).trim();
+    let outer = $.html(fragment).trim();
+
+    // Strip leading 【MediaName】 prefix from paragraph HTML.
+    // e.g. "<p>　　【财新网】正文..." → "<p>正文..."
+    if (tag === 'p') {
+      outer = outer.replace(/<p([^>]*)>(\s|&nbsp;|\u3000|\u00a0)*【[^】]{1,20}】\s*/u, '<p$1>');
+    }
+
     const textLen = $el.text().replace(/\s+/g, '').length;
     if (tag === 'img' || textLen > 0) parts.push(outer);
   });
