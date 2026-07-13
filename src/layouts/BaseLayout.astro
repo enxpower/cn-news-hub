@@ -10,14 +10,13 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   type?: 'website' | 'article';
   articleSlug?: string;
-  // Pagination SEO: pass these on list pages to emit <link rel="prev/next">
   prevUrl?: string;
   nextUrl?: string;
-  // Pass true on pages that should not be indexed (e.g. /admin/)
   noindex?: boolean;
-  // JSON-LD structured data blob (serialised by caller)
   jsonLd?: object;
 }
 
@@ -25,6 +24,8 @@ const {
   title,
   description = siteConfig.site.description,
   image,
+  imageWidth,
+  imageHeight,
   type = 'website',
   articleSlug,
   prevUrl,
@@ -36,16 +37,20 @@ const {
 const base = import.meta.env.BASE_URL;
 const pageTitle = title === siteConfig.site.name ? title : `${title} - ${siteConfig.site.name}`;
 
-// Derive the canonical site origin from the SITE_URL env var injected at
-// build time by the GitHub Actions workflow (read from public/CNAME).
-// Falls back to site.config.json only for local builds without SITE_URL.
 const siteOrigin = import.meta.env.SITE_URL || siteConfig.site.url;
 const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
 
+// OG image: use article image if provided, otherwise fall back to the
+// default PNG (not SVG — Twitter/Facebook/WeChat don't support SVG previews).
 const ogImage = image
   ? image
-  : new URL(`${base}${siteConfig.branding.ogDefaultImage.replace(/^\//, '')}`, siteOrigin).toString();
-const ogImageIsDefault = !image;
+  : new URL(`${base}og-default.png`, siteOrigin).toString();
+const ogImgWidth  = image ? (imageWidth  ?? 1200) : 1200;
+const ogImgHeight = image ? (imageHeight ?? 630)  : 630;
+
+// Font URL: only 2 weights per family (400+700) to minimise download size.
+// 900 was only used for card titles which render fine at 700 on most screens.
+const fontsUrl = 'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@700;900&display=swap';
 ---
 
 <!DOCTYPE html>
@@ -69,25 +74,24 @@ const ogImageIsDefault = !image;
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Indexing control -->
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-
-    <!-- Pagination discovery for search engines -->
     {prevUrl && <link rel="prev" href={prevUrl} />}
     {nextUrl && <link rel="next" href={nextUrl} />}
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={siteConfig.site.name} />
 
-    <!-- Open Graph -->
+    <!-- Open Graph — og:type must be 'article' on article pages for
+         social platforms to generate proper news preview cards. -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    {ogImageIsDefault && <meta property="og:image:type" content="image/svg+xml" />}
-    {ogImageIsDefault && <meta property="og:image:width" content="1200" />}
-    {ogImageIsDefault && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:width" content={String(ogImgWidth)} />
+    <meta property="og:image:height" content={String(ogImgHeight)} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:locale" content={siteConfig.site.locale} />
     <meta property="og:site_name" content={siteConfig.site.name} />
 
@@ -97,13 +101,12 @@ const ogImageIsDefault = !image;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- JSON-LD structured data (NewsArticle, WebSite, etc.) -->
+    <!-- JSON-LD structured data -->
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
-    <!-- RSS feed autodiscovery: allows browsers, RSS readers, and AI
-         crawlers to find the feed without explicit navigation. -->
+    <!-- RSS autodiscovery -->
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -111,14 +114,22 @@ const ogImageIsDefault = !image;
       href={new URL('rss.xml', siteOrigin).toString()}
     />
 
-    <!-- Fonts -->
+    <!-- Fonts: async load to avoid render-blocking.
+         onload trick swaps rel from preload to stylesheet after download.
+         noscript fallback ensures fonts load without JS. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href={siteConfig.fonts.googleFontsUrl} as="style" />
-    <link rel="stylesheet" href={siteConfig.fonts.googleFontsUrl} />
+    <link
+      rel="preload"
+      href={fontsUrl}
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href={fontsUrl} />
+    </noscript>
 
-    <!-- Google AdSense: always present for ownership verification.
-         Actual ad slots are gated by ads.enabled in site.config.json. -->
+    <!-- Google AdSense -->
     {siteConfig.ads.adsenseClientId && siteConfig.ads.adsenseClientId !== 'ca-pub-0000000000000000' && (
       <script
         async
@@ -135,8 +146,7 @@ const ogImageIsDefault = !image;
     <Footer />
 
     <script define:vars={{ articleSlug }}>
-      document.addEventListener('contextmenu', (e) => e.preventDefault());
-
+      // Mark articles as read using localStorage
       const READ_KEY = 'cn-news-hub:read';
 
       function getReadSet() {
@@ -151,7 +161,7 @@ const ogImageIsDefault = !image;
       function saveReadSet(set) {
         try {
           localStorage.setItem(READ_KEY, JSON.stringify(Array.from(set)));
-        } catch { /* localStorage unavailable - degrade silently */ }
+        } catch {}
       }
 
       if (articleSlug) {
