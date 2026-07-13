@@ -34,30 +34,12 @@
         "googleFontsUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Serif+SC:wght@700;900&display=swap"
     },
     "categories": [
-        {
-            "id": "international",
-            "label": "国际观察"
-        },
-        {
-            "id": "finance",
-            "label": "财经"
-        },
-        {
-            "id": "tech",
-            "label": "科技"
-        },
-        {
-            "id": "china",
-            "label": "中国新闻"
-        },
-        {
-            "id": "northamerica",
-            "label": "北美生活"
-        },
-        {
-            "id": "opinion",
-            "label": "评论时事"
-        }
+        { "id": "international", "label": "国际观察" },
+        { "id": "finance",       "label": "财经" },
+        { "id": "tech",          "label": "科技" },
+        { "id": "china",         "label": "中国新闻" },
+        { "id": "northamerica",  "label": "海外华人" },
+        { "id": "opinion",       "label": "评论时事" }
     ],
     "pagination": {
         "pageSize": 20
@@ -86,14 +68,8 @@
     "footer": {
         "copyrightName": "中文新闻汇",
         "links": [
-            {
-                "label": "关于本站",
-                "href": "/about"
-            },
-            {
-                "label": "源站状态",
-                "href": "/admin/status"
-            }
+            { "label": "关于本站", "href": "/about" },
+            { "label": "源站状态", "href": "/admin/status" }
         ],
         "disclaimer": "本站所有文章均自动聚合自公开 RSS 新闻源，版权归原作者及原媒体所有。本站仅提供标题、摘要及原文链接，不对内容准确性承担责任。如需查看完整报道，请点击文章页面中的来源链接访问原网站。"
     }
