@@ -1,11 +1,30 @@
 {
-  "lastRun": "2026-07-13T06:54:40.126Z",
+  "lastRun": "2026-07-13T08:43:45.332Z",
   "sources": [
+    {
+      "name": "联合报 - 财经",
+      "category": "财经",
+      "status": "✅ OK",
+      "newItems": 0
+    },
+    {
+      "name": "联合报 - 理财",
+      "category": "财经",
+      "status": "✅ OK",
+      "newItems": 0
+    },
+    {
+      "name": "自由时报 - 财经",
+      "category": "财经",
+      "status": "✅ OK",
+      "newItems": 40,
+      "error": "正文抓取失败 25/25（页面结构可能已变化，已回退为摘要）"
+    },
     {
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 8
     },
     {
       "name": "联合报 - 国际",
@@ -23,13 +42,13 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 2
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "端传媒",
@@ -47,13 +66,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 14
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -152,8 +171,9 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "财新网 - 首页资讯",
@@ -248,7 +268,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     }
   ]
 }
