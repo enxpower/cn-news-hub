@@ -1,16 +1,47 @@
 {
-  "lastRun": "2026-07-13T16:56:32.626Z",
+  "lastRun": "2026-07-13T17:00:55.785Z",
   "sources": [
     {
+      "name": "纽约时报中文网",
+      "category": "财经·深度",
+      "status": "✅ OK",
+      "newItems": 10
+    },
+    {
+      "name": "共同网 - 中文",
+      "category": "财经·深度",
+      "status": "✅ OK",
+      "newItems": 30
+    },
+    {
+      "name": "日经中文网",
+      "category": "财经·深度",
+      "status": "✅ OK",
+      "newItems": 20,
+      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
+    },
+    {
+      "name": "朝鲜日报中文",
+      "category": "国际观察",
+      "status": "✅ OK",
+      "newItems": 20
+    },
+    {
+      "name": "联合早报 - 财经",
+      "category": "财经·深度",
+      "status": "✅ OK",
+      "newItems": 20
+    },
+    {
       "name": "法新社中文 - RSSHub",
-      "category": "",
+      "category": "财经·深度",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 503"
     },
     {
       "name": "美联社国际 - RSSHub",
-      "category": "",
+      "category": "财经·深度",
       "status": "⚠️ Failed",
       "newItems": 0,
       "error": "Status code 503"
@@ -26,8 +57,7 @@
       "name": "世界卫生组织 - 中文",
       "category": "财经·深度",
       "status": "✅ OK",
-      "newItems": 25,
-      "error": "正文抓取失败 25/25（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "联合国新闻 - 中文",
@@ -78,7 +108,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 2
     },
     {
       "name": "联合报 - 国际",
@@ -120,7 +150,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 0
     },
     {
       "name": "少数派 SSPAI",
@@ -145,7 +175,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 0
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -170,9 +200,8 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 2
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -186,14 +215,14 @@
       "category": "中国新闻",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (纽约时报中文网(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "BBC中文网 - 国际(RSSHub)",
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (BBC中文网 - 国际(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "少数派",
@@ -206,7 +235,7 @@
       "category": "海外华人",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (加拿大中文电台(RSSHub))"
+      "error": "Status code 503"
     },
     {
       "name": "洛杉矶华人资讯网(RSSHub)",
@@ -220,7 +249,7 @@
       "category": "国际观察",
       "status": "⚠️ Failed",
       "newItems": 0,
-      "error": "timeout after 8000ms (华尔街日报中文网 - 国际)"
+      "error": "Status code 503"
     },
     {
       "name": "联合国新闻 - 综合",
