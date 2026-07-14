@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-14T02:33:15.128Z",
+  "lastRun": "2026-07-14T06:14:19.359Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -62,7 +62,7 @@
       "name": "联合国新闻 - 中文",
       "category": "",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 4
     },
     {
       "name": "世界日报 - 美东",
@@ -104,7 +104,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 16
+      "newItems": 18
     },
     {
       "name": "联合报 - 国际",
@@ -122,19 +122,19 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 1
     },
     {
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 1
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -146,7 +146,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 42
+      "newItems": 28
     },
     {
       "name": "少数派 SSPAI",
@@ -158,7 +158,7 @@
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 4
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -197,7 +197,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 16
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -249,7 +249,7 @@
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "财新网 - 首页资讯",
@@ -331,7 +331,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 6
     },
     {
       "name": "BBC中文网",
