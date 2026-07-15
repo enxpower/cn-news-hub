@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-15T08:45:06.575Z",
+  "lastRun": "2026-07-15T10:05:32.776Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -105,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 7
     },
     {
       "name": "联合报 - 国际",
@@ -122,20 +122,21 @@
     {
       "name": "台湾公视新闻",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "read ECONNRESET"
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -147,7 +148,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 26
+      "newItems": 23
     },
     {
       "name": "少数派 SSPAI",
@@ -159,7 +160,7 @@
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -172,7 +173,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 3
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -198,7 +199,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 6
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -333,7 +334,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 6
     },
     {
       "name": "BBC中文网",
@@ -345,7 +346,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     }
   ]
 }
