@@ -8,7 +8,8 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  font-size: var(--user-font-size, 16px);
+  /* 基准字体从16px提升至17px，手机端阅读更舒适，A-/A/A+按钮可进一步调节 */
+  font-size: var(--user-font-size, 17px);
   overflow-x: clip;
   overflow-x: hidden;
   max-width: 100%;
@@ -127,12 +128,12 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 .site-nav__link {
   display: inline-flex;
   align-items: center;
-  padding: 9px 13px;
-  font-size: .82rem;
+  padding: 9px 11px;
+  font-size: .78rem;
   font-weight: 500;
   color: var(--color-text-secondary);
   border-bottom: 2px solid transparent;
-  letter-spacing: .02em;
+  letter-spacing: .01em;
   transition: color .12s, border-color .12s;
 }
 .site-nav__link:first-child { padding-left: 0; }
@@ -348,9 +349,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   font-size: .76rem;
 }
 
-/* ── Article page ──
-   width:100% on every element — same full-shell width as list pages.
-   Hero image height is capped so it doesn't dominate on wide screens. */
+/* ── Article page ── */
 .article { width: 100%; }
 
 .article__breadcrumb {
@@ -362,7 +361,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 .article__breadcrumb a:hover { color: var(--color-primary); }
 
 .article__title {
-  font-size: clamp(1.35rem, 3.5vw, 2rem);
+  font-size: clamp(1.25rem, 4vw, 1.85rem);
   font-weight: 900;
   line-height: 1.25;
   letter-spacing: -.01em;
@@ -396,7 +395,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
   padding: 2px 7px;
 }
 
-/* Hero: full width, height capped at 480px so wide screens don't get a huge image */
 .article__hero {
   width: 100%;
   border-radius: 6px;
@@ -434,7 +432,6 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 }
 .source-box__link:hover { color: var(--color-primary-dark); }
 
-/* Body: full width, mobile font bumped up to 1rem for readability */
 .article__body {
   font-size: 1rem;
   line-height: 1.85;
@@ -450,7 +447,7 @@ p { margin: 0 0 .9em; overflow-wrap: break-word; word-break: break-word; }
 
 .article__body h2,
 .article__body h3 {
-  font-size: 1.05rem;
+  font-size: .98rem;
   font-weight: 700;
   margin: 1.3em 0 .45em;
   color: var(--color-primary-dark);
