@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-15T13:47:00.038Z",
+  "lastRun": "2026-07-15T15:28:47.022Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -105,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 17
+      "newItems": 9
     },
     {
       "name": "联合报 - 国际",
@@ -123,19 +123,19 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 25
+      "newItems": 5
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -147,7 +147,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 50
+      "newItems": 16
     },
     {
       "name": "少数派 SSPAI",
@@ -172,7 +172,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 1
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -197,9 +197,8 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 12
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -250,9 +249,8 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 2
     },
     {
       "name": "财新网 - 首页资讯",
@@ -334,7 +332,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 9
     },
     {
       "name": "BBC中文网",
@@ -346,7 +344,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     }
   ]
 }
