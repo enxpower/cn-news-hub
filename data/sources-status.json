@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-16T19:11:56.724Z",
+  "lastRun": "2026-07-16T20:59:11.685Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -128,7 +128,7 @@
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "端传媒",
@@ -171,7 +171,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 3
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -197,7 +197,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -343,7 +343,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     }
   ]
 }
