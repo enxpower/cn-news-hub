@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-18T13:16:14.522Z",
+  "lastRun": "2026-07-18T14:54:05.700Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -104,7 +104,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 4
     },
     {
       "name": "联合报 - 国际",
@@ -122,7 +122,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
@@ -146,7 +146,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 5
     },
     {
       "name": "少数派 SSPAI",
@@ -171,7 +171,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 4
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -197,7 +197,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 1
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -331,7 +331,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 8
     },
     {
       "name": "BBC中文网",
