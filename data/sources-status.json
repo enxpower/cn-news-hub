@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-19T11:10:52.540Z",
+  "lastRun": "2026-07-19T13:19:41.986Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -55,9 +55,9 @@
     {
       "name": "世界卫生组织 - 中文",
       "category": "",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (世界卫生组织 - 中文)"
+      "status": "✅ OK",
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "联合国新闻 - 中文",
@@ -105,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 4
     },
     {
       "name": "联合报 - 国际",
@@ -147,7 +147,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 14
     },
     {
       "name": "少数派 SSPAI",
@@ -158,9 +158,8 @@
     {
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (纽约时报中文网 - 官方RSS)"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -199,7 +198,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 2
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
