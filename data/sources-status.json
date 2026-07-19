@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-19T06:32:12.508Z",
+  "lastRun": "2026-07-19T09:54:02.082Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -61,8 +61,9 @@
     {
       "name": "联合国新闻 - 中文",
       "category": "",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "世界日报 - 美东",
@@ -146,13 +147,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 11
+      "newItems": 13
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -171,7 +172,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 4
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -197,7 +198,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 9
+      "newItems": 7
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -332,7 +333,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 9
     },
     {
       "name": "BBC中文网",
