@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-19T02:44:12.786Z",
+  "lastRun": "2026-07-19T06:32:12.508Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -104,7 +104,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 9
+      "newItems": 11
     },
     {
       "name": "联合报 - 国际",
@@ -134,7 +134,7 @@
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -146,13 +146,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 11
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -197,7 +197,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 9
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -248,8 +248,9 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "财新网 - 首页资讯",
