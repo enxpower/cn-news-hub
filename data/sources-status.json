@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-20T21:13:49.231Z",
+  "lastRun": "2026-07-20T23:01:43.816Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -56,15 +56,14 @@
       "name": "世界卫生组织 - 中文",
       "category": "",
       "status": "✅ OK",
-      "newItems": 2,
-      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
+      "newItems": 4,
+      "error": "正文抓取失败 4/4（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "联合国新闻 - 中文",
       "category": "",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 1
     },
     {
       "name": "世界日报 - 美东",
@@ -106,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 10
     },
     {
       "name": "联合报 - 国际",
@@ -136,7 +135,7 @@
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 2
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -148,7 +147,8 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1,
+      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "少数派 SSPAI",
@@ -173,7 +173,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 6
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -199,7 +199,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 20
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -250,9 +250,8 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
