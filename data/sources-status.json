@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-21T21:10:36.443Z",
+  "lastRun": "2026-07-21T22:58:39.582Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -29,7 +29,7 @@
       "name": "联合早报 - 财经",
       "category": "",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 2
     },
     {
       "name": "法新社中文 - RSSHub",
@@ -106,7 +106,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 9
     },
     {
       "name": "联合报 - 国际",
@@ -124,7 +124,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
@@ -148,7 +148,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 2
     },
     {
       "name": "少数派 SSPAI",
@@ -172,7 +172,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 6
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -197,9 +197,8 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
+      "status": "✅ OK",
+      "newItems": 1
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
