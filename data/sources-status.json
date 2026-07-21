@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-21T13:52:21.129Z",
+  "lastRun": "2026-07-21T15:46:17.922Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -62,8 +62,9 @@
     {
       "name": "联合国新闻 - 中文",
       "category": "",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
     },
     {
       "name": "世界日报 - 美东",
@@ -105,7 +106,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 18
+      "newItems": 8
     },
     {
       "name": "联合报 - 国际",
@@ -123,13 +124,13 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 25
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "端传媒",
@@ -147,7 +148,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 29
+      "newItems": 12
     },
     {
       "name": "少数派 SSPAI",
@@ -165,14 +166,13 @@
       "name": "FT中文网 - 官方RSS候选",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 20,
-      "error": "正文抓取失败 20/20（页面结构可能已变化，已回退为摘要）"
+      "newItems": 0
     },
     {
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 5
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -198,7 +198,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 3
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -249,9 +249,8 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 1
     },
     {
       "name": "财新网 - 首页资讯",
@@ -333,7 +332,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 6
     },
     {
       "name": "BBC中文网",
