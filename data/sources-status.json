@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-07-20T23:01:43.816Z",
+  "lastRun": "2026-07-21T02:43:50.610Z",
   "sources": [
     {
       "name": "纽约时报中文网",
       "category": "",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 3
     },
     {
       "name": "共同网 - 中文",
@@ -23,7 +23,7 @@
       "name": "朝鲜日报中文",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "联合早报 - 财经",
@@ -105,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 14
     },
     {
       "name": "联合报 - 国际",
@@ -123,19 +123,19 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 23
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 3
     },
     {
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 0
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -147,20 +147,19 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1,
-      "error": "正文抓取失败 1/1（页面结构可能已变化，已回退为摘要）"
+      "newItems": 26
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 3
     },
     {
       "name": "FT中文网 - 官方RSS候选",
@@ -173,7 +172,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 2
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -199,7 +198,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 11
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -276,7 +275,7 @@
       "name": "端传媒 - 评论(RSSHub)",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 11
     },
     {
       "name": "天下杂志 - 独立评论(RSSHub)",
