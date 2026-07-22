@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-22T13:55:47.516Z",
+  "lastRun": "2026-07-22T15:43:59.711Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -56,8 +56,8 @@
       "name": "世界卫生组织 - 中文",
       "category": "",
       "status": "✅ OK",
-      "newItems": 5,
-      "error": "正文抓取失败 5/5（页面结构可能已变化，已回退为摘要）"
+      "newItems": 6,
+      "error": "正文抓取失败 6/6（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "联合国新闻 - 中文",
@@ -106,7 +106,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 11
     },
     {
       "name": "联合报 - 国际",
@@ -124,7 +124,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 21
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
@@ -136,7 +136,7 @@
       "name": "端传媒",
       "category": "评论时事",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "爱范儿 iPhonedo",
@@ -148,13 +148,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 20
+      "newItems": 4
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -198,7 +198,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 3
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -333,7 +333,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 6
     },
     {
       "name": "BBC中文网",
