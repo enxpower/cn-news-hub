@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-22T19:20:23.144Z",
+  "lastRun": "2026-07-22T21:08:41.429Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -106,7 +106,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 2
+      "newItems": 1
     },
     {
       "name": "联合报 - 国际",
@@ -197,8 +197,9 @@
     {
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
-      "status": "✅ OK",
-      "newItems": 0
+      "status": "⚠️ Failed",
+      "newItems": 0,
+      "error": "timeout after 8000ms (联合早报 - 中国新闻(RSSHub))"
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
