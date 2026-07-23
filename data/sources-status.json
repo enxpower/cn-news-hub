@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-07-23T14:02:04.258Z",
+  "lastRun": "2026-07-23T16:01:32.306Z",
   "sources": [
     {
       "name": "纽约时报中文网",
       "category": "",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 0
     },
     {
       "name": "共同网 - 中文",
@@ -23,7 +23,7 @@
       "name": "朝鲜日报中文",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 8
+      "newItems": 0
     },
     {
       "name": "联合早报 - 财经",
@@ -56,8 +56,8 @@
       "name": "世界卫生组织 - 中文",
       "category": "",
       "status": "✅ OK",
-      "newItems": 4,
-      "error": "正文抓取失败 4/4（页面结构可能已变化，已回退为摘要）"
+      "newItems": 3,
+      "error": "正文抓取失败 3/3（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "联合国新闻 - 中文",
@@ -105,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 14
+      "newItems": 9
     },
     {
       "name": "联合报 - 国际",
@@ -123,7 +123,7 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 23
+      "newItems": 0
     },
     {
       "name": "BBC 中文 - 简体",
@@ -147,13 +147,13 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 25
+      "newItems": 8
     },
     {
       "name": "少数派 SSPAI",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "纽约时报中文网 - 官方RSS",
@@ -171,7 +171,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 7
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -197,7 +197,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 10
+      "newItems": 5
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -331,7 +331,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 7
+      "newItems": 5
     },
     {
       "name": "BBC中文网",
@@ -343,7 +343,7 @@
       "name": "RFA自由亚洲",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     }
   ]
 }
