@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-24T17:39:00.991Z",
+  "lastRun": "2026-07-24T19:26:28.869Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -62,9 +62,8 @@
     {
       "name": "联合国新闻 - 中文",
       "category": "",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 4
     },
     {
       "name": "世界日报 - 美东",
@@ -106,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 1
     },
     {
       "name": "联合报 - 国际",
@@ -148,7 +147,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 0
     },
     {
       "name": "少数派 SSPAI",
@@ -172,7 +171,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 2
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -198,7 +197,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -249,9 +248,8 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
