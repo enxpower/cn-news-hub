@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-07-24T10:19:30.620Z",
+  "lastRun": "2026-07-24T13:47:26.722Z",
   "sources": [
     {
       "name": "纽约时报中文网",
       "category": "",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "共同网 - 中文",
@@ -23,7 +23,7 @@
       "name": "朝鲜日报中文",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "联合早报 - 财经",
@@ -62,9 +62,8 @@
     {
       "name": "联合国新闻 - 中文",
       "category": "",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "世界日报 - 美东",
@@ -106,7 +105,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 13
+      "newItems": 7
     },
     {
       "name": "联合报 - 国际",
@@ -124,13 +123,13 @@
       "name": "台湾公视新闻",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 21
+      "newItems": 20
     },
     {
       "name": "BBC 中文 - 简体",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 1
     },
     {
       "name": "端传媒",
@@ -148,7 +147,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 20
+      "newItems": 16
     },
     {
       "name": "少数派 SSPAI",
@@ -160,19 +159,20 @@
       "name": "纽约时报中文网 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 1
+      "newItems": 0
     },
     {
       "name": "FT中文网 - 官方RSS候选",
       "category": "财经",
       "status": "✅ OK",
-      "newItems": 0
+      "newItems": 2,
+      "error": "正文抓取失败 2/2（页面结构可能已变化，已回退为摘要）"
     },
     {
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 8
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -198,7 +198,7 @@
       "name": "联合早报 - 中国新闻(RSSHub)",
       "category": "中国新闻",
       "status": "✅ OK",
-      "newItems": 22
+      "newItems": 8
     },
     {
       "name": "FT中文网 - 每日更新(RSSHub)",
@@ -249,9 +249,8 @@
     {
       "name": "联合国新闻 - 综合",
       "category": "国际观察",
-      "status": "⚠️ Failed",
-      "newItems": 0,
-      "error": "Non-whitespace before first tag.\nLine: 0\nColumn: 1\nChar: \u001f"
+      "status": "✅ OK",
+      "newItems": 0
     },
     {
       "name": "财新网 - 首页资讯",
@@ -333,7 +332,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 5
+      "newItems": 9
     },
     {
       "name": "BBC中文网",
