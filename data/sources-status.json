@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-07-24T15:27:03.328Z",
+  "lastRun": "2026-07-24T17:39:00.991Z",
   "sources": [
     {
       "name": "纽约时报中文网",
@@ -106,7 +106,7 @@
       "name": "自由时报 - 国际",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 4
     },
     {
       "name": "联合报 - 国际",
@@ -148,7 +148,7 @@
       "name": "虎嗅网",
       "category": "科技",
       "status": "✅ OK",
-      "newItems": 3
+      "newItems": 4
     },
     {
       "name": "少数派 SSPAI",
@@ -172,7 +172,7 @@
       "name": "法广RFI中文 - 官方RSS",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 4
+      "newItems": 1
     },
     {
       "name": "联合早报 - 官方RSS候选",
@@ -333,7 +333,7 @@
       "name": "德国之声中文网 (DW)",
       "category": "国际观察",
       "status": "✅ OK",
-      "newItems": 6
+      "newItems": 4
     },
     {
       "name": "BBC中文网",
